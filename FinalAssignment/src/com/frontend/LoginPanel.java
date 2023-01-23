@@ -13,6 +13,9 @@ public class LoginPanel extends javax.swing.JFrame {
     /**
      * Creates new form LoginPanel
      */
+
+
+
     public LoginPanel() {
         initComponents();
     }
@@ -159,6 +162,12 @@ public class LoginPanel extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+
+         // store the value of loginEmail in a variable loginEmailValue
+        String loginEmailValue = loginEmail.getText();
+        System.out.println(loginEmailValue);
+
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -192,9 +201,9 @@ public class LoginPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton loginButton;
-    private javax.swing.JTextField loginEmail;
-    private javax.swing.JPasswordField loginPassword;
-    private javax.swing.JComboBox<String> loginRole;
+    private static javax.swing.JButton loginButton;
+    private static javax.swing.JTextField loginEmail;
+    private static javax.swing.JPasswordField loginPassword;
+    private static javax.swing.JComboBox<String> loginRole;
     // End of variables declaration                   
 }
