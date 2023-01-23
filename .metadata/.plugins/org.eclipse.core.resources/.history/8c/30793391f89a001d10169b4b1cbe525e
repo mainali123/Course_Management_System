@@ -37,13 +37,9 @@ public class LoginPanel extends javax.swing.JFrame {
         loginRole = new javax.swing.JComboBox<>();
         loginButton = new javax.swing.JButton();
         emailAddressErrorMessage = new javax.swing.JLabel();
-        emailAddressErrorMessage.setVisible(false);
         passwordErrorMessage = new javax.swing.JLabel();
-        passwordErrorMessage.setVisible(false);
         roleErrorMessage = new javax.swing.JLabel();
-        roleErrorMessage.setVisible(false);
         loginErrorMessage = new javax.swing.JLabel();
-        loginErrorMessage.setVisible(false);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -195,56 +191,8 @@ public class LoginPanel extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-        // String email = LoginPanel.loginEmail.getText();
-        // System.out.println(email);
-
-        // email address validation
-        if (loginEmail.getText().equals("")) {
-            emailAddressErrorMessage.setVisible(true);
-        } else {
-            emailAddressErrorMessage.setVisible(false);
-        }
-
-        // password validation
-        char[] password = loginPassword.getPassword();
-        if (password.length == 0) {
-            passwordErrorMessage.setVisible(true);
-        } else {
-            passwordErrorMessage.setVisible(false);
-        }
-
-        // role validation
-        if (loginRole.getSelectedItem().equals("Select Role")) {
-            roleErrorMessage.setVisible(true);
-        } else {
-            roleErrorMessage.setVisible(false);
-        }
-
-        // if all fields are valid
-        if (!loginEmail.getText().equals("") && password.length != 0 && !loginRole.getSelectedItem().equals("Select Role")) {
-            // check if email and password are correct
-            if (loginRole.getSelectedItem().equals("Course_Administrator")) {
-                // open admin dashboard
-                CourseAdministrator courseAdministrator = new CourseAdministrator();
-                courseAdministrator.setVisible(true);
-                this.dispose();
-            } else if(loginRole.getSelectedItem().equals("Student")) {
-                // open student dashboard
-                Student student = new Student();
-                student.setVisible(true);
-                this.dispose();
-            } else if(loginRole.getSelectedItem().equals("Instructor")) {
-                // open teacher dashboard
-                Instructor instructor = new Instructor();
-                instructor.setVisible(true);
-                this.dispose();
-            } else {
-                // show error message
-                loginErrorMessage.setVisible(true);
-            }
-        }
-
-
+        String email = LoginPanel.loginEmail.getText();
+        System.out.println(email);
     }                                           
 
     /**

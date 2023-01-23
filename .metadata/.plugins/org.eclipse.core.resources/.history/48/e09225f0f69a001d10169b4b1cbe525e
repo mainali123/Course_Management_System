@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.frontend;
+import javax.swing.JTextField;
+
 
 /**
  *
@@ -10,9 +12,16 @@ package com.frontend;
  */
 public class LoginPanel extends javax.swing.JFrame {
 
+    private JTextField Email;
+
+    
+
     /**
      * Creates new form LoginPanel
      */
+
+
+
     public LoginPanel() {
         initComponents();
     }
@@ -36,14 +45,6 @@ public class LoginPanel extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         loginRole = new javax.swing.JComboBox<>();
         loginButton = new javax.swing.JButton();
-        emailAddressErrorMessage = new javax.swing.JLabel();
-        emailAddressErrorMessage.setVisible(false);
-        passwordErrorMessage = new javax.swing.JLabel();
-        passwordErrorMessage.setVisible(false);
-        roleErrorMessage = new javax.swing.JLabel();
-        roleErrorMessage.setVisible(false);
-        loginErrorMessage = new javax.swing.JLabel();
-        loginErrorMessage.setVisible(false);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,31 +92,10 @@ public class LoginPanel extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Role:");
 
-        loginRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Role", "Course_Administrator", "Instructor", "Student" }));
+        loginRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----", "Course Administrator", "Instructor", "Student" }));
 
         loginButton.setFont(new java.awt.Font("Times New Roman", 0, 30)); // NOI18N
         loginButton.setText("Login");
-        loginButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginButtonActionPerformed(evt);
-            }
-        });
-
-        emailAddressErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        emailAddressErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
-        emailAddressErrorMessage.setText("Invalid Email Address");
-
-        passwordErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        passwordErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
-        passwordErrorMessage.setText("Invalid Password Entered");
-
-        roleErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        roleErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
-        roleErrorMessage.setText("Invalid Role");
-
-        loginErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        loginErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
-        loginErrorMessage.setText("Invalid Login Detail entered!!!");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -124,9 +104,6 @@ public class LoginPanel extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(702, 702, 702)
-                        .addComponent(loginButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(319, 319, 319)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -137,42 +114,31 @@ public class LoginPanel extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(loginEmail)
                             .addComponent(loginPassword)
-                            .addComponent(loginRole, 0, 684, Short.MAX_VALUE)
-                            .addComponent(emailAddressErrorMessage)
-                            .addComponent(passwordErrorMessage)
-                            .addComponent(roleErrorMessage)))
+                            .addComponent(loginRole, 0, 684, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(643, 643, 643)
-                        .addComponent(loginErrorMessage)))
+                        .addGap(702, 702, 702)
+                        .addComponent(loginButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96)
-                .addComponent(loginErrorMessage)
-                .addGap(37, 37, 37)
+                .addGap(149, 149, 149)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(loginEmail))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(emailAddressErrorMessage)
-                .addGap(48, 48, 48)
+                .addGap(70, 70, 70)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(loginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passwordErrorMessage)
-                .addGap(42, 42, 42)
+                .addGap(64, 64, 64)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(loginRole))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roleErrorMessage)
-                .addGap(97, 97, 97)
+                .addGap(119, 119, 119)
                 .addComponent(loginButton)
-                .addGap(0, 445, Short.MAX_VALUE))
+                .addGap(0, 453, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -192,70 +158,14 @@ public class LoginPanel extends javax.swing.JFrame {
     private void loginEmailActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
     }                                          
-
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-        // String email = LoginPanel.loginEmail.getText();
-        // System.out.println(email);
-
-        // email address validation
-        if (loginEmail.getText().equals("")) {
-            emailAddressErrorMessage.setVisible(true);
-        } else {
-            emailAddressErrorMessage.setVisible(false);
-        }
-
-        // password validation
-        char[] password = loginPassword.getPassword();
-        if (password.length == 0) {
-            passwordErrorMessage.setVisible(true);
-        } else {
-            passwordErrorMessage.setVisible(false);
-        }
-
-        // role validation
-        if (loginRole.getSelectedItem().equals("Select Role")) {
-            roleErrorMessage.setVisible(true);
-        } else {
-            roleErrorMessage.setVisible(false);
-        }
-
-        // if all fields are valid
-        if (!loginEmail.getText().equals("") && password.length != 0 && !loginRole.getSelectedItem().equals("Select Role")) {
-            // check if email and password are correct
-            if (loginRole.getSelectedItem().equals("Course_Administrator")) {
-                // open admin dashboard
-                CourseAdministrator courseAdministrator = new CourseAdministrator();
-                courseAdministrator.setVisible(true);
-                this.dispose();
-            } else if(loginRole.getSelectedItem().equals("Student")) {
-                // open student dashboard
-                Student student = new Student();
-                student.setVisible(true);
-                this.dispose();
-            } else if(loginRole.getSelectedItem().equals("Instructor")) {
-                // open teacher dashboard
-                Instructor instructor = new Instructor();
-                instructor.setVisible(true);
-                this.dispose();
-            } else {
-                // show error message
-                loginErrorMessage.setVisible(true);
-            }
-        }
-
-
-    }                                           
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        // get value of the text field and store it in a variable;
+        // System.out.println(email.getText());
+    	loginEmail = new JTextField();
+    	LoginPanel loginPanel = new LoginPanel();
+        String email = loginPanel.loginEmail.getText();
+        System.out.println(email);
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -283,19 +193,15 @@ public class LoginPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
-    private javax.swing.JLabel emailAddressErrorMessage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton loginButton;
+    private static javax.swing.JButton loginButton;
     private static javax.swing.JTextField loginEmail;
-    private javax.swing.JLabel loginErrorMessage;
-    private javax.swing.JPasswordField loginPassword;
-    private javax.swing.JComboBox<String> loginRole;
-    private javax.swing.JLabel passwordErrorMessage;
-    private javax.swing.JLabel roleErrorMessage;
+    private static javax.swing.JPasswordField loginPassword;
+    private static javax.swing.JComboBox<String> loginRole;
     // End of variables declaration                   
 }
