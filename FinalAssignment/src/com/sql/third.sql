@@ -134,21 +134,6 @@ INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM
 INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10113', 'IBM101', 75);
 INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10114', 'IBM101', 80);
 
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10101', 'IBM101', 45);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10102', 'IBM101', 55);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10103', 'IBM101', 65);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10104', 'IBM101', 75);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10105', 'IBM101', 85);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10106', 'IBM101', 95);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10107', 'IBM101', 70);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10108', 'IBM101', 80);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10109', 'IBM101', 90);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10110', 'IBM101', 60);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10111', 'IBM101', 50);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10112', 'IBM101', 40);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10113', 'IBM101', 30);
-INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S2', 'IBM10114', 'IBM101', 35);
-
 INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S4', 'IBM10101', 'IBM101', 60);
 INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S4', 'IBM10102', 'IBM101', 70);
 INSERT INTO Marks (Student_ID, Module_code, Course_ID, Marks) VALUES ('S4', 'IBM10103', 'IBM101', 75);
