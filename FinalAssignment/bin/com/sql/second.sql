@@ -94,9 +94,24 @@ CREATE TABLE Marks (
 Student_ID varchar(255),
 Module_code varchar(255),
 Course_ID varchar(255),
-Marks float,
+Marks varchar(255),
 PRIMARY KEY (Student_ID, Module_code, Course_ID),
 FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID),
 FOREIGN KEY (Module_code, Course_ID) REFERENCES Module(Module_code, Course_ID),
 FOREIGN KEY (Course_ID) REFERENCES Courses(Course_ID)
 );
+
+CREATE TABLE Report (
+Student_ID varchar(255),
+Module_code varchar(255),
+Course_ID varchar(255),
+Marks varchar(255),
+PRIMARY KEY (Student_ID, Module_code, Course_ID),
+FOREIGN KEY (Student_ID,Module_code,Course_ID) REFERENCES Student_Module(Student_ID,Module_code,Course_ID),
+FOREIGN KEY (Module_code, Course_ID) REFERENCES Module(Module_code, Course_ID)
+);
+
+SELECT Report.Marks, Module.Module_name, Module.Module_code
+FROM Report
+JOIN Module ON (Report.Module_code = Module.Module_code AND Report.Course_ID = Module.Course_ID)
+ORDER BY Report.Student_ID;
