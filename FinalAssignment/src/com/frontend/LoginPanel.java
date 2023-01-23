@@ -2,10 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
+// Default email: diwash@mainali.com
+// Default password: diwash
 package com.frontend;
 
+
+import java.util.*;
+import java.sql.*;
+
 /**
- *
  * @author Diwash
  */
 public class LoginPanel extends javax.swing.JFrame {
@@ -59,18 +65,18 @@ public class LoginPanel extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(943, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(401, 401, 401))
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addContainerGap(943, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(401, 401, 401))
         );
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 30)); // NOI18N
@@ -91,211 +97,330 @@ public class LoginPanel extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Role:");
 
-        loginRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Role", "Course_Administrator", "Instructor", "Student" }));
+        loginRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select Role", "Course_Administrator", "Instructor", "Student"}));
 
         loginButton.setFont(new java.awt.Font("Times New Roman", 0, 30)); // NOI18N
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginButtonActionPerformed(evt);
-            }
-        });
+                try {
+                    loginButtonActionPerformed(evt);
 
-        emailAddressErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        emailAddressErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
-        emailAddressErrorMessage.setText("Invalid Email Address");
+                    // email address validation
+                    if (loginEmail.getText().equals("")) {
+                        emailAddressErrorMessage.setVisible(true);
+                    } else {
+                        emailAddressErrorMessage.setVisible(false);
+                    }
 
-        passwordErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        passwordErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
-        passwordErrorMessage.setText("Invalid Password Entered");
+                    // password validation
+                    char[] password = loginPassword.getPassword();
+                    if (password.length == 0) {
+                        passwordErrorMessage.setVisible(true);
+                    } else {
+                        passwordErrorMessage.setVisible(false);
+                    }
 
-        roleErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        roleErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
-        roleErrorMessage.setText("Invalid Role");
+                    // role validation
+                    if (loginRole.getSelectedItem().equals("Select Role")) {
+                        roleErrorMessage.setVisible(true);
+                    } else {
+                        roleErrorMessage.setVisible(false);
+                    }
 
-        loginErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        loginErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
-        loginErrorMessage.setText("Invalid Login Detail entered!!!");
+                    // if all fields are valid
+                    if (!loginEmail.getText().equals("") && password.length != 0 && !loginRole.getSelectedItem().equals("Select Role")) {
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(702, 702, 702)
-                        .addComponent(loginButton))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(319, 319, 319)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(loginEmail)
-                            .addComponent(loginPassword)
-                            .addComponent(loginRole, 0, 684, Short.MAX_VALUE)
-                            .addComponent(emailAddressErrorMessage)
-                            .addComponent(passwordErrorMessage)
-                            .addComponent(roleErrorMessage)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(643, 643, 643)
-                        .addComponent(loginErrorMessage)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96)
-                .addComponent(loginErrorMessage)
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(loginEmail))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(emailAddressErrorMessage)
-                .addGap(48, 48, 48)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(loginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passwordErrorMessage)
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(loginRole))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roleErrorMessage)
-                .addGap(97, 97, 97)
-                .addComponent(loginButton)
-                .addGap(0, 445, Short.MAX_VALUE))
-        );
+                        if (loginRole.getSelectedItem().equals("Course_Administrator")) {
+                            if (loginEmail.getText().equals("diwash@mainali.com") && Arrays.equals(password, "diwash".toCharArray())) {
+                                CourseAdministrator courseAdministrator = new CourseAdministrator();
+                                courseAdministrator.setVisible(true);
+                            } else{
+                                loginErrorMessage.setVisible(true);
+                            }
+                        }
+                            else if (loginRole.getSelectedItem().equals("Student")) {
+                            if (loginEmail.getText().equals("diwash@mainali.com") && Arrays.equals(password, "diwash".toCharArray())) {
+                                    Student student = new Student();
+                                    student.setVisible(true);
+                                }
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1920, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1080, Short.MAX_VALUE)
-        );
-
-        pack();
-    }// </editor-fold>                        
-
-    private void loginEmailActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
-
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-        // String email = LoginPanel.loginEmail.getText();
-        // System.out.println(email);
-
-        // email address validation
-        if (loginEmail.getText().equals("")) {
-            emailAddressErrorMessage.setVisible(true);
-        } else {
-            emailAddressErrorMessage.setVisible(false);
-        }
-
-        // password validation
-        char[] password = loginPassword.getPassword();
-        if (password.length == 0) {
-            passwordErrorMessage.setVisible(true);
-        } else {
-            passwordErrorMessage.setVisible(false);
-        }
-
-        // role validation
-        if (loginRole.getSelectedItem().equals("Select Role")) {
-            roleErrorMessage.setVisible(true);
-        } else {
-            roleErrorMessage.setVisible(false);
-        }
-
-        // if all fields are valid
-        if (!loginEmail.getText().equals("") && password.length != 0 && !loginRole.getSelectedItem().equals("Select Role")) {
-            // check if email and password are correct
-            if (loginRole.getSelectedItem().equals("Course_Administrator")) {
-                // open admin dashboard
-                CourseAdministrator courseAdministrator = new CourseAdministrator();
-                courseAdministrator.setVisible(true);
-                this.dispose();
-            } else if(loginRole.getSelectedItem().equals("Student")) {
-                // open student dashboard
-                Student student = new Student();
-                student.setVisible(true);
-                this.dispose();
-            } else if(loginRole.getSelectedItem().equals("Instructor")) {
-                // open teacher dashboard
-                Instructor instructor = new Instructor();
-                instructor.setVisible(true);
-                this.dispose();
-            } else {
-                // show error message
-                loginErrorMessage.setVisible(true);
-            }
-        }
-
-
-    }                                           
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+                             else {
+                                loginErrorMessage.setVisible(true);
+                            }
+                        }
+                            else if (loginRole.getSelectedItem().equals("Instructor")) {
+                                if (loginEmail.getText().equals("diwash@mainali.com") && Arrays.equals(password, "diwash".toCharArray())) {
+                                    Instructor instructor = new Instructor();
+                                    instructor.setVisible(true);
+                                }
+                             else {
+                                loginErrorMessage.setVisible(true);
+                            }
+                        }
+                    }
                 }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+                 catch(SQLException e){
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginPanel().setVisible(true);
-            }
-        });
-    }
+                    emailAddressErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+                    emailAddressErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
+                    emailAddressErrorMessage.setText("Invalid Email Address");
 
-    // Variables declaration - do not modify                     
-    private javax.swing.JLabel emailAddressErrorMessage;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton loginButton;
-    private static javax.swing.JTextField loginEmail;
-    private javax.swing.JLabel loginErrorMessage;
-    private javax.swing.JPasswordField loginPassword;
-    private javax.swing.JComboBox<String> loginRole;
-    private javax.swing.JLabel passwordErrorMessage;
-    private javax.swing.JLabel roleErrorMessage;
-    // End of variables declaration                   
-}
+                    passwordErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+                    passwordErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
+                    passwordErrorMessage.setText("Invalid Password Entered");
+
+                    roleErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+                    roleErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
+                    roleErrorMessage.setText("Invalid Role");
+
+                    loginErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+                    loginErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
+                    loginErrorMessage.setText("Invalid Login Detail entered!!!");
+
+                    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+                    jPanel1.setLayout(jPanel1Layout);
+                    jPanel1Layout.setHorizontalGroup(
+                            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                            .addGap(702, 702, 702)
+                                                            .addComponent(loginButton))
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                            .addGap(319, 319, 319)
+                                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                    .addComponent(jLabel4)
+                                                                    .addComponent(jLabel3)
+                                                                    .addComponent(jLabel2))
+                                                            .addGap(28, 28, 28)
+                                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                    .addComponent(loginEmail)
+                                                                    .addComponent(loginPassword)
+                                                                    .addComponent(loginRole, 0, 684, Short.MAX_VALUE)
+                                                                    .addComponent(emailAddressErrorMessage)
+                                                                    .addComponent(passwordErrorMessage)
+                                                                    .addComponent(roleErrorMessage)))
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                            .addGap(643, 643, 643)
+                                                            .addComponent(loginErrorMessage)))
+                                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    );
+                    jPanel1Layout.setVerticalGroup(
+                            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(96, 96, 96)
+                                            .addComponent(loginErrorMessage)
+                                            .addGap(37, 37, 37)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(loginEmail))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(emailAddressErrorMessage)
+                                            .addGap(48, 48, 48)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(loginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(passwordErrorMessage)
+                                            .addGap(42, 42, 42)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(loginRole))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(roleErrorMessage)
+                                            .addGap(97, 97, 97)
+                                            .addComponent(loginButton)
+                                            .addGap(0, 445, Short.MAX_VALUE))
+                    );
+
+                    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+                    getContentPane().setLayout(layout);
+                    layout.setHorizontalGroup(
+                            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1920, Short.MAX_VALUE)
+                    );
+                    layout.setVerticalGroup(
+                            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1080, Short.MAX_VALUE)
+                    );
+
+                    pack();
+                }// </editor-fold>
+
+                private void loginEmailActionPerformed (java.awt.event.ActionEvent evt){
+                    // TODO add your handling code here:
+                }
+
+                private void loginButtonActionPerformed (java.awt.event.ActionEvent evt) throws SQLException {
+                    // TODO add your handling code here:
+                    // String email = LoginPanel.loginEmail.getText();
+                    // System.out.println(email);
+
+                    // // email address validation
+                    // if (loginEmail.getText().equals("")) {
+                    //     emailAddressErrorMessage.setVisible(true);
+                    // } else {
+                    //     emailAddressErrorMessage.setVisible(false);
+                    // }
+
+                    // // password validation
+                    // char[] password = loginPassword.getPassword();
+                    // if (password.length == 0) {
+                    //     passwordErrorMessage.setVisible(true);
+                    // } else {
+                    //     passwordErrorMessage.setVisible(false);
+                    // }
+
+                    // // role validation
+                    // if (loginRole.getSelectedItem().equals("Select Role")) {
+                    //     roleErrorMessage.setVisible(true);
+                    // } else {
+                    //     roleErrorMessage.setVisible(false);
+                    // }
+
+                    // // if all fields are valid
+                    // if (!loginEmail.getText().equals("") && password.length != 0 && !loginRole.getSelectedItem().equals("Select Role")) {
+
+
+                    //     JDBC jdbc = new JDBC();
+                    //     Map<String, String> emailPasswords_instructor = new HashMap<>();
+                    //     Map<String, String> emailPasswords_student = new HashMap<>();
+                    //     Map<String, String> emailPasswords_course_administrator = new HashMap<>();
+
+                    //     ResultSet instructorQuery = jdbc.executeQuery("SELECT Email_address, Password FROM instructor");
+                    //     ResultSet studentQuery = jdbc.executeQuery("SELECT College_email_address, College_email_address_password FROM student");
+                    //     ResultSet courseAdministratorQuery = jdbc.executeQuery("SELECT login_email, login_psw FROM course_administrator");
+                    //     try {
+                    //         while (instructorQuery.next()) {
+                    //             String email_instructor = instructorQuery.getString("Email_address");
+                    //             String email_student = studentQuery.getString("College_email_address");
+                    //             String email_course_administrator = courseAdministratorQuery.getString("login_email");
+                    //             String password_instructor = instructorQuery.getString("Password");
+                    //             String password_student = studentQuery.getString("College_email_address_password");
+                    //             String password_course_administrator = courseAdministratorQuery.getString("login_psw");
+                    //             emailPasswords_instructor.put(email_instructor, password_instructor);
+                    //             emailPasswords_student.put(email_student, password_student);
+                    //             emailPasswords_course_administrator.put(email_course_administrator, password_course_administrator);
+                    //         }
+                    //     } catch (SQLException e) {
+                    //         e.printStackTrace();
+                    //     }
+
+
+                    //     if (loginRole.getSelectedItem().equals("Course_Administrator")) {
+                    //         String enteredEmail = loginEmail.getText();
+                    //         char[] enteredPassword = loginPassword.getPassword();
+
+                    //         if (emailPasswords_instructor.containsKey(enteredEmail)) {
+                    //             String passwordFromDictionary = emailPasswords_instructor.get(enteredEmail);
+                    //             if (Arrays.equals(passwordFromDictionary.toCharArray(), enteredPassword)) {
+                    //                 CourseAdministrator courseAdministrator = new CourseAdministrator();
+                    //                 courseAdministrator.setVisible(true);
+                    //                 this.dispose();
+                    //             } else {
+                    //                 loginErrorMessage.setVisible(true);
+                    //             }
+                    //         } else {
+                    //             loginErrorMessage.setVisible(true);
+                    //         }
+
+                    //     } else if (loginRole.getSelectedItem().equals("Student")) {
+
+                    //         String enteredEmail = loginEmail.getText();
+                    //         char[] enteredPassword = loginPassword.getPassword();
+
+                    //         if (emailPasswords_student.containsKey(enteredEmail)) {
+                    //             String passwordFromDictionary = emailPasswords_student.get(enteredEmail);
+                    //             if (Arrays.equals(passwordFromDictionary.toCharArray(), enteredPassword)) {
+                    //                 Student student = new Student();
+                    //                 student.setVisible(true);
+                    //                 this.dispose();
+                    //             } else {
+                    //                 loginErrorMessage.setVisible(true);
+                    //             }
+                    //         } else {
+                    //             loginErrorMessage.setVisible(true);
+                    //         }
+                    //     } else if (loginRole.getSelectedItem().equals("Instructor")) {
+
+                    //         String enteredEmail = loginEmail.getText();
+                    //         char[] enteredPassword = loginPassword.getPassword();
+
+                    //         if (emailPasswords_course_administrator.containsKey(enteredEmail)) {
+                    //             String passwordFromDictionary = emailPasswords_course_administrator.get(enteredEmail);
+                    //             if (Arrays.equals(passwordFromDictionary.toCharArray(), enteredPassword)) {
+                    //                 Instructor instructor = new Instructor();
+                    //                 instructor.setVisible(true);
+                    //                 this.dispose();
+                    //             } else {
+                    //                 loginErrorMessage.setVisible(true);
+                    //             }
+                    //         } else {
+                    //             loginErrorMessage.setVisible(true);
+                    //         }
+                    //     }
+                    // } else {
+                    //     loginErrorMessage.setVisible(true);
+                    // }
+                }
+
+                /**
+                 * @param args the command line arguments
+                 */
+                public static void main (String args[]){
+                    /* Set the Nimbus look and feel */
+                    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+                    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+                     * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+                     */
+                    try {
+                        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                            if ("Nimbus".equals(info.getName())) {
+                                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                                break;
+                            }
+                        }
+                    } catch (ClassNotFoundException ex) {
+                        java.util.logging.Logger.getLogger(LoginPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                    } catch (InstantiationException ex) {
+                        java.util.logging.Logger.getLogger(LoginPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                    } catch (IllegalAccessException ex) {
+                        java.util.logging.Logger.getLogger(LoginPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+                        java.util.logging.Logger.getLogger(LoginPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                    }
+                    //</editor-fold>
+
+                    /* Create and display the form */
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new LoginPanel().setVisible(true);
+                        }
+                    });
+                }
+
+                // Variables declaration - do not modify
+                private javax.swing.JLabel emailAddressErrorMessage;
+                private javax.swing.JLabel jLabel1;
+                private javax.swing.JLabel jLabel2;
+                private javax.swing.JLabel jLabel3;
+                private javax.swing.JLabel jLabel4;
+                private javax.swing.JPanel jPanel1;
+                private javax.swing.JPanel jPanel2;
+                private javax.swing.JButton loginButton;
+                private static javax.swing.JTextField loginEmail;
+                private javax.swing.JLabel loginErrorMessage;
+                private static javax.swing.JPasswordField loginPassword;
+                private javax.swing.JComboBox<String> loginRole;
+                private javax.swing.JLabel passwordErrorMessage;
+                private javax.swing.JLabel roleErrorMessage;
+                // End of variables declaration
+            }
