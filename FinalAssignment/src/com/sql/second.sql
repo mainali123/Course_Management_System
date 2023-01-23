@@ -89,3 +89,14 @@ CREATE TABLE Instructor_Course (
   FOREIGN KEY (Instructor_ID) REFERENCES Instructor(Instructor_ID),
   FOREIGN KEY (Course_ID) REFERENCES Courses(Course_ID)
 );
+
+CREATE TABLE Marks (
+Student_ID varchar(255),
+Module_code varchar(255),
+Course_ID varchar(255),
+Marks float,
+PRIMARY KEY (Student_ID, Module_code, Course_ID),
+FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID),
+FOREIGN KEY (Module_code, Course_ID) REFERENCES Module(Module_code, Course_ID),
+FOREIGN KEY (Course_ID) REFERENCES Courses(Course_ID)
+);
