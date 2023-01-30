@@ -4,6 +4,20 @@
  */
 package com.frontend;
 
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.database.JDBC;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.GroupLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Diwash
@@ -47,7 +61,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
         instructorCitizenshipTextField = new javax.swing.JTextField();
         instructorPanTextField = new javax.swing.JTextField();
         instructorModule_1ComboBox = new javax.swing.JComboBox<>();
-        instructorModule_2ComboBox = new javax.swing.JComboBox<>();
+        instructorCourseIdComboBox = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         instructorPhoneTextField = new javax.swing.JTextField();
@@ -272,7 +286,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Module Code 2:");
+        jLabel9.setText("Course ID:");
 
         instructorNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,8 +301,8 @@ public class CourseAdministrator extends javax.swing.JFrame {
             }
         });
 
-        instructorModule_2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----" }));
-        instructorModule_2ComboBox.addActionListener(new java.awt.event.ActionListener() {
+        instructorCourseIdComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----" }));
+        instructorCourseIdComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 instructorModule_2ComboBoxActionPerformed(evt);
             }
@@ -355,131 +369,142 @@ public class CourseAdministrator extends javax.swing.JFrame {
         instructorModuleErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         instructorModuleErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
         instructorModuleErrorMessage.setText("Module cannot be empty!!");
+        
+        JLabel lblInstructorId = new JLabel();
+        lblInstructorId.setText("Instructor ID:");
+        lblInstructorId.setForeground(Color.WHITE);
+        lblInstructorId.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+        
+        instructorInstructorIdTextField = new JTextField();
+        instructorInstructorIdTextField.setColumns(10);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel15)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel9)
-                        .addComponent(jLabel8)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(instructorModule_1ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(instructorNameTextField)
-                    .addComponent(instructorAddressTextField)
-                    .addComponent(instructorExperienceTextField)
-                    .addComponent(instructorCitizenshipTextField)
-                    .addComponent(instructorPanTextField)
-                    .addComponent(instructorPhoneTextField)
-                    .addComponent(instructorEmailTextField)
-                    .addComponent(instructorPasswordTextField)
-                    .addComponent(instructorDobTextField)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(instructorModuleErrorMessage)
-                            .addComponent(instructorPasswordErrorMessage)
-                            .addComponent(instructorEmailErrorMessage)
-                            .addComponent(instructorPhoneNoErrorMessage)
-                            .addComponent(instructorDobErrorMessage)
-                            .addComponent(instructorPanErrorMessage)
-                            .addComponent(instructorCitizenshipErrorMessage)
-                            .addComponent(instructorNameErrorMessage)
-                            .addComponent(instructorAddressErrorMessage)
-                            .addComponent(instructorExperienceErrorMessage))
-                        .addGap(0, 105, Short.MAX_VALUE))
-                    .addComponent(instructorModule_2ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addInstructorButton)
-                .addGap(158, 158, 158))
+        	jPanel4Layout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(jPanel4Layout.createSequentialGroup()
+        			.addGap(9)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.TRAILING)
+        				.addComponent(jLabel5)
+        				.addComponent(jLabel4)
+        				.addComponent(jLabel2)
+        				.addComponent(jLabel3)
+        				.addComponent(jLabel6)
+        				.addComponent(jLabel7)
+        				.addComponent(jLabel10)
+        				.addComponent(jLabel11)
+        				.addComponent(jLabel15)
+        				.addGroup(jPanel4Layout.createParallelGroup(Alignment.LEADING)
+        					.addComponent(jLabel9)
+        					.addComponent(jLabel8))
+        				.addComponent(lblInstructorId))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(instructorModule_1ComboBox, 0, 319, Short.MAX_VALUE)
+        				.addComponent(instructorNameTextField, 319, 319, 319)
+        				.addComponent(instructorAddressTextField, 319, 319, 319)
+        				.addComponent(instructorExperienceTextField, 319, 319, 319)
+        				.addComponent(instructorCitizenshipTextField, 319, 319, 319)
+        				.addComponent(instructorPanTextField, 319, 319, 319)
+        				.addComponent(instructorPhoneTextField, 319, 319, 319)
+        				.addComponent(instructorEmailTextField, 319, 319, 319)
+        				.addComponent(instructorPasswordTextField, 319, 319, 319)
+        				.addComponent(instructorDobTextField, 319, 319, 319)
+        				.addGroup(jPanel4Layout.createSequentialGroup()
+        					.addGroup(jPanel4Layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(instructorModuleErrorMessage)
+        						.addComponent(instructorPasswordErrorMessage)
+        						.addComponent(instructorEmailErrorMessage)
+        						.addComponent(instructorPhoneNoErrorMessage)
+        						.addComponent(instructorDobErrorMessage)
+        						.addComponent(instructorPanErrorMessage)
+        						.addComponent(instructorCitizenshipErrorMessage)
+        						.addComponent(instructorNameErrorMessage)
+        						.addComponent(instructorAddressErrorMessage)
+        						.addComponent(instructorExperienceErrorMessage))
+        					.addGap(0, 105, Short.MAX_VALUE))
+        				.addComponent(instructorCourseIdComboBox, 0, 319, Short.MAX_VALUE)
+        				.addGroup(Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        					.addComponent(instructorInstructorIdTextField, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+        					.addComponent(addInstructorButton)))
+        			.addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(instructorNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(instructorNameErrorMessage)
-                .addGap(3, 3, 3)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(instructorAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addComponent(instructorAddressErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(instructorExperienceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addComponent(instructorExperienceErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(instructorCitizenshipTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addComponent(instructorCitizenshipErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(instructorPanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(instructorPanErrorMessage)
-                .addGap(3, 3, 3)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(instructorDobTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addComponent(instructorDobErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(instructorPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(instructorPhoneNoErrorMessage)
-                .addGap(3, 3, 3)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(instructorEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addComponent(instructorEmailErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel15)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(instructorPasswordTextField)
-                        .addGap(1, 1, 1)))
-                .addGap(3, 3, 3)
-                .addComponent(instructorPasswordErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(instructorModule_1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(3, 3, 3)
-                .addComponent(instructorModuleErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(instructorModule_2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(addInstructorButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	jPanel4Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel4Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel3)
+        				.addComponent(instructorNameTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(instructorNameErrorMessage)
+        			.addGap(3)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel2)
+        				.addComponent(instructorAddressTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addGap(3)
+        			.addComponent(instructorAddressErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel4)
+        				.addComponent(instructorExperienceTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addGap(3)
+        			.addComponent(instructorExperienceErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel5)
+        				.addComponent(instructorCitizenshipTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addGap(3)
+        			.addComponent(instructorCitizenshipErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel6)
+        				.addComponent(instructorPanTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(instructorPanErrorMessage)
+        			.addGap(3)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel7)
+        				.addComponent(instructorDobTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addGap(3)
+        			.addComponent(instructorDobErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel10)
+        				.addComponent(instructorPhoneTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(instructorPhoneNoErrorMessage)
+        			.addGap(3)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel11)
+        				.addComponent(instructorEmailTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addGap(3)
+        			.addComponent(instructorEmailErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.LEADING, false)
+        				.addComponent(jLabel15)
+        				.addComponent(instructorPasswordTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addGap(3)
+        			.addComponent(instructorPasswordErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(instructorModule_1ComboBox, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jLabel8))
+        			.addGap(3)
+        			.addComponent(instructorModuleErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel9)
+        				.addComponent(instructorCourseIdComboBox, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(jPanel4Layout.createParallelGroup(Alignment.BASELINE)
+        					.addComponent(instructorInstructorIdTextField, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+        					.addComponent(lblInstructorId, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(addInstructorButton))
+        			.addContainerGap())
         );
+        jPanel4.setLayout(jPanel4Layout);
 
         jPanel5.setBackground(new java.awt.Color(23, 23, 23));
         jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(35, 35, 35), 4, true));
@@ -2072,94 +2097,99 @@ public class CourseAdministrator extends javax.swing.JFrame {
     	
     	// Displaying error message
     	
-    	if (instructorNameTextField.getText().isEmpty()) {
-    		instructorNameErrorMessage.setVisible(true);
-    	} else {
-    		instructorNameErrorMessage.setVisible(false);
-    	}
+        if (instructorNameTextField.getText().isEmpty() || instructorAddressTextField.getText().isEmpty() || instructorExperienceTextField.getText().isEmpty() || instructorCitizenshipTextField.getText().isEmpty() || instructorPanTextField.getText().isEmpty() || instructorDobTextField.getText().contentEquals("DD-MM-YYYY") || instructorPhoneTextField.getText().isEmpty() || instructorEmailTextField.getText().isEmpty() || instructorPasswordTextField.getText().isEmpty() || (String) instructorModule_1ComboBox.getSelectedItem() == "----") {
+            if (instructorNameTextField.getText().isEmpty()) {
+                instructorNameErrorMessage.setVisible(true);
+            } else {
+                instructorNameErrorMessage.setVisible(false);
+            }
+            
+            if (instructorAddressTextField.getText().isEmpty()) {
+                instructorAddressErrorMessage.setVisible(true);
+            } else {
+                instructorAddressErrorMessage.setVisible(false);
+            }
+            
+            if (instructorExperienceTextField.getText().isEmpty()) {
+                instructorExperienceErrorMessage.setVisible(true);
+            } else {
+                instructorExperienceErrorMessage.setVisible(false);
+            }
+            
+            if (instructorCitizenshipTextField.getText().isEmpty()) {
+                instructorCitizenshipErrorMessage.setVisible(true);
+            } else {
+                instructorCitizenshipErrorMessage.setVisible(false);
+            }
+            
+            if (instructorPanTextField.getText().isEmpty()) {
+                instructorPanErrorMessage.setVisible(true);
+            } else {
+                instructorPanErrorMessage.setVisible(false);
+            }
+            
+            if (instructorDobTextField.getText().contentEquals("DD-MM-YYYY")) {
+                instructorDobErrorMessage.setVisible(true);
+            } else {
+                instructorDobErrorMessage.setVisible(false);
+            }
+            
+            if( instructorPhoneTextField.getText().isEmpty()) {
+                instructorPhoneNoErrorMessage.setVisible(true);
+            } else {
+                instructorPhoneNoErrorMessage.setVisible(false);
+            }
+            
+            if (instructorEmailTextField.getText().isEmpty()) {
+                instructorEmailErrorMessage.setVisible(true);
+            } else {
+                instructorEmailErrorMessage.setVisible(false);
+            }
+            
+            if (instructorPasswordTextField.getText().isEmpty()) {
+                instructorPasswordErrorMessage.setVisible(true);
+            } else {
+                instructorPasswordErrorMessage.setVisible(false);
+            }
+            
+            if ((String) instructorModule_1ComboBox.getSelectedItem() == "----") {
+                instructorModuleErrorMessage.setVisible(true);
+            } else {
+                instructorModuleErrorMessage.setVisible(false);
+            }
+        } else {
     	
-    	if (instructorAddressTextField.getText().isEmpty()) {
-    		instructorAddressErrorMessage.setVisible(true);
-    	} else {
-    		instructorAddressErrorMessage.setVisible(false);
-    	}
-    	
-    	if (instructorExperienceTextField.getText().isEmpty()) {
-    		instructorExperienceErrorMessage.setVisible(true);
-    	} else {
-    		instructorExperienceErrorMessage.setVisible(false);
-    	}
-    	
-    	if (instructorCitizenshipTextField.getText().isEmpty()) {
-    		instructorCitizenshipErrorMessage.setVisible(true);
-    	} else {
-    		instructorCitizenshipErrorMessage.setVisible(false);
-    	}
-    	
-    	if (instructorPanTextField.getText().isEmpty()) {
-    		instructorPanErrorMessage.setVisible(true);
-    	} else {
-    		instructorPanErrorMessage.setVisible(false);
-    	}
-    	
-    	if (instructorDobTextField.getText().contentEquals("DD-MM-YYYY")) {
-    		instructorDobErrorMessage.setVisible(true);
-    	} else {
-    		instructorDobErrorMessage.setVisible(false);
-    	}
-    	
-    	if( instructorPhoneTextField.getText().isEmpty()) {
-    		instructorPhoneNoErrorMessage.setVisible(true);
-    	} else {
-    		instructorPhoneNoErrorMessage.setVisible(false);
-    	}
-    	
-    	if (instructorEmailTextField.getText().isEmpty()) {
-    		instructorEmailErrorMessage.setVisible(true);
-    	} else {
-    		instructorEmailErrorMessage.setVisible(false);
-    	}
-    	
-    	if (instructorPasswordTextField.getText().isEmpty()) {
-    		instructorPasswordErrorMessage.setVisible(true);
-    	} else {
-    		instructorPasswordErrorMessage.setVisible(false);
-    	}
-    	
-    	if ((String) instructorModule_1ComboBox.getSelectedItem() == "----") {
-    		instructorModuleErrorMessage.setVisible(true);
-    	} else {
-    		instructorModuleErrorMessage.setVisible(false);
-    	}
-    	
-    	instructorName = instructorNameTextField.getText().trim();
-    	instructorAddress = instructorAddressTextField.getText().trim();
-    	instructorYearsOfExperience = instructorExperienceTextField.getText().trim();
-    	instructorCitizenshipNo = instructorCitizenshipTextField.getText().trim();
-    	instructorPanNo = instructorPanTextField.getText().trim();
-    	instructorDob = instructorDobTextField.getText().trim();
-    	instructorPhoneNo = instructorPhoneTextField.getText().trim();
-    	instructorEmail = instructorEmailTextField.getText().trim();
-    	instructorPassword = instructorPasswordTextField.getText().trim();
-    	instructorModule1 = (String) instructorModule_1ComboBox.getSelectedItem();
-    	instructorModule2 = (String) instructorModule_2ComboBox.getSelectedItem();
-    	
-        System.out.println(instructorName);
-        System.out.println(instructorAddress);
-        System.out.println(instructorYearsOfExperience);
-        System.out.println(instructorCitizenshipNo);
-        System.out.println(instructorPanNo);
-        System.out.println(instructorDob);
-        System.out.println(instructorPhoneNo);
-        System.out.println(instructorEmail);
-        System.out.println(instructorPassword);
-        System.out.println(instructorModule1);
-        System.out.println(instructorModule2);
-    	
-    	
-    	
-    	
-    	
+            instructorName = instructorNameTextField.getText().trim();
+            instructorAddress = instructorAddressTextField.getText().trim();
+            instructorYearsOfExperience = instructorExperienceTextField.getText().trim();
+            instructorCitizenshipNo = instructorCitizenshipTextField.getText().trim();
+            instructorPanNo = instructorPanTextField.getText().trim();
+            instructorDob = instructorDobTextField.getText().trim();
+            instructorPhoneNo = instructorPhoneTextField.getText().trim();
+            instructorEmail = instructorEmailTextField.getText().trim();
+            instructorPassword = instructorPasswordTextField.getText().trim();
+            instructorModule1 = (String) instructorModule_1ComboBox.getSelectedItem();
+            instructorCourseId = (String) instructorCourseIdComboBox.getSelectedItem();
+            instructorId = instructorInstructorIdTextField.getText().trim();
+
+            Statement statement = JDBC.getStatement();
+            String insertQuery1 = "INSERT INTO Instructor (Instructor_ID, Name, Address, Year_of_experience, Citizenship_Number, Pan_number, DOB, Email_address, Password) VALUES ('" + instructorId +"' ,'"+ instructorName +"', '"+ instructorAddress +"', '"+ instructorYearsOfExperience +"', '"+ instructorCitizenshipNo +"', '"+ instructorPanNo +"', '"+ instructorDob +"', '"+ instructorEmail +"', '" + instructorPassword + "')";
+            String insertQuery2 = "INSERT INTO Instructor_Module (Instructor_ID, Module_code, Course_ID) VALUES ('" + instructorId +"', '" + instructorModule1 +"', '" + instructorCourseId +"')";
+            String insertQuery3 = "INSERT INTO Instructor_Course (Instructor_ID, Course_ID) VALUES ('" + instructorId +"', '" + instructorCourseId +"')";
+            try {
+                int insertSuccess1 = statement.executeUpdate(insertQuery1);
+                int insertSuccess2 = statement.executeUpdate(insertQuery2);
+                int insertSuccess3 = statement.executeUpdate(insertQuery3);
+
+                if (insertSuccess1 == 1 && insertSuccess2 == 1 && insertSuccess3 == 1) {
+                    JOptionPane.showMessageDialog(jPanel1, "Instructor added successfully");
+                } else {
+                    JOptionPane.showMessageDialog(jPanel1, "Instructor not added");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    }
     }                                                   
 
     private void instructorModule_2ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {                                                           
@@ -2258,7 +2288,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
     private javax.swing.JToggleButton instructorLogoutButton;
     private javax.swing.JLabel instructorModuleErrorMessage;
     private javax.swing.JComboBox<String> instructorModule_1ComboBox;
-    private javax.swing.JComboBox<String> instructorModule_2ComboBox;
+    private javax.swing.JComboBox<String> instructorCourseIdComboBox;
     private javax.swing.JLabel instructorNameErrorMessage;
     private javax.swing.JTextField instructorNameTextField;
     private javax.swing.JLabel instructorPanErrorMessage;
@@ -2398,6 +2428,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
     private javax.swing.JButton updateCourseButton;
     private javax.swing.JButton updateInstructorButton;
     private javax.swing.JButton updateStudentButton;
+    private JTextField instructorInstructorIdTextField;
     // End of variables declaration                   
 
     // Instructors
@@ -2411,6 +2442,6 @@ public class CourseAdministrator extends javax.swing.JFrame {
     private String instructorEmail = "";
     private String instructorPassword = "";
     private String instructorModule1 = "";
-    private String instructorModule2 = "";
-
+    private String instructorCourseId = "";
+    private String instructorId = "";
 }
