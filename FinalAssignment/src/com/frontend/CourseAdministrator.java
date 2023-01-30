@@ -4,8 +4,8 @@
  */
 package com.frontend;
 
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.*;
 
 import com.database.JDBC;
 import javax.swing.GroupLayout.Alignment;
@@ -294,14 +294,62 @@ public class CourseAdministrator extends javax.swing.JFrame {
             }
         });
 
-        instructorModule_1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----" }));
+        Statement statement = JDBC.getStatement();
+        String query = "SELECT Module_code FROM module";
+        ResultSet resultSet = null;
+		try {
+			resultSet = statement.executeQuery(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        List<String> moduleCodes = new ArrayList<>();
+        moduleCodes.add("Select Modules");
+        try {
+			while (resultSet.next()) {
+			try {
+				moduleCodes.add(resultSet.getString("Module_code"));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        String[] moduleCodeArray = moduleCodes.toArray(new String[0]);
+        instructorModule_1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(moduleCodeArray));
+        
         instructorModule_1ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 instructorModule_1ComboBoxActionPerformed(evt);
             }
         });
+        
 
-        instructorCourseIdComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----" }));
+        String query1 = "SELECT Course_ID FROM courses";
+        ResultSet resultSet1 = null;
+        try {
+        resultSet1 = statement.executeQuery(query1);
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }
+        List<String> courseIds = new ArrayList<>();
+        courseIds.add("Select Course");
+        try {
+        while (resultSet1.next()) {
+        try {
+        courseIds.add(resultSet1.getString("Course_ID"));
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }
+        }
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }
+        String[] courseIdArray = courseIds.toArray(new String[0]);
+        instructorCourseIdComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(courseIdArray));
         instructorCourseIdComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 instructorModule_2ComboBoxActionPerformed(evt);
@@ -398,17 +446,16 @@ public class CourseAdministrator extends javax.swing.JFrame {
         					.addComponent(jLabel8))
         				.addComponent(lblInstructorId))
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(instructorModule_1ComboBox, 0, 319, Short.MAX_VALUE)
-        				.addComponent(instructorNameTextField, 319, 319, 319)
-        				.addComponent(instructorAddressTextField, 319, 319, 319)
-        				.addComponent(instructorExperienceTextField, 319, 319, 319)
-        				.addComponent(instructorCitizenshipTextField, 319, 319, 319)
-        				.addComponent(instructorPanTextField, 319, 319, 319)
-        				.addComponent(instructorPhoneTextField, 319, 319, 319)
-        				.addComponent(instructorEmailTextField, 319, 319, 319)
-        				.addComponent(instructorPasswordTextField, 319, 319, 319)
-        				.addComponent(instructorDobTextField, 319, 319, 319)
+        			.addGroup(jPanel4Layout.createParallelGroup(Alignment.TRAILING)
+        				.addComponent(instructorNameTextField, Alignment.LEADING, 319, 319, Short.MAX_VALUE)
+        				.addComponent(instructorAddressTextField, Alignment.LEADING, 319, 319, Short.MAX_VALUE)
+        				.addComponent(instructorExperienceTextField, Alignment.LEADING, 319, 319, Short.MAX_VALUE)
+        				.addComponent(instructorCitizenshipTextField, Alignment.LEADING, 319, 319, Short.MAX_VALUE)
+        				.addComponent(instructorPanTextField, Alignment.LEADING, 319, 319, Short.MAX_VALUE)
+        				.addComponent(instructorPhoneTextField, Alignment.LEADING, 319, 319, Short.MAX_VALUE)
+        				.addComponent(instructorEmailTextField, Alignment.LEADING, 319, 319, Short.MAX_VALUE)
+        				.addComponent(instructorPasswordTextField, Alignment.LEADING, 319, 319, Short.MAX_VALUE)
+        				.addComponent(instructorDobTextField, Alignment.LEADING, 319, 319, Short.MAX_VALUE)
         				.addGroup(jPanel4Layout.createSequentialGroup()
         					.addGroup(jPanel4Layout.createParallelGroup(Alignment.LEADING)
         						.addComponent(instructorModuleErrorMessage)
@@ -421,12 +468,13 @@ public class CourseAdministrator extends javax.swing.JFrame {
         						.addComponent(instructorNameErrorMessage)
         						.addComponent(instructorAddressErrorMessage)
         						.addComponent(instructorExperienceErrorMessage))
-        					.addGap(0, 105, Short.MAX_VALUE))
-        				.addComponent(instructorCourseIdComboBox, 0, 319, Short.MAX_VALUE)
-        				.addGroup(Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        					.addGap(0, 196, Short.MAX_VALUE))
+        				.addComponent(instructorCourseIdComboBox, 0, 410, Short.MAX_VALUE)
+        				.addGroup(jPanel4Layout.createSequentialGroup()
         					.addComponent(instructorInstructorIdTextField, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE)
         					.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-        					.addComponent(addInstructorButton)))
+        					.addComponent(addInstructorButton))
+        				.addComponent(instructorModule_1ComboBox, Alignment.LEADING, 0, 319, Short.MAX_VALUE))
         			.addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -569,7 +617,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
 
             },
             new String [] {
-                "S.N", "Name", "Address", "Years of Experience", "Citizenship Number", "PAN Number", "DOB", "Email", "Password", "Module 1", "Module 2"
+                "S.N", "Name", "Address", "Years of Experience", "Citizenship Number", "PAN Number", "DOB", "Email", "Password", "Module ID", "Course ID"
             }
         ) {
             Class[] types = new Class [] {
@@ -596,8 +644,8 @@ public class CourseAdministrator extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(5).setHeaderValue("PAN Number");
             jTable1.getColumnModel().getColumn(6).setHeaderValue("DOB");
             jTable1.getColumnModel().getColumn(8).setHeaderValue("Password");
-            jTable1.getColumnModel().getColumn(9).setHeaderValue("Module 1");
-            jTable1.getColumnModel().getColumn(10).setHeaderValue("Module 2");
+            jTable1.getColumnModel().getColumn(9).setHeaderValue("Module ID");
+            jTable1.getColumnModel().getColumn(10).setHeaderValue("Course ID");
         }
 
         jPanel12.setBackground(new java.awt.Color(23, 23, 23));
@@ -672,25 +720,25 @@ public class CourseAdministrator extends javax.swing.JFrame {
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	jPanel3Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel3Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, 613, GroupLayout.PREFERRED_SIZE)
+        			.addGap(18)
+        			.addComponent(jPanel5, GroupLayout.PREFERRED_SIZE, 1009, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 659, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 659, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	jPanel3Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel3Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(jPanel3Layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, 659, Short.MAX_VALUE)
+        				.addComponent(jPanel5, GroupLayout.PREFERRED_SIZE, 659, GroupLayout.PREFERRED_SIZE))
+        			.addContainerGap())
         );
+        jPanel3.setLayout(jPanel3Layout);
 
         jTabbedPane1.addTab("Instructors", jPanel3);
 
@@ -2097,7 +2145,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
     	
     	// Displaying error message
     	
-        if (instructorNameTextField.getText().isEmpty() || instructorAddressTextField.getText().isEmpty() || instructorExperienceTextField.getText().isEmpty() || instructorCitizenshipTextField.getText().isEmpty() || instructorPanTextField.getText().isEmpty() || instructorDobTextField.getText().contentEquals("DD-MM-YYYY") || instructorPhoneTextField.getText().isEmpty() || instructorEmailTextField.getText().isEmpty() || instructorPasswordTextField.getText().isEmpty() || (String) instructorModule_1ComboBox.getSelectedItem() == "----") {
+        if (instructorNameTextField.getText().isEmpty() || instructorAddressTextField.getText().isEmpty() || instructorExperienceTextField.getText().isEmpty() || instructorCitizenshipTextField.getText().isEmpty() || instructorPanTextField.getText().isEmpty() || instructorDobTextField.getText().contentEquals("DD-MM-YYYY") || instructorPhoneTextField.getText().isEmpty() || instructorEmailTextField.getText().isEmpty() || instructorPasswordTextField.getText().isEmpty() || (String) instructorModule_1ComboBox.getSelectedItem() == "Select Modules" || (String) instructorCourseIdComboBox.getSelectedItem() == "Select Course") {
             if (instructorNameTextField.getText().isEmpty()) {
                 instructorNameErrorMessage.setVisible(true);
             } else {
@@ -2152,7 +2200,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
                 instructorPasswordErrorMessage.setVisible(false);
             }
             
-            if ((String) instructorModule_1ComboBox.getSelectedItem() == "----") {
+            if ((String) instructorModule_1ComboBox.getSelectedItem() == "Select Modules") {
                 instructorModuleErrorMessage.setVisible(true);
             } else {
                 instructorModuleErrorMessage.setVisible(false);
