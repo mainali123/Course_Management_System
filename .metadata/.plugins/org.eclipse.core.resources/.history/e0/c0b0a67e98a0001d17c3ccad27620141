@@ -57,7 +57,6 @@ public class CourseAdministrator extends javax.swing.JFrame {
             String instructorModuleCodeFromDb = result.getString("instructor_module.Module_code");
             String instructorCourseIdFromDb = result.getString("instructor_module.Course_ID");
     
-
             System.out.println("Instructor ID: " + instructorIdFromDb);
             System.out.println("Instructor Name: " + instructorNameFromDb);
             System.out.println("Instructor Address: " + instructorAddressFromDb);
@@ -1368,29 +1367,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Course ID", "Course Name"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable2.setModel();
         jScrollPane2.setViewportView(jTable2);
 
         jPanel17.setBackground(new java.awt.Color(23, 23, 23));

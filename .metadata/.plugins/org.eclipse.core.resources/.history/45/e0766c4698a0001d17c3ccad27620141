@@ -57,7 +57,6 @@ public class CourseAdministrator extends javax.swing.JFrame {
             String instructorModuleCodeFromDb = result.getString("instructor_module.Module_code");
             String instructorCourseIdFromDb = result.getString("instructor_module.Course_ID");
     
-
             System.out.println("Instructor ID: " + instructorIdFromDb);
             System.out.println("Instructor Name: " + instructorNameFromDb);
             System.out.println("Instructor Address: " + instructorAddressFromDb);
