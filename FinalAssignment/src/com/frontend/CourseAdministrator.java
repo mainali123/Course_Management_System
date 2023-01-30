@@ -166,6 +166,9 @@ public class CourseAdministrator extends javax.swing.JFrame {
         updateInstructorButton = new javax.swing.JButton();
         updateInstructorButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.setRowCount(0);
+                showDataInTableFromDb();
         	}
         });
         deleteInstructorButton = new javax.swing.JToggleButton();
@@ -2179,7 +2182,9 @@ public class CourseAdministrator extends javax.swing.JFrame {
     }                                                      
 
     private void refreshInstructorButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                        
-        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        showDataInTableFromDb();
     }                                                       
 
     private void instructorSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                          
