@@ -240,12 +240,7 @@ VALUES ('I1', '4CI018', 'CS101'),
        ('I2', '4CS001', 'CS101'),
        ('I3', 'IBM10101', 'IBM101'),
        ('I4', 'IBM10102', 'IBM101'),
-       ('I5', '5CS037', 'CS101'),
-       ('I1', '5CS019', 'CS101'),
-       ('I2', '5CS021', 'CS101'),
-       ('I3', 'IBM10103', 'IBM101'),
-       ('I4', 'IBM10104', 'IBM101'),
-       ('I5', '5CS020', 'CS101');
+       ('I5', '5CS037', 'CS101');
 
 -- Add values to the student_course table
 INSERT INTO student_course (Student_ID, Course_ID) VALUES ('S1', 'CS101');

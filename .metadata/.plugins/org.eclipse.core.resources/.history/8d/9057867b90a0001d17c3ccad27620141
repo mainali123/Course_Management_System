@@ -31,48 +31,41 @@ import java.awt.event.ActionEvent;
 public class CourseAdministrator extends javax.swing.JFrame {
 
 
-    public static void showDataInTableFromDb(){
+    public static void showDataInTableFromDb() throws SQLException {
         Statement statement = JDBC.getStatement();
+        String selectQuery1 = "SELECT * FROM instructor ORDER BY Instructor_ID ASC";
+        String selectQuery2 = "SELECT Module_code, Course_ID FROM instructor_module ORDER BY Instructor_ID ASC";
 
-    try {
-        // SELECT statement for joining instructor_module and instructor tables
-        String joinQuery = "SELECT instructor.*, instructor_module.* " + 
-                           "FROM instructor " + 
-                           "INNER JOIN instructor_module " + 
-                           "ON instructor.Instructor_ID = instructor_module.Instructor_ID";
-    
-        ResultSet result = statement.executeQuery(joinQuery);
-        
-        while (result.next()) {
-            String instructorIdFromDb = result.getString("Instructor.Instructor_ID");
-            String instructorNameFromDb = result.getString("Instructor.Name");
-            String instructorAddressFromDb = result.getString("Instructor.Address");
-            String instructorExperienceFromDb = result.getString("Instructor.Year_of_experience");
-            String instructorCitizenshipFromDb = result.getString("Instructor.Citizenship_Number");
-            String instructorPanFromDb = result.getString("Instructor.Pan_number");
-            String instructorDobFromDb = result.getString("Instructor.DOB");
-            String instructorEmailFromDb = result.getString("Instructor.Email_address");
-            String instructorPasswordFromDb = result.getString("Instructor.Password");
-    
-            String instructorModuleCodeFromDb = result.getString("instructor_module.Module_code");
-            String instructorCourseIdFromDb = result.getString("instructor_module.Course_ID");
-    
-            System.out.println("Instructor ID: " + instructorIdFromDb);
-            System.out.println("Instructor Name: " + instructorNameFromDb);
-            System.out.println("Instructor Address: " + instructorAddressFromDb);
-            System.out.println("Instructor Experience: " + instructorExperienceFromDb);
-            System.out.println("Instructor Citizenship: " + instructorCitizenshipFromDb);
-            System.out.println("Instructor Pan: " + instructorPanFromDb);
-            System.out.println("Instructor DOB: " + instructorDobFromDb);
-            System.out.println("Instructor Email: " + instructorEmailFromDb);
-            System.out.println("Instructor Password: " + instructorPasswordFromDb);
-            System.out.println("Instructor Module Code: " + instructorModuleCodeFromDb);
-            System.out.println("Instructor Course ID: " + instructorCourseIdFromDb);
+        ResultSet r1 = statement.executeQuery(selectQuery1);
+        ResultSet r2 =  statement.executeQuery(selectQuery2);
+
+        while (r1.next() || r2.next()) {
+            String instructorIdFromDb = r1.getString("Instructor_ID");
+            String instructorNameFromDb = r1.getString("Name");
+            String instructorAddressFromDb = r1.getString("Address");
+            String instructorExperienceFromDb = r1.getString("Years_of_experience");
+            String instructorCitizenshipFromDb = r1.getString("Citizenship_Number");
+            String instructorPanFromDb = r1.getString("Pan_number");
+            String instructorDobFromDb = r1.getString("DOB");
+            String instructorEmailFromDb = r1.getString("Email_address");
+            String instructorPasswordFromDb = r1.getString("Password");
+            String instructorModuleCodeFromDb = r2.getString("Module_code");
+            String instructorCourseIdFromDb = r2.getString("Course_ID");
+
+            System.out.println(instructorIdFromDb);
+            System.out.println(instructorNameFromDb);
+            System.out.println(instructorAddressFromDb);
+            System.out.println(instructorExperienceFromDb);
+            System.out.println(instructorCitizenshipFromDb);
+            System.out.println(instructorPanFromDb);
+            System.out.println(instructorDobFromDb);
+            System.out.println(instructorEmailFromDb);
+            System.out.println(instructorPasswordFromDb);
+            System.out.println(instructorModuleCodeFromDb);
+            System.out.println(instructorCourseIdFromDb);
         }
-        result.close();
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
+
+        
     }
     
     /**
@@ -153,7 +146,6 @@ public class CourseAdministrator extends javax.swing.JFrame {
         updateInstructorButton = new javax.swing.JButton();
         updateInstructorButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		showDataInTableFromDb();
         	}
         });
         deleteInstructorButton = new javax.swing.JToggleButton();
