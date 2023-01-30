@@ -68,12 +68,25 @@ public class CourseAdministrator extends javax.swing.JFrame {
             String instructorCourseIdFromDb = result.getString("instructor_module.Course_ID");
     
             instructorDefaultTableModel.addRow(new Object[]{instructorIdFromDb, instructorNameFromDb, instructorAddressFromDb, instructorExperienceFromDb, instructorCitizenshipFromDb, instructorPanFromDb, instructorDobFromDb, instructorEmailFromDb, instructorPasswordFromDb, instructorModuleCodeFromDb, instructorCourseIdFromDb});
+
+
+            System.out.println("Instructor ID: " + instructorIdFromDb);
+            System.out.println("Instructor Name: " + instructorNameFromDb);
+            System.out.println("Instructor Address: " + instructorAddressFromDb);
+            System.out.println("Instructor Experience: " + instructorExperienceFromDb);
+            System.out.println("Instructor Citizenship: " + instructorCitizenshipFromDb);
+            System.out.println("Instructor Pan: " + instructorPanFromDb);
+            System.out.println("Instructor DOB: " + instructorDobFromDb);
+            System.out.println("Instructor Email: " + instructorEmailFromDb);
+            System.out.println("Instructor Password: " + instructorPasswordFromDb);
+            System.out.println("Instructor Module Code: " + instructorModuleCodeFromDb);
+            System.out.println("Instructor Course ID: " + instructorCourseIdFromDb);
         }
         result.close();
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    }    
+    }
     
     /**
      * Creates new form CourseAdministrator
@@ -147,45 +160,6 @@ public class CourseAdministrator extends javax.swing.JFrame {
         instructorSearchTextField = new javax.swing.JTextField();
         refreshInstructorButton = new javax.swing.JButton();
         searchInstructorButton = new javax.swing.JButton();
-        searchInstructorButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-                // Search Instructor by using the value in the search text field "instructorSearchTextField" and display the result in the table
-                String instructorSearchValue = instructorSearchTextField.getText();
-                
-                // Clear the table
-                instructorDefaultTableModel.setRowCount(0);
-
-                // Search the instructor in the database
-                try {
-                    // SELECT statement for joining instructor_module and instructor tables
-                    String joinQuery = "SELECT instructor.* " + 
-                                       "FROM instructor " + 
-                                       "WHERE instructor.name LIKE '%" + instructorSearchValue + "%'";
-                    Statement statement = JDBC.getStatement();
-                    ResultSet rs = statement.executeQuery(joinQuery);
-    
-                    while (rs.next()) {
-                        String id = rs.getString("Instructor_ID");
-                        String name = rs.getString("Name");
-                        String address = rs.getString("Address");
-                        String experience = rs.getString("Year_of_experience");
-                        String citNo = rs.getString("Citizenship_Number");
-                        String panNo = rs.getString("Pan_number");
-                        String dob = rs.getString("DOB");
-                        String email = rs.getString("Email_address");
-                        String pass = rs.getString("Password");
-                        // String modId = rs.getString("Module_code");
-                        // String courseId = rs.getString("Course_ID");
-    
-                        Object[] row = {id, name, address, experience, citNo, panNo, dob, email, pass};
-                        instructorDefaultTableModel.addRow(row);
-                    }
-                } catch (Exception ex) {
-                    System.out.println(ex);
-                }
-
-        	}
-        });
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel12 = new javax.swing.JPanel();
