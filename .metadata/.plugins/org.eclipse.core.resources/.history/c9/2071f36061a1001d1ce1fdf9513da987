@@ -2167,8 +2167,6 @@ public class CourseAdministrator extends javax.swing.JFrame {
 
     private void jToggleButton10ActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
-    	this.dispose();
-        new LoginPanel().setVisible(true);
     }                                               
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {                                          
@@ -2196,8 +2194,6 @@ public class CourseAdministrator extends javax.swing.JFrame {
 
     private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
-    	this.dispose();
-        new LoginPanel().setVisible(true);
     }                                              
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {                                          
@@ -2224,6 +2220,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
         // TODO add your handling code here:
     	this.dispose();
         new LoginPanel().setVisible(true);
+        
     }                                                  
 
     private void refreshCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
