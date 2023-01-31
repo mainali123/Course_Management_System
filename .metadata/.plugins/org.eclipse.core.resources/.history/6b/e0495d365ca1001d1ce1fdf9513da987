@@ -1754,17 +1754,17 @@ public class CourseAdministrator extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22Layout.setHorizontalGroup(
         	jPanel22Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(jPanel22Layout.createSequentialGroup()
-        			.addGap(379)
+        		.addGroup(Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
+        			.addContainerGap(826, Short.MAX_VALUE)
         			.addComponent(jToggleButton6, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(457, Short.MAX_VALUE))
+        			.addContainerGap())
         );
         jPanel22Layout.setVerticalGroup(
         	jPanel22Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
-        			.addContainerGap(23, Short.MAX_VALUE)
+        		.addGroup(jPanel22Layout.createSequentialGroup()
+        			.addGap(18)
         			.addComponent(jToggleButton6)
-        			.addContainerGap())
+        			.addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel22.setLayout(jPanel22Layout);
 
