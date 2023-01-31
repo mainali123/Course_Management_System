@@ -13,7 +13,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -24,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -316,32 +316,42 @@ public class CourseAdministrator extends javax.swing.JFrame {
         studentEmailTextField = new javax.swing.JTextField();
         studentCitizenshipTextField = new javax.swing.JTextField();
         studentCourseIdComboBox = new javax.swing.JComboBox<>();
-        jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
-        studentPhoneTextField = new javax.swing.JTextField();
         studentCollegeEmailTextField = new javax.swing.JTextField();
         addStudentButton = new javax.swing.JButton();
         jLabel50 = new javax.swing.JLabel();
         studentPasswordTextField = new javax.swing.JTextField();
         studentDobTextField = new javax.swing.JTextField();
         studentNameErrorMessage = new javax.swing.JLabel();
+        studentNameErrorMessage.setVisible(false);
         studentAddressErrorMessage = new javax.swing.JLabel();
+        studentAddressErrorMessage.setVisible(false);
         studentEmailErrorMessage = new javax.swing.JLabel();
+        studentEmailErrorMessage.setVisible(false);
         studentCitizenshipErrorMessage = new javax.swing.JLabel();
+        studentCitizenshipErrorMessage.setVisible(false);
         studentDobErrorMessage = new javax.swing.JLabel();
-        studentPhoneNoErrorMessage = new javax.swing.JLabel();
+        studentDobErrorMessage.setVisible(false);
         studentCollegeEmailErrorMessage = new javax.swing.JLabel();
+        studentCollegeEmailErrorMessage.setVisible(false);
         studentPasswordErrorMessage = new javax.swing.JLabel();
+        studentPasswordErrorMessage.setVisible(false);
         studentCourseErrorMessage = new javax.swing.JLabel();
+        studentCourseErrorMessage.setVisible(false);
         jLabel12 = new javax.swing.JLabel();
         studentStudentIdTextField = new javax.swing.JTextField();
         studentStudentIdErrorMessage = new javax.swing.JLabel();
+        studentStudentIdErrorMessage.setVisible(false);
         jPanel8 = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
         jLabel63 = new javax.swing.JLabel();
         studentSearchTextField = new javax.swing.JTextField();
         refreshStudentButton = new javax.swing.JButton();
         searchStudentButton = new javax.swing.JButton();
+        searchStudentButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable6 = new javax.swing.JTable();
         jPanel32 = new javax.swing.JPanel();
@@ -933,16 +943,33 @@ public class CourseAdministrator extends javax.swing.JFrame {
             }
         });
 
-        studentCourseIdComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----" }));
+        String query1_ = "SELECT Course_ID FROM courses";
+        ResultSet resultSet1_ = null;
+        try {
+        resultSet1_ = statement.executeQuery(query1_);
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }
+        List<String> courseIds_ = new ArrayList<>();
+        courseIds_.add("Select Course");
+        try {
+        while (resultSet1_.next()) {
+        try {
+        courseIds_.add(resultSet1_.getString("Course_ID"));
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }
+        }
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }
+        String[] courseIdArray_ = courseIds.toArray(new String[0]);
+        studentCourseIdComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(courseIdArray_));
         studentCourseIdComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentCourseIdComboBoxActionPerformed(evt);
             }
         });
-
-        jLabel48.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel48.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel48.setText("Phone Number:");
 
         jLabel49.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel49.setForeground(new java.awt.Color(255, 255, 255));
@@ -982,10 +1009,6 @@ public class CourseAdministrator extends javax.swing.JFrame {
         studentDobErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
         studentDobErrorMessage.setText("Date of Birth cannot be empty!!");
 
-        studentPhoneNoErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        studentPhoneNoErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
-        studentPhoneNoErrorMessage.setText("Phone number cannot be empty!!");
-
         studentCollegeEmailErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         studentCollegeEmailErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
         studentCollegeEmailErrorMessage.setText("College Email cannot be empty!!");
@@ -1007,148 +1030,127 @@ public class CourseAdministrator extends javax.swing.JFrame {
         studentStudentIdErrorMessage.setText("Student ID cannot be empty!!");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel43)
-                            .addComponent(jLabel42)
-                            .addComponent(jLabel41)
-                            .addComponent(jLabel40))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(studentNameTextField)
-                            .addComponent(studentAddressTextField)
-                            .addComponent(studentEmailTextField)
-                            .addComponent(studentCitizenshipTextField)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(studentCitizenshipErrorMessage)
-                                    .addComponent(studentNameErrorMessage)
-                                    .addComponent(studentAddressErrorMessage)
-                                    .addComponent(studentEmailErrorMessage))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel49)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(studentCollegeEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel50)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(studentCollegeEmailErrorMessage)
-                                    .addComponent(studentPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(studentPasswordErrorMessage)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(studentStudentIdErrorMessage)
-                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(studentCourseErrorMessage)
-                                        .addComponent(studentCourseIdComboBox, 0, 250, Short.MAX_VALUE)
-                                        .addComponent(studentStudentIdTextField))))))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jLabel45)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(studentDobErrorMessage)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(studentDobTextField)))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jLabel48)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(studentPhoneNoErrorMessage)
-                            .addComponent(studentPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(addStudentButton)
-                .addGap(158, 158, 158))
+        	jPanel7Layout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(jPanel7Layout.createSequentialGroup()
+        			.addContainerGap(10, Short.MAX_VALUE)
+        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(jPanel7Layout.createSequentialGroup()
+        					.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(jPanel7Layout.createParallelGroup(Alignment.TRAILING)
+        							.addGroup(jPanel7Layout.createSequentialGroup()
+        								.addGroup(jPanel7Layout.createParallelGroup(Alignment.TRAILING)
+        									.addComponent(jLabel43)
+        									.addComponent(jLabel42)
+        									.addComponent(jLabel41)
+        									.addComponent(jLabel40))
+        								.addPreferredGap(ComponentPlacement.RELATED)
+        								.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
+        									.addComponent(studentNameTextField, 255, 255, 255)
+        									.addComponent(studentAddressTextField, 255, 255, 255)
+        									.addComponent(studentEmailTextField, 255, 255, 255)
+        									.addComponent(studentCitizenshipTextField, 255, 255, 255)
+        									.addComponent(studentCitizenshipErrorMessage)
+        									.addComponent(studentNameErrorMessage)
+        									.addComponent(studentAddressErrorMessage)
+        									.addComponent(studentEmailErrorMessage)))
+        							.addGroup(jPanel7Layout.createSequentialGroup()
+        								.addComponent(jLabel45)
+        								.addPreferredGap(ComponentPlacement.RELATED)
+        								.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
+        									.addComponent(studentDobErrorMessage)
+        									.addComponent(studentDobTextField, 255, 255, 255))))
+        						.addGroup(Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+        							.addComponent(jLabel49)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(studentCollegeEmailTextField, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+        							.addComponent(jLabel50)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(studentCollegeEmailErrorMessage)
+        								.addComponent(studentPasswordTextField, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(studentPasswordErrorMessage)))
+        						.addGroup(Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+        							.addGroup(jPanel7Layout.createParallelGroup(Alignment.TRAILING)
+        								.addComponent(jLabel12)
+        								.addComponent(jLabel46, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE))
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(studentStudentIdErrorMessage)
+        								.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING, false)
+        									.addComponent(studentCourseErrorMessage)
+        									.addComponent(studentCourseIdComboBox, 0, 250, Short.MAX_VALUE)
+        									.addComponent(studentStudentIdTextField)))))
+        					.addContainerGap())
+        				.addGroup(Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+        					.addComponent(addStudentButton)
+        					.addGap(158))))
         );
         jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel40)
-                    .addComponent(studentNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(studentNameErrorMessage)
-                .addGap(3, 3, 3)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel41)
-                    .addComponent(studentAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addComponent(studentAddressErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel42)
-                    .addComponent(studentEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addComponent(studentEmailErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel43)
-                    .addComponent(studentCitizenshipTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addComponent(studentCitizenshipErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel45)
-                    .addComponent(studentDobTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(studentDobErrorMessage)
-                .addGap(3, 3, 3)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel48)
-                    .addComponent(studentPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(studentPhoneNoErrorMessage)
-                .addGap(3, 3, 3)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel49)
-                    .addComponent(studentCollegeEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addComponent(studentCollegeEmailErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(studentPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel50))
-                .addGap(4, 4, 4)
-                .addComponent(studentPasswordErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(studentCourseIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel46))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(studentCourseErrorMessage)
-                .addGap(12, 12, 12)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel12)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(studentStudentIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(studentStudentIdErrorMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addStudentButton)
-                .addGap(17, 17, 17))
+        	jPanel7Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel7Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel40)
+        				.addComponent(studentNameTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(studentNameErrorMessage)
+        			.addGap(3)
+        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel41)
+        				.addComponent(studentAddressTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addGap(3)
+        			.addComponent(studentAddressErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel42)
+        				.addComponent(studentEmailTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addGap(3)
+        			.addComponent(studentEmailErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel43)
+        				.addComponent(studentCitizenshipTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addGap(3)
+        			.addComponent(studentCitizenshipErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel45)
+        				.addComponent(studentDobTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(studentDobErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel49)
+        				.addComponent(studentCollegeEmailTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+        			.addGap(3)
+        			.addComponent(studentCollegeEmailErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(studentPasswordTextField, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jLabel50))
+        			.addGap(4)
+        			.addComponent(studentPasswordErrorMessage)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(studentCourseIdComboBox, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jLabel46))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(studentCourseErrorMessage)
+        			.addGap(12)
+        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.TRAILING)
+        				.addComponent(jLabel12)
+        				.addGroup(jPanel7Layout.createSequentialGroup()
+        					.addComponent(studentStudentIdTextField, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+        					.addGap(1)))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(studentStudentIdErrorMessage)
+        			.addGap(27)
+        			.addComponent(addStudentButton)
+        			.addContainerGap(49, Short.MAX_VALUE))
         );
+        jPanel7.setLayout(jPanel7Layout);
 
         jPanel8.setBackground(new java.awt.Color(23, 23, 23));
         jPanel8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(35, 35, 35), 4, true));
@@ -1158,7 +1160,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
 
         jLabel63.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel63.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel63.setText("Search Instructor:");
+        jLabel63.setText("Search Student:");
 
         studentSearchTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1182,55 +1184,39 @@ public class CourseAdministrator extends javax.swing.JFrame {
         searchStudentButton.setText("Search");
 
         javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
-        jPanel31.setLayout(jPanel31Layout);
         jPanel31Layout.setHorizontalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel31Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel63, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(studentSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(searchStudentButton)
-                .addGap(43, 43, 43)
-                .addComponent(refreshStudentButton)
-                .addContainerGap(177, Short.MAX_VALUE))
+        	jPanel31Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel31Layout.createSequentialGroup()
+        			.addGap(31)
+        			.addComponent(jLabel63)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(studentSearchTextField, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE)
+        			.addGap(28)
+        			.addComponent(searchStudentButton)
+        			.addGap(43)
+        			.addComponent(refreshStudentButton)
+        			.addContainerGap(149, Short.MAX_VALUE))
         );
         jPanel31Layout.setVerticalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel31Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel63)
-                    .addComponent(studentSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchStudentButton)
-                    .addComponent(refreshStudentButton))
-                .addGap(27, 27, 27))
+        	jPanel31Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel31Layout.createSequentialGroup()
+        			.addContainerGap(25, Short.MAX_VALUE)
+        			.addGroup(jPanel31Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(studentSearchTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(searchStudentButton)
+        				.addComponent(refreshStudentButton)
+        				.addComponent(jLabel63))
+        			.addGap(27))
         );
+        jPanel31.setLayout(jPanel31Layout);
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Student ID", "Name", "Address", "Email", "Citizenship Number", "DOB", "Phone Number", "College Email", "Password", "Course ID"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable6.setModel(new DefaultTableModel(
+        	new Object[][] {
+        	},
+        	new String[] {
+        		"Student ID", "Name", "Address", "Email", "Citizenship Number", "DOB", "College Email", "Password", "Course ID"
+        	}
+        ));
         jScrollPane6.setViewportView(jTable6);
 
         jPanel32.setBackground(new java.awt.Color(23, 23, 23));
@@ -2378,7 +2364,85 @@ public class CourseAdministrator extends javax.swing.JFrame {
     }                                                       
 
     private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
+        if (studentNameTextField.getText().isEmpty() || studentAddressTextField.getText().isEmpty() || studentDobTextField.getText().contentEquals("DD-MM-YYYY") || studentEmailTextField.getText().isEmpty() || studentPasswordTextField.getText().isEmpty() || (String) studentCourseIdComboBox.getSelectedItem() == "Select Course" || studentCitizenshipTextField.getText().isEmpty() || studentCollegeEmailTextField.getText().isEmpty() || studentStudentIdTextField.getText().isEmpty()) {
+            if(studentNameTextField.getText().isEmpty()) {
+                studentNameErrorMessage.setVisible(true);
+            } else {
+                studentNameErrorMessage.setVisible(false);
+            }
+            if (studentAddressTextField.getText().isEmpty()) {
+                studentAddressErrorMessage.setVisible(true);
+            } else {
+                studentAddressErrorMessage.setVisible(false);
+            }
+            if (studentDobTextField.getText().contentEquals("DD-MM-YYYY")) {
+                studentDobErrorMessage.setVisible(true);
+            } else {
+                studentDobErrorMessage.setVisible(false);
+            }
+            if (studentEmailTextField.getText().isEmpty()) {
+                studentEmailErrorMessage.setVisible(true);
+            } else {
+                studentEmailErrorMessage.setVisible(false);
+            }
+            if (studentPasswordTextField.getText().isEmpty()) {
+                studentPasswordErrorMessage.setVisible(true);
+            } else {
+                studentPasswordErrorMessage.setVisible(false);
+            }
+            if ((String) studentCourseIdComboBox.getSelectedItem() == "Select Course") {
+                studentCourseErrorMessage.setVisible(true);
+            } else {
+                studentCourseErrorMessage.setVisible(false);
+            }
+            if (studentCitizenshipTextField.getText().isEmpty()) {
+                studentCitizenshipErrorMessage.setVisible(true);
+            } else {
+                studentCitizenshipErrorMessage.setVisible(false);
+            }
+            if (studentCollegeEmailTextField.getText().isEmpty()) {
+                studentCollegeEmailErrorMessage.setVisible(true);
+            } else {
+                studentCollegeEmailErrorMessage.setVisible(false);
+            }
+            if (studentStudentIdTextField.getText().isEmpty()) {
+                studentStudentIdErrorMessage.setVisible(true);
+            } else {
+                studentStudentIdErrorMessage.setVisible(false);
+            }
+
+
+
+        } else {
+    	
+            studentName = studentNameTextField.getText().trim();
+            studentAddress = studentAddressTextField.getText().trim();
+            studentDob = studentDobTextField.getText().trim();
+            studentEmail = studentEmailTextField.getText().trim();
+            studentPassword = studentPasswordTextField.getText().trim();
+            studentCourseId = (String) studentCourseIdComboBox.getSelectedItem();
+            studentCitizenshipNo = studentCitizenshipTextField.getText().trim();
+            studentCollegeEmail = studentCollegeEmailTextField.getText().trim();
+            studentId = studentStudentIdTextField.getText().trim();
+            studentCourseId = (String) studentCourseIdComboBox.getSelectedItem();
+
+            
+            Statement statement = JDBC.getStatement();
+            String insertQuery1 = "INSERT INTO student (Student_ID, Name, Address, DOB, Citizenship_Number, Email_address, College_email_address, College_email_address_password, Course_ID) VALUES ('" + studentId +"', '" + studentName +"', '" + studentAddress +"', '" + studentDob +"', '" + studentCitizenshipNo +"', '" + studentEmail +"', '" + studentCollegeEmail +"', '" + studentPassword +"', '" + studentCourseId +"')";
+            String insertQuery2 = "INSERT INTO student_course (Student_ID, Course_ID) VALUES ('" + studentId +"', '" + studentCourseId +"')";
+            try {
+                int insertSuccess1 = statement.executeUpdate(insertQuery1);
+                int insertSuccess2 = statement.executeUpdate(insertQuery2);
+
+                if (insertSuccess1 == 1 && insertSuccess2 == 1) {
+                    JOptionPane.showMessageDialog(jPanel1, "Instructor added successfully");
+                } else {
+                    JOptionPane.showMessageDialog(jPanel1, "Instructor not added");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    }
     }                                                
 
     private void studentSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                       
@@ -2492,7 +2556,6 @@ public class CourseAdministrator extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
@@ -2582,8 +2645,6 @@ public class CourseAdministrator extends javax.swing.JFrame {
     private javax.swing.JTextField studentNameTextField;
     private javax.swing.JLabel studentPasswordErrorMessage;
     private javax.swing.JTextField studentPasswordTextField;
-    private javax.swing.JLabel studentPhoneNoErrorMessage;
-    private javax.swing.JTextField studentPhoneTextField;
     private javax.swing.JTextField studentSearchTextField;
     private javax.swing.JLabel studentStudentIdErrorMessage;
     private javax.swing.JTextField studentStudentIdTextField;
@@ -2603,5 +2664,15 @@ public class CourseAdministrator extends javax.swing.JFrame {
     private String instructorCourseId = "";
     private String instructorId = "";
 
+    // Students
+    private String studentName = "";
+    private String studentAddress = "";
+    private String studentEmail = "";
+    private String studentCitizenshipNo = "";
+    private String studentDob = "";
+    private String studentCollegeEmail = "";
+    private String studentPassword = "";
+    private String studentCourseId = "";
+    private String studentId = "";
 
 }
