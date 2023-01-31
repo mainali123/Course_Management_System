@@ -1,0 +1,306 @@
+package com.frontend;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import com.database.JDBC;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JFormattedTextField;
+import javax.swing.JRadioButton;
+import javax.swing.SpringLayout;
+import javax.swing.JCheckBox;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.*;
+import java.util.Enumeration;
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ItemListener;
+import java.math.BigDecimal;
+import java.awt.event.ItemEvent;
+
+public class updateInstructor extends JDialog {
+	private JPanel formPanel;
+	private JLabel lblNewLabel_1;
+	private JTextField instructorUpdatedExperience;
+	private JTextField instructorUpdatedAddress;
+	private JLabel lblNewLabel_3;
+	private JTextField instructorUpdatedName;
+	private JLabel lblNewLabel_6;
+	private JButton instructorUpdatedUpdateButton;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JTextField instructorUpdatedCitizenshipNo;
+	private JTextField instructorUpdatedPanNo;
+	private JTextField instructorUpdatedDob;
+	private JTextField instructorUpdatedEmail;
+	private JTextField instructorUpdatedPassword;
+
+
+	
+
+	public JTextField getInstructorUpdatedExperience() {
+		return instructorUpdatedExperience;
+	}
+
+
+
+
+	public JTextField getInstructorUpdatedAddress() {
+		return instructorUpdatedAddress;
+	}
+
+
+
+
+	public JTextField getInstructorUpdatedName() {
+		return instructorUpdatedName;
+	}
+
+
+
+
+	public JButton getInstructorUpdatedUpdateButton() {
+		return instructorUpdatedUpdateButton;
+	}
+
+
+
+
+	public JTextField getInstructorUpdatedCitizenshipNo() {
+		return instructorUpdatedCitizenshipNo;
+	}
+
+
+
+
+	public JTextField getInstructorUpdatedPanNo() {
+		return instructorUpdatedPanNo;
+	}
+
+
+
+
+	public JTextField getInstructorUpdatedDob() {
+		return instructorUpdatedDob;
+	}
+
+
+
+
+	public JTextField getInstructorUpdatedEmail() {
+		return instructorUpdatedEmail;
+	}
+
+
+
+
+	public JTextField getInstructorUpdatedPassword() {
+		return instructorUpdatedPassword;
+	}
+
+
+
+
+	/**
+	 * Create the dialog.
+	 */
+	public updateInstructor() {
+		setTitle("Update Instructor");
+		setBounds(100, 100, 549, 426);
+		formPanel = new JPanel();
+		setContentPane(formPanel);
+
+		JLabel lblNewLabel = new JLabel("Name:");
+
+		instructorUpdatedName = new JTextField();
+		instructorUpdatedName.setColumns(10);
+
+		instructorUpdatedUpdateButton = new JButton("Update");
+		instructorUpdatedUpdateButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		instructorUpdatedUpdateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (instructorUpdatedName.getText().isEmpty()) {
+					lblNewLabel_6.setVisible(true);
+				} else {
+					lblNewLabel_6.setVisible(false);
+				}
+				
+				
+
+			}
+		});
+
+		lblNewLabel_1 = new JLabel("Address:");
+
+		instructorUpdatedExperience = new JTextField();
+		instructorUpdatedExperience.setColumns(10);
+
+		instructorUpdatedAddress = new JTextField();
+		instructorUpdatedAddress.setColumns(10);
+
+		lblNewLabel_3 = new JLabel("Years of Experience:");
+		SpringLayout sl_formPanel = new SpringLayout();
+		sl_formPanel.putConstraint(SpringLayout.SOUTH, instructorUpdatedUpdateButton, 0, SpringLayout.SOUTH, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedUpdateButton, -223, SpringLayout.EAST, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.SOUTH, instructorUpdatedName, -339, SpringLayout.SOUTH, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 64, SpringLayout.NORTH, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.NORTH, instructorUpdatedAddress, 61, SpringLayout.NORTH, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.WEST, lblNewLabel_1, 64, SpringLayout.WEST, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel, 3, SpringLayout.NORTH, instructorUpdatedName);
+		sl_formPanel.putConstraint(SpringLayout.EAST, lblNewLabel, 0, SpringLayout.EAST, lblNewLabel_1);
+		sl_formPanel.putConstraint(SpringLayout.WEST, instructorUpdatedName, 0, SpringLayout.WEST, instructorUpdatedAddress);
+		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedName, -53, SpringLayout.EAST, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.WEST, instructorUpdatedAddress, 6, SpringLayout.EAST, lblNewLabel_1);
+		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedAddress, -53, SpringLayout.EAST, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.WEST, instructorUpdatedExperience, 7, SpringLayout.EAST, lblNewLabel_3);
+		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedExperience, -53, SpringLayout.EAST, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.NORTH, instructorUpdatedExperience, -3, SpringLayout.NORTH, lblNewLabel_3);
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel_3, 16, SpringLayout.SOUTH, lblNewLabel_1);
+		sl_formPanel.putConstraint(SpringLayout.EAST, lblNewLabel_3, 0, SpringLayout.EAST, lblNewLabel_1);
+		formPanel.setLayout(sl_formPanel);
+		formPanel.add(lblNewLabel_1);
+		formPanel.add(lblNewLabel);
+		formPanel.add(lblNewLabel_3);
+		formPanel.add(instructorUpdatedAddress);
+		formPanel.add(instructorUpdatedUpdateButton);
+		formPanel.add(instructorUpdatedName);
+		formPanel.add(instructorUpdatedExperience);
+
+		lblNewLabel_6 = new JLabel("Every Filed should be filled!!!");
+		sl_formPanel.putConstraint(SpringLayout.NORTH, instructorUpdatedName, 4, SpringLayout.SOUTH, lblNewLabel_6);
+		sl_formPanel.putConstraint(SpringLayout.SOUTH, lblNewLabel_6, -363, SpringLayout.SOUTH, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.WEST, lblNewLabel_6, 158, SpringLayout.WEST, formPanel);
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_6.setForeground(new Color(255, 0, 0));
+		lblNewLabel_6.setVisible(false);
+		formPanel.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_2 = new JLabel("Citizenship Number:");
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 12, SpringLayout.SOUTH, lblNewLabel_3);
+		sl_formPanel.putConstraint(SpringLayout.WEST, lblNewLabel_2, 0, SpringLayout.WEST, lblNewLabel_3);
+		formPanel.add(lblNewLabel_2);
+		
+		instructorUpdatedCitizenshipNo = new JTextField();
+		sl_formPanel.putConstraint(SpringLayout.NORTH, instructorUpdatedCitizenshipNo, -3, SpringLayout.NORTH, lblNewLabel_2);
+		sl_formPanel.putConstraint(SpringLayout.WEST, instructorUpdatedCitizenshipNo, 8, SpringLayout.EAST, lblNewLabel_2);
+		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedCitizenshipNo, -53, SpringLayout.EAST, formPanel);
+		formPanel.add(instructorUpdatedCitizenshipNo);
+		instructorUpdatedCitizenshipNo.setColumns(10);
+		
+		JLabel lblNewLabel_4 = new JLabel("PAN Number:");
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel_4, 16, SpringLayout.SOUTH, lblNewLabel_2);
+		sl_formPanel.putConstraint(SpringLayout.EAST, lblNewLabel_4, 0, SpringLayout.EAST, lblNewLabel_1);
+		formPanel.add(lblNewLabel_4);
+		
+		instructorUpdatedPanNo = new JTextField();
+		sl_formPanel.putConstraint(SpringLayout.NORTH, instructorUpdatedPanNo, -3, SpringLayout.NORTH, lblNewLabel_4);
+		sl_formPanel.putConstraint(SpringLayout.WEST, instructorUpdatedPanNo, 6, SpringLayout.EAST, lblNewLabel_4);
+		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedPanNo, -53, SpringLayout.EAST, formPanel);
+		formPanel.add(instructorUpdatedPanNo);
+		instructorUpdatedPanNo.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("DOB:");
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel_5, 22, SpringLayout.SOUTH, lblNewLabel_4);
+		sl_formPanel.putConstraint(SpringLayout.EAST, lblNewLabel_5, 0, SpringLayout.EAST, lblNewLabel_1);
+		formPanel.add(lblNewLabel_5);
+		
+		instructorUpdatedDob = new JTextField();
+		sl_formPanel.putConstraint(SpringLayout.NORTH, instructorUpdatedDob, -3, SpringLayout.NORTH, lblNewLabel_5);
+		sl_formPanel.putConstraint(SpringLayout.WEST, instructorUpdatedDob, 6, SpringLayout.EAST, lblNewLabel_5);
+		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedDob, -53, SpringLayout.EAST, formPanel);
+		instructorUpdatedDob.setText("DD-MM-YYYY");
+		formPanel.add(instructorUpdatedDob);
+		instructorUpdatedDob.setColumns(10);
+		
+		JLabel lblNewLabel_7 = new JLabel("Email:");
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel_7, 23, SpringLayout.SOUTH, lblNewLabel_5);
+		sl_formPanel.putConstraint(SpringLayout.EAST, lblNewLabel_7, 0, SpringLayout.EAST, lblNewLabel_1);
+		formPanel.add(lblNewLabel_7);
+		
+		instructorUpdatedEmail = new JTextField();
+		sl_formPanel.putConstraint(SpringLayout.NORTH, instructorUpdatedEmail, -3, SpringLayout.NORTH, lblNewLabel_7);
+		sl_formPanel.putConstraint(SpringLayout.WEST, instructorUpdatedEmail, 6, SpringLayout.EAST, lblNewLabel_7);
+		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedEmail, -53, SpringLayout.EAST, formPanel);
+		formPanel.add(instructorUpdatedEmail);
+		instructorUpdatedEmail.setColumns(10);
+		
+		JLabel lblNewLabel_8 = new JLabel("Password:");
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel_8, 24, SpringLayout.SOUTH, lblNewLabel_7);
+		sl_formPanel.putConstraint(SpringLayout.EAST, lblNewLabel_8, 0, SpringLayout.EAST, lblNewLabel_1);
+		formPanel.add(lblNewLabel_8);
+		
+		instructorUpdatedPassword = new JTextField();
+		sl_formPanel.putConstraint(SpringLayout.NORTH, instructorUpdatedPassword, -3, SpringLayout.NORTH, lblNewLabel_8);
+		sl_formPanel.putConstraint(SpringLayout.WEST, instructorUpdatedPassword, 6, SpringLayout.EAST, lblNewLabel_8);
+		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedPassword, -53, SpringLayout.EAST, formPanel);
+		formPanel.add(instructorUpdatedPassword);
+		instructorUpdatedPassword.setColumns(10);
+		
+		JLabel lblNewLabel_9 = new JLabel("Module ID:");
+		sl_formPanel.putConstraint(SpringLayout.EAST, lblNewLabel_9, 0, SpringLayout.EAST, lblNewLabel_1);
+		formPanel.add(lblNewLabel_9);
+		
+		JComboBox instructorUpdatedModuleId = new JComboBox();
+		sl_formPanel.putConstraint(SpringLayout.WEST, instructorUpdatedModuleId, 6, SpringLayout.EAST, lblNewLabel_9);
+		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedModuleId, -53, SpringLayout.EAST, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel_9, 4, SpringLayout.NORTH, instructorUpdatedModuleId);
+		sl_formPanel.putConstraint(SpringLayout.NORTH, instructorUpdatedModuleId, 6, SpringLayout.SOUTH, instructorUpdatedPassword);
+		formPanel.add(instructorUpdatedModuleId);
+		
+		
+        Statement statement = JDBC.getStatement();
+		String query1 = "SELECT Course_ID FROM courses";
+        ResultSet resultSet1 = null;
+        try {
+        resultSet1 = statement.executeQuery(query1);
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }
+        List<String> courseIds = new ArrayList<>();
+        courseIds.add("Select Course");
+        try {
+        while (resultSet1.next()) {
+        try {
+        courseIds.add(resultSet1.getString("Course_ID"));
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }
+        }
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }
+		JLabel lblNewLabel_10 = new JLabel("Course ID:");
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel_10, 6, SpringLayout.SOUTH, lblNewLabel_9);
+		sl_formPanel.putConstraint(SpringLayout.EAST, lblNewLabel_10, 0, SpringLayout.EAST, lblNewLabel_1);
+		formPanel.add(lblNewLabel_10);
+		
+		JComboBox instructorUpdatedCourseId = new JComboBox();
+		sl_formPanel.putConstraint(SpringLayout.NORTH, instructorUpdatedCourseId, 6, SpringLayout.SOUTH, lblNewLabel_9);
+		sl_formPanel.putConstraint(SpringLayout.WEST, instructorUpdatedCourseId, 0, SpringLayout.WEST, instructorUpdatedAddress);
+		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedCourseId, -53, SpringLayout.EAST, formPanel);
+		formPanel.add(instructorUpdatedCourseId);
+	}
+}

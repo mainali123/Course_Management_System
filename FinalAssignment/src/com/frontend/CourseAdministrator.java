@@ -12,6 +12,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -20,6 +22,8 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -188,6 +192,94 @@ public class CourseAdministrator extends javax.swing.JFrame {
         });
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jTable1.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+                Object[] options = {"Update", "Delete"};
+                int n = JOptionPane.showOptionDialog(null, "Do you want to update or delete the selected instructor?", "Update or Delete Instructor", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+        	
+                if (n == 0) {   // Update
+                    var updateInstructor = new updateInstructor();
+                    updateInstructor.setVisible(true);
+                    JButton updateButton = updateInstructor.getInstructorUpdatedUpdateButton();
+
+                    String previousID1 = "";
+                    
+                    String previousName = "";
+                    String previousAddress = "";
+                    String previousExperience = "";
+                    String previousCitizenship = "";
+                    String previousPan = "";
+                    String previousDob = "";
+                    String previousEmail = "";
+                    String previousPassword = "";
+
+
+                    for (int columnIndex=0; columnIndex < jTable1.getColumnCount(); columnIndex++) {
+                        if (previousID1.isEmpty()){
+                            previousID1 = jTable1.getValueAt(jTable1.getSelectedRow(), columnIndex).toString();
+                        } else if(previousName.isEmpty()){
+                            previousName = jTable1.getValueAt(jTable1.getSelectedRow(), columnIndex).toString();
+                        } else if(previousAddress.isEmpty()){
+                            previousAddress = jTable1.getValueAt(jTable1.getSelectedRow(), columnIndex).toString();
+                        } else if(previousExperience.isEmpty()){
+                            previousExperience = jTable1.getValueAt(jTable1.getSelectedRow(), columnIndex).toString();
+                        } else if(previousCitizenship.isEmpty()){
+                            previousCitizenship = jTable1.getValueAt(jTable1.getSelectedRow(), columnIndex).toString();
+                        } else if(previousPan.isEmpty()){
+                            previousPan = jTable1.getValueAt(jTable1.getSelectedRow(), columnIndex).toString();
+                        } else if(previousDob.isEmpty()){
+                            previousDob = jTable1.getValueAt(jTable1.getSelectedRow(), columnIndex).toString();
+                        } else if(previousEmail.isEmpty()){
+                            previousEmail = jTable1.getValueAt(jTable1.getSelectedRow(), columnIndex).toString();
+                        } else if(previousPassword.isEmpty()){
+                            previousPassword = jTable1.getValueAt(jTable1.getSelectedRow(), columnIndex).toString();
+                        }
+
+                        // System.out.println(jTable1.getValueAt(jTable1.getSelectedRow(), columnIndex));
+                    }
+                    final String previousID = previousID1;
+
+                    updateInstructor.getInstructorUpdatedName().setText(previousName);
+                    updateInstructor.getInstructorUpdatedAddress().setText(previousAddress);
+                    updateInstructor.getInstructorUpdatedExperience().setText(previousExperience);
+                    updateInstructor.getInstructorUpdatedCitizenshipNo().setText(previousCitizenship);
+                    updateInstructor.getInstructorUpdatedPanNo().setText(previousPan);
+                    updateInstructor.getInstructorUpdatedDob().setText(previousDob);
+                    updateInstructor.getInstructorUpdatedEmail().setText(previousEmail);
+                    updateInstructor.getInstructorUpdatedPassword().setText(previousPassword);
+                    
+
+
+                    updateButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            String updatedName = updateInstructor.getInstructorUpdatedName().getText();
+                            String updatedAddress = updateInstructor.getInstructorUpdatedAddress().getText();
+                            String updatedExperience = updateInstructor.getInstructorUpdatedExperience().getText();
+                            String updatedCitizenship = updateInstructor.getInstructorUpdatedCitizenshipNo().getText();
+                            String updatedPan = updateInstructor.getInstructorUpdatedPanNo().getText();
+                            String updatedDob = updateInstructor.getInstructorUpdatedDob().getText();
+                            String updatedEmail = updateInstructor.getInstructorUpdatedEmail().getText();
+                            String updatedPassword = updateInstructor.getInstructorUpdatedPassword().getText();
+
+                            try {
+                                String updateQuery = "UPDATE instructor SET Name = '" + updatedName + "', Address = '" + updatedAddress + "', Year_of_experience = '" + updatedExperience + "', Citizenship_Number = '" + updatedCitizenship + "', Pan_number = '" + updatedPan + "', DOB = '" + updatedDob + "', Email_address = '" + updatedEmail + "', Password = '" + updatedPassword + "' WHERE Instructor_ID = '" + previousID + "'";
+                                Statement statement = JDBC.getStatement();
+                                statement.executeUpdate(updateQuery);
+                            } catch (Exception ex) {
+                                System.out.println(ex);
+                            }
+                        }
+                    });
+
+                    JOptionPane.showMessageDialog(null, "Data is updated");
+                } else {    // Delete
+
+                }
+            }
+        });
+        jTable1.setDefaultEditor(Object.class, null);
         jPanel12 = new javax.swing.JPanel();
         updateInstructorButton = new javax.swing.JButton();
         updateInstructorButton.addActionListener(new ActionListener() {
@@ -2350,8 +2442,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
 
     private void logoutStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         // TODO add your handling code here:
-    }                                                   
-
+    }
     /**
      * @param args the command line arguments
      */
@@ -2568,4 +2659,6 @@ public class CourseAdministrator extends javax.swing.JFrame {
     private String instructorModule1 = "";
     private String instructorCourseId = "";
     private String instructorId = "";
+
+
 }

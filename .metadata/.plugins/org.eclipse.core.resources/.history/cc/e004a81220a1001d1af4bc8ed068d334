@@ -1,0 +1,15 @@
+package com.frontend;
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+
+public class updateInstructot extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public updateInstructot() {
+
+	}
+
+}
