@@ -6,8 +6,14 @@ package com.frontend;
 
 import java.sql.*;
 import java.util.*;
+import java.util.List;
 
 import com.database.JDBC;
+import com.itextpdf.text.*;
+import com.itextpdf.text.log.Logger;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +29,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileOutputStream;
+
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -892,6 +900,66 @@ public class CourseAdministrator extends javax.swing.JFrame {
         });
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
+
+jTable4.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+                Object[] options = {"Generate", "Don't generate"};
+                int n = JOptionPane.showOptionDialog(null, "Do you want to Generate report of the selected student?", "Generate Report", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+        	
+                if (n == 0) {   // Generate
+                    String studentID = "";
+                    for (int columnIndex=0; columnIndex < jTable4.getColumnCount(); columnIndex++) {
+                        if (studentID.isEmpty()){
+                            studentID = jTable4.getValueAt(jTable4.getSelectedRow(), columnIndex).toString();
+                        }
+                    }
+
+                    Statement statement = JDBC.getStatement();
+                    String query = "SELECT * FROM report WHERE Student_ID = '" + studentID + "'";
+                    ResultSet rs = null;
+                    try {
+                        rs = statement.executeQuery(query);
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    try {
+                        Document document = new Document();
+                        PdfWriter.getInstance(document, new FileOutputStream("D:\\Report.pdf"));
+                        document.open();
+                        document.add(new Paragraph("Report of Student ID: " + studentID));
+
+                        // show marks obtained in all the modules of the student
+                        PdfPTable table = new PdfPTable(4);
+                        table.addCell("Student ID");
+                        table.addCell("Module Code");
+                        table.addCell("Course ID");
+                        table.addCell("Marks");
+
+                        while (rs.next()) {
+                            table.addCell(rs.getString("Student_ID"));
+                            table.addCell(rs.getString("Module_Code"));
+                            table.addCell(rs.getString("Course_ID"));
+                            table.addCell(rs.getString("Marks"));
+                        }
+
+                        document.add(table);
+                        document.close();
+                        JOptionPane.showMessageDialog(null, "Report is generated");
+                    } catch (Exception ex) {
+                        System.out.println(ex);
+                    }
+                } else {    // don't generate
+                    return;
+                }
+
+
+                
+            }
+        });
+        jTable4.setDefaultEditor(Object.class, null);
+
         jPanel27 = new javax.swing.JPanel();
         jToggleButton8 = new javax.swing.JToggleButton();
         jPanel24 = new javax.swing.JPanel();
