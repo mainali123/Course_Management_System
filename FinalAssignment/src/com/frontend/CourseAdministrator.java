@@ -976,6 +976,7 @@ jTable4.addMouseListener(new MouseAdapter() {
         });
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
+        jTable5.setDefaultEditor(Object.class, null);
         jPanel30 = new javax.swing.JPanel();
         jToggleButton10 = new javax.swing.JToggleButton();
 
