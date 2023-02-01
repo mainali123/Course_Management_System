@@ -1111,8 +1111,6 @@ public class Instructor extends javax.swing.JFrame {
 
     private void instructorLogoutButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                                        
         // TODO add your handling code here:
-    	this.dispose();
-        new LoginPanel().setVisible(true);
     }                                                       
 
     /**

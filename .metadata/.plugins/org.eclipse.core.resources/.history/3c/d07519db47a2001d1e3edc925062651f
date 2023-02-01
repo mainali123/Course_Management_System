@@ -998,8 +998,6 @@ public class Instructor extends javax.swing.JFrame {
 
     private void instructorLogoutButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                                        
         // TODO add your handling code here:
-    	this.dispose();
-        new LoginPanel().setVisible(true);
     }                                                       
 
     private void refreshReportActionPerformed(java.awt.event.ActionEvent evt) {                                              
@@ -1111,8 +1109,6 @@ public class Instructor extends javax.swing.JFrame {
 
     private void instructorLogoutButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                                        
         // TODO add your handling code here:
-    	this.dispose();
-        new LoginPanel().setVisible(true);
     }                                                       
 
     /**

@@ -36,28 +36,6 @@ public class Student extends javax.swing.JFrame {
         }
     );
 
-
-    public static void showReportDataInTableFromDb(){
-        Statement statement = JDBC.getStatement();
-
-        try {
-            String query = "SELECT Student_ID, Name, Email_address, Course_ID FROM student";
-            ResultSet result = statement.executeQuery(query);
-
-            while (result.next()) {
-                String studentIdFromDb = result.getString("Student_ID");
-                String studentNameFromDb = result.getString("Name");
-                String studentEmailFromDb = result.getString("Email_address");
-                String studentCourseIdFromDb = result.getString("Course_ID");
-
-                reportDefaultTableModel.addRow(new Object[]{studentIdFromDb, studentNameFromDb, studentEmailFromDb, studentCourseIdFromDb});
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-    
     /**
      * Creates new form Student
      */
@@ -351,15 +329,10 @@ public class Student extends javax.swing.JFrame {
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-    	DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
-        model.setRowCount(0);
-        showReportDataInTableFromDb();
     }                                         
 
     private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
-    	this.dispose();
-        new LoginPanel().setVisible(true);
     }                                              
 
     /**
