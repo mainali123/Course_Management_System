@@ -4,11 +4,154 @@
  */
 package com.frontend;
 
+import java.io.FileOutputStream;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import java.sql.*;
+import java.util.*;
+import java.util.List;
+
+import com.database.JDBC;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.FileOutputStream;
+
+
+import com.database.JDBC;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 /**
  *
  * @author Diwash
  */
 public class Instructor extends javax.swing.JFrame {
+
+    private static DefaultTableModel assignmentDefaultTableModel = new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Course ID", "Module ID", "Assignment Number", "Student ID", "Instructor ID", "Submission Status"
+        }
+    );
+
+    private static DefaultTableModel reportDefaultTableModel = new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Student ID", "Module code", "Course ID", "Marks"
+        }
+    );
+    
+
+    private static DefaultTableModel marksDefaultTableModel = new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Student ID", "Module ID", "Course_ID", "Marks"
+        }
+    );
+
+    public static void showAssignmentDataInTableFromDb() {
+        Statement statement = JDBC.getStatement();
+
+        try {
+            String query = "SELECT * FROM assignment ORDER BY Assignment_Number ASC";
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                String assignmentNumber = rs.getString("Assignment_Number");
+                String instructorId = rs.getString("Instructor_ID");
+                String courseId = rs.getString("Course_ID");
+                String moduleId = rs.getString("Module_code");
+                String studentID = rs.getString("Student_ID");
+                String submittedStatus = rs.getString("Submitted");
+
+                assignmentDefaultTableModel.addRow(new Object[] {courseId, moduleId, assignmentNumber, studentID, instructorId, submittedStatus});
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public static void showReportDataInTableFromDb() {
+        Statement statement = JDBC.getStatement();
+
+        try {
+            String query = "SELECT * FROM report";
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                String studentId = rs.getString("Student_ID");
+                String moduleCode = rs.getString("Module_code");
+                String courseId = rs.getString("Course_ID");
+                String marks = rs.getString("Marks");
+
+                reportDefaultTableModel.addRow(new Object[] {studentId, moduleCode, courseId, marks});
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void showMarksDataInTableFromDb() {
+        Statement statement = JDBC.getStatement();
+
+        try {
+            String query = "SELECT * FROM marks";
+
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                String studentId = rs.getString("Student_ID");
+                String moduleCode = rs.getString("Module_code");
+                String courseId = rs.getString("Course_ID");
+                String marks = rs.getString("Marks");
+
+                marksDefaultTableModel.addRow(new Object[] {studentId, moduleCode, courseId, marks});
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * Creates new form Instructor
@@ -40,11 +183,15 @@ public class Instructor extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         instructorCourseId = new javax.swing.JComboBox<>();
         assignmentNumberErrorMessage = new javax.swing.JLabel();
+        assignmentNumberErrorMessage.setVisible(false);
         courseIdErrorMessage = new javax.swing.JLabel();
+        courseIdErrorMessage.setVisible(false);
         moduleIdErrorMessage = new javax.swing.JLabel();
+        moduleIdErrorMessage.setVisible(false);
         jLabel7 = new javax.swing.JLabel();
         instructorModuleId = new javax.swing.JComboBox<>();
         instructorIdErrorMessage = new javax.swing.JLabel();
+        instructorIdErrorMessage.setVisible(false);
         jPanel8 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
@@ -131,7 +278,31 @@ public class Instructor extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Course ID:");
 
-        instructorInstructorId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        Statement statement = JDBC.getStatement();
+        String query3 = "SELECT Instructor_ID FROM instructor";
+        ResultSet resultSet = null;
+		try {
+			resultSet = statement.executeQuery(query3);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        List<String> instructorIds = new ArrayList<>();
+        instructorIds.add("Select Instructor ID");
+        try {
+            while (resultSet.next()) {
+                try {
+                    instructorIds.add(resultSet.getString("Instructor_ID"));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String[] instructorIdsArray = instructorIds.toArray(new String[0]);
+
+        instructorInstructorId.setModel(new javax.swing.DefaultComboBoxModel<>(instructorIdsArray));
         instructorInstructorId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 instructorInstructorIdActionPerformed(evt);
@@ -142,7 +313,29 @@ public class Instructor extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Instructor ID:");
 
-        instructorCourseId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        
+        String query = "SELECT Course_ID FROM courses";
+		try {
+			resultSet = statement.executeQuery(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        List<String> courseIds = new ArrayList<>();
+        courseIds.add("Select Courses");
+        try {
+            while(resultSet.next()) {
+                try{
+                courseIds.add(resultSet.getString("Course_ID"));
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+			e.printStackTrace();
+		}
+        String[] courseIdsArray = courseIds.toArray(new String[0]);
+        instructorCourseId.setModel(new javax.swing.DefaultComboBoxModel<>(courseIdsArray));
         instructorCourseId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 instructorCourseIdActionPerformed(evt);
@@ -165,7 +358,30 @@ public class Instructor extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Module ID:");
 
-        instructorModuleId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        String query2 = "SELECT Module_code FROM module";
+        try {
+            resultSet = statement.executeQuery(query2);
+        } catch (SQLException e) {
+            e.printStackTrace();
+		}
+        List<String> moduleIds = new ArrayList<>();
+        moduleIds.add("Select Modules");
+        try {
+            while(resultSet.next()) {
+                try{
+                    moduleIds.add(resultSet.getString("Module_code"));
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String[] moduleIdsArray = moduleIds.toArray(new String[0]);
+
+
+        instructorModuleId.setModel(new javax.swing.DefaultComboBoxModel<>(moduleIdsArray));
         instructorModuleId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 instructorModuleIdActionPerformed(evt);
@@ -297,29 +513,7 @@ public class Instructor extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Course ID", "Module ID", "Citizenship Number", "Assignment Number", "Student ID", "Instructor ID", "Submission Status"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable1.setModel(assignmentDefaultTableModel);
         jScrollPane1.setViewportView(jTable1);
 
         jPanel12.setBackground(new java.awt.Color(23, 23, 23));
@@ -459,30 +653,66 @@ public class Instructor extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jTable4.setModel(reportDefaultTableModel);
+        jScrollPane4.setViewportView(jTable4);
 
-            },
-            new String [] {
-                "Student ID", "Name", "Email", "Course_ID"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
-            };
+        jTable4.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+                Object[] options = {"Generate", "Don't generate"};
+                int n = JOptionPane.showOptionDialog(null, "Do you want to Generate report of the selected student?", "Generate Report", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+        	
+                if (n == 0) {   // Generate
+                    String studentID = "";
+                    for (int columnIndex=0; columnIndex < jTable4.getColumnCount(); columnIndex++) {
+                        if (studentID.isEmpty()){
+                            studentID = jTable4.getValueAt(jTable4.getSelectedRow(), columnIndex).toString();
+                        }
+                    }
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
+                    Statement statement = JDBC.getStatement();
+                    String query = "SELECT * FROM report WHERE Student_ID = '" + studentID + "'";
+                    ResultSet rs = null;
+                    try {
+                        rs = statement.executeQuery(query);
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                    try {
+                        Document document = new Document();
+                        PdfWriter.getInstance(document, new FileOutputStream("D:\\Report.pdf"));
+                        document.open();
+                        document.add(new Paragraph("Report of Student ID: " + studentID));
+
+                        // show marks obtained in all the modules of the student
+                        PdfPTable table = new PdfPTable(4);
+                        table.addCell("Student ID");
+                        table.addCell("Module Code");
+                        table.addCell("Course ID");
+                        table.addCell("Marks");
+
+                        while (rs.next()) {
+                            table.addCell(rs.getString("Student_ID"));
+                            table.addCell(rs.getString("Module_Code"));
+                            table.addCell(rs.getString("Course_ID"));
+                            table.addCell(rs.getString("Marks"));
+                        }
+
+                        document.add(table);
+                        document.close();
+                        JOptionPane.showMessageDialog(null, "Report is generated");
+                    } catch (Exception ex) {
+                        System.out.println(ex);
+                    }
+                } else {    // don't generate
+                    return;
+                }
+
+
+                
             }
         });
-        jScrollPane4.setViewportView(jTable4);
 
         jPanel27.setBackground(new java.awt.Color(23, 23, 23));
         jPanel27.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(35, 35, 35), 4, true));
@@ -617,30 +847,74 @@ public class Instructor extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Student ID", "Module ID", "Course_ID", "Marks"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable5.setModel(marksDefaultTableModel);
         jScrollPane5.setViewportView(jTable5);
+
+        jTable5.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+                Object[] options = {"Update", "no"};
+                int n = JOptionPane.showOptionDialog(null, "Do you want to update the selected marks?", "Update marks", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+        	
+                if (n == 0) {   // Update
+                    var updateMarks = new updateMarks();
+                    updateMarks.setVisible(true);
+                    JButton updateButton = updateMarks.getMarksUpdatedUpdateButton();
+
+                    String courseID1 = "";
+                    String sid = "";
+                    String moduleID = "";
+
+                    String previousMarks = "";
+                    Statement statement = JDBC.getStatement();
+
+                    
+
+                    for (int columnIndex=0; columnIndex < jTable5.getColumnCount(); columnIndex++) {
+                        if (sid.isEmpty()){
+                            sid = jTable5.getValueAt(jTable5.getSelectedRow(), columnIndex).toString();
+                        } else if (moduleID.isEmpty()){
+                            moduleID = jTable5.getValueAt(jTable5.getSelectedRow(), columnIndex).toString();
+                        } else if (courseID1.isEmpty()){
+                            courseID1 = jTable5.getValueAt(jTable5.getSelectedRow(), columnIndex).toString();
+                        } else if (previousMarks.isEmpty()){
+                            previousMarks = jTable5.getValueAt(jTable5.getSelectedRow(), columnIndex).toString();
+                        }
+
+                    }
+                    final String previousID = courseID1;
+                    final String previousSid = sid;
+                    final String previousModuleID = moduleID;
+
+                    updateMarks.getMarksUpdatedMarks().setText(previousMarks);
+
+                    updateButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                            String updatedMarks = updateMarks.getMarksUpdatedMarks().getText();
+
+
+                            try {
+                                String updateQuery = "UPDATE marks SET Marks = '" + updatedMarks + "' WHERE Student_ID = '" + previousSid + "' AND Module_Code = '" + previousModuleID + "' AND Course_ID = '" + previousID + "'";
+                                statement.executeUpdate(updateQuery);
+                                JOptionPane.showMessageDialog(null, "Data is updated");
+                            } catch (Exception ex) {
+                                System.out.println(ex);
+                            }
+                        }
+                    });
+
+                    
+                } else {    // Delete
+                    // do nothing
+
+                    return;
+                }
+                
+            }});
+
+
 
         jPanel30.setBackground(new java.awt.Color(23, 23, 23));
         jPanel30.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(35, 35, 35), 4, true));
@@ -750,6 +1024,9 @@ public class Instructor extends javax.swing.JFrame {
 
     private void refreshReportActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
+    	DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
+        model.setRowCount(0);
+    	showReportDataInTableFromDb();
     }                                             
 
     private void jTextField38ActionPerformed(java.awt.event.ActionEvent evt) {                                             
@@ -762,6 +1039,9 @@ public class Instructor extends javax.swing.JFrame {
 
     private void refreshAssignmentActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         // TODO add your handling code here:
+    	DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+    	showAssignmentDataInTableFromDb();
     }                                                 
 
     private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {                                             
@@ -770,6 +1050,58 @@ public class Instructor extends javax.swing.JFrame {
 
     private void instructorAddAssignmentActionPerformed(java.awt.event.ActionEvent evt) {                                                        
         // TODO add your handling code here:
+        String assignmentId = instructorAssignmentNumber.getText();
+        String courseId = instructorCourseId.getSelectedItem().toString();
+        String moduleId = instructorModuleId.getSelectedItem().toString();
+        String instructorId = instructorInstructorId.getSelectedItem().toString();
+
+        if (assignmentId.equals("Enter Assignment Number") || courseId.equals("Select Courses") || moduleId.equals("Select Modules") || instructorId.equals("Select Instructor ID")) {
+            if(assignmentId.equals("Enter Assignment Number")){
+                assignmentNumberErrorMessage.setVisible(true);
+            } else {
+                assignmentNumberErrorMessage.setVisible(false);
+            } 
+            if(courseId.equals("Select Courses")){
+                courseIdErrorMessage.setVisible(true);
+            } else {
+                courseIdErrorMessage.setVisible(false);
+            }
+            if(moduleId.equals("Select Modules")){
+                moduleIdErrorMessage.setVisible(true);
+            } else {
+                moduleIdErrorMessage.setVisible(false);
+            }
+            if(instructorId.equals("Select Instructor ID")){
+                instructorIdErrorMessage.setVisible(true);
+            } else {
+                instructorIdErrorMessage.setVisible(false);
+            }
+        } else {
+            try {
+                Statement statement = JDBC.getStatement();
+
+                String query = "SELECT Student_ID FROM student";
+                ResultSet rs = statement.executeQuery(query);
+                ArrayList<String> studentIdList = new ArrayList<String>();
+                while (rs.next()) {
+                    String studentId = rs.getString("Student_ID");
+
+                    studentIdList.add(studentId);
+            }
+
+            for (String studentId : studentIdList) {
+                String query_ = "INSERT INTO assignment (Course_ID, Module_code, Assignment_Number, Student_ID, Instructor_ID, Submitted) VALUES ('" + courseId + "', '" + moduleId + "', '" + assignmentId + "', '" + studentId + "', '" + instructorId + "', NULL)";
+                statement.executeUpdate(query_);
+            }
+            
+            JOptionPane.showMessageDialog(null, "Assignment added successfully");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error in adding assignment");
+
+        }
+    }
     }                                                       
 
     private void instructorInstructorIdActionPerformed(java.awt.event.ActionEvent evt) {                                                       
@@ -790,6 +1122,9 @@ public class Instructor extends javax.swing.JFrame {
 
     private void refreshMarksActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
+    	DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
+        model.setRowCount(0);
+    	showMarksDataInTableFromDb();
     }                                            
 
     private void instructorLogoutButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                                        

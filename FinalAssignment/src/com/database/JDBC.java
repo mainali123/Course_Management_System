@@ -32,9 +32,9 @@ public class JDBC {
 		return connection;
 	}
 
-	public static Statement getStatement() {
+	public static com.mysql.cj.api.jdbc.Statement getStatement() {
 		try {
-			return connection.createStatement();
+			return (com.mysql.cj.api.jdbc.Statement) connection.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
