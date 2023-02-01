@@ -1,16 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.frontend;
-
+/*
+ * login email = diwash@mainali.com
+ * login password = diwash
+ */
+// Importing all the required packages
 import java.sql.*;
 import java.util.*;
 import java.util.List;
 
 import com.database.JDBC;
 import com.itextpdf.text.*;
-import com.itextpdf.text.log.Logger;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
@@ -31,7 +30,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileOutputStream;
 
-import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -41,9 +39,9 @@ import javax.swing.DefaultComboBoxModel;
 
 
 
-public class CourseAdministrator extends javax.swing.JFrame {
+public class CourseAdministrator extends javax.swing.JFrame {   // Course Administrator class 
 
-    private static DefaultTableModel instructorDefaultTableModel = new javax.swing.table.DefaultTableModel(
+    private static DefaultTableModel instructorDefaultTableModel = new javax.swing.table.DefaultTableModel( // Creating a table model for instructor table 
         new Object [][] {
 
         },
@@ -52,7 +50,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
         }
     );
 
-    private static DefaultTableModel studentDefaultTableModel = new DefaultTableModel(
+    private static DefaultTableModel studentDefaultTableModel = new DefaultTableModel(  // Creating a table model for student table
         new Object[][] {
         },
         new String[] {
@@ -60,7 +58,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
         }
     );
 
-    private static DefaultTableModel courseDefaultTableModel = new javax.swing.table.DefaultTableModel(
+    private static DefaultTableModel courseDefaultTableModel = new javax.swing.table.DefaultTableModel( // Creating a table model for course table
         new Object [][] {
 
         },
@@ -69,7 +67,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
         }
     );
 
-    private static DefaultTableModel moduleDefaultTableModel = new javax.swing.table.DefaultTableModel(
+    private static DefaultTableModel moduleDefaultTableModel = new javax.swing.table.DefaultTableModel( // Creating a table model for module table
         new Object [][] {
 
         },
@@ -78,7 +76,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
         }
     );
 
-    private static DefaultTableModel reportDefaultTableModel = new javax.swing.table.DefaultTableModel(
+    private static DefaultTableModel reportDefaultTableModel = new javax.swing.table.DefaultTableModel( // Creating a table model for report table
         new Object [][] {
 
         },
@@ -97,20 +95,19 @@ public class CourseAdministrator extends javax.swing.JFrame {
     );
 
 
-    public static void showDataInTableFromDb(){
-        Statement statement = JDBC.getStatement();
+    public static void showDataInTableFromDb(){ // Method to show data in table from database 
+        Statement statement = JDBC.getStatement();  // Creating a statement object to execute the query
 
     try {
-        // SELECT statement for joining instructor_module and instructor tables
         String joinQuery = "SELECT instructor.*, instructor_module.* " + 
                            "FROM instructor " + 
                            "INNER JOIN instructor_module " + 
                            "ON instructor.Instructor_ID = instructor_module.Instructor_ID";
     
-        ResultSet result = statement.executeQuery(joinQuery);
+        ResultSet result = statement.executeQuery(joinQuery);   // Executing the query
         
         while (result.next()) {
-            String instructorIdFromDb = result.getString("Instructor.Instructor_ID");
+            String instructorIdFromDb = result.getString("Instructor.Instructor_ID");   // Getting the data from the database
             String instructorNameFromDb = result.getString("Instructor.Name");
             String instructorAddressFromDb = result.getString("Instructor.Address");
             String instructorExperienceFromDb = result.getString("Instructor.Year_of_experience");
@@ -123,11 +120,11 @@ public class CourseAdministrator extends javax.swing.JFrame {
             String instructorModuleCodeFromDb = result.getString("instructor_module.Module_code");
             String instructorCourseIdFromDb = result.getString("instructor_module.Course_ID");
     
-            instructorDefaultTableModel.addRow(new Object[]{instructorIdFromDb, instructorNameFromDb, instructorAddressFromDb, instructorExperienceFromDb, instructorCitizenshipFromDb, instructorPanFromDb, instructorDobFromDb, instructorEmailFromDb, instructorPasswordFromDb, instructorModuleCodeFromDb, instructorCourseIdFromDb});
+            instructorDefaultTableModel.addRow(new Object[]{instructorIdFromDb, instructorNameFromDb, instructorAddressFromDb, instructorExperienceFromDb, instructorCitizenshipFromDb, instructorPanFromDb, instructorDobFromDb, instructorEmailFromDb, instructorPasswordFromDb, instructorModuleCodeFromDb, instructorCourseIdFromDb});  // Adding the data to the table
         }
-        result.close();
+        result.close(); // Closing the result set
     } catch (SQLException e) {
-        e.printStackTrace();
+        e.printStackTrace();    // Printing the error
     }
     }    
 
@@ -150,21 +147,10 @@ public class CourseAdministrator extends javax.swing.JFrame {
                 String studentPasswordFromDb = result.getString("College_email_address_password");
                 String studentCourseIdFromDb = result.getString("Course_ID");
 
-                // System.out.println(studentIdFromDb);
-                // System.out.println(studentNameFromDb);
-                // System.out.println(studentAddressFromDb);
-                // System.out.println(studentDobFromDb);
-                // System.out.println(studentCitizenshipFromDb);
-                // System.out.println(studentEmailFromDb);
-                // System.out.println(studentCollegeEmailFromDb);
-                // System.out.println(studentPasswordFromDb);
-                // System.out.println(studentCourseIdFromDb);
-
                 studentDefaultTableModel.addRow(new Object[]{studentIdFromDb, studentNameFromDb, studentAddressFromDb, studentEmailFromDb, studentCitizenshipFromDb, studentDobFromDb, studentCollegeEmailFromDb, studentPasswordFromDb, studentCourseIdFromDb});
 
             }
     } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -182,12 +168,8 @@ public class CourseAdministrator extends javax.swing.JFrame {
                 String courseNameFromDb = result.getString("Course_name");
 
                 courseDefaultTableModel.addRow(new Object[]{courseIdFromDb, courseNameFromDb});
-
-                // System.out.println(courseIdFromDb);
-                // System.out.println(courseNameFromDb);
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -205,13 +187,8 @@ public class CourseAdministrator extends javax.swing.JFrame {
                 String moduleCourseFromDb = result.getString("Course_ID");
 
                 moduleDefaultTableModel.addRow(new Object[]{moduleIdFromDb, moduleNameFromDb, moduleCourseFromDb});
-
-                // System.out.println(moduleIdFromDb);
-                // System.out.println(moduleNameFromDb);
-                // System.out.println(moduleCourseFromDb);
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -266,16 +243,9 @@ public class CourseAdministrator extends javax.swing.JFrame {
      * Creates new form CourseAdministrator
      */
     public CourseAdministrator() {
-        initComponents();
+        initComponents(); 
     }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jLabel23 = new javax.swing.JLabel();
@@ -336,18 +306,15 @@ public class CourseAdministrator extends javax.swing.JFrame {
         searchInstructorButton = new javax.swing.JButton();
         searchInstructorButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                // Search Instructor by using the value in the search text field "instructorSearchTextField" and display the result in the table
-                String instructorSearchValue = instructorSearchTextField.getText();
                 
-                // Clear the table
-                instructorDefaultTableModel.setRowCount(0);
+                String instructorSearchValue = instructorSearchTextField.getText(); // Get the search value from the text field 
+                
+                instructorDefaultTableModel.setRowCount(0); // Clear the table before adding new data
 
-                // Search the instructor in the database
                 try {
-                    // SELECT statement for joining instructor_module and instructor tables
                     String joinQuery = "SELECT instructor.* " + 
                                        "FROM instructor " + 
-                                       "WHERE instructor.name LIKE '%" + instructorSearchValue + "%'";
+                                       "WHERE instructor.name LIKE '%" + instructorSearchValue + "%'";  // Search query 
                     Statement statement = JDBC.getStatement();
                     ResultSet rs = statement.executeQuery(joinQuery);
     
@@ -364,8 +331,8 @@ public class CourseAdministrator extends javax.swing.JFrame {
                         // String modId = rs.getString("Module_code");
                         // String courseId = rs.getString("Course_ID");
     
-                        Object[] row = {id, name, address, experience, citNo, panNo, dob, email, pass};
-                        instructorDefaultTableModel.addRow(row);
+                        Object[] row = {id, name, address, experience, citNo, panNo, dob, email, pass}; 
+                        instructorDefaultTableModel.addRow(row);    // Add the row to the table
                     }
                 } catch (Exception ex) {
                     System.out.println(ex);
@@ -377,7 +344,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jTable1.addMouseListener(new MouseAdapter() {
         	@Override
-        	public void mouseClicked(MouseEvent e) {
+        	public void mouseClicked(MouseEvent e) {    // When a row is clicked
                 Object[] options = {"Update", "Delete"};
                 int n = JOptionPane.showOptionDialog(null, "Do you want to update or delete the selected instructor?", "Update or Delete Instructor", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
         	
