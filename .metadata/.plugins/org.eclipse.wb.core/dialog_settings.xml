@@ -18,4 +18,10 @@
 		<item key="width" value="700"/>
 		<item key="height" value="375"/>
 	</section>
+	<section name="org.eclipse.wb.internal.swing.model.property.editor.models.table.TableModelDialog">
+		<item key="x" value="481"/>
+		<item key="y" value="175"/>
+		<item key="width" value="958"/>
+		<item key="height" value="670"/>
+	</section>
 </section>

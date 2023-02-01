@@ -235,7 +235,7 @@ public class updateInstructor extends JDialog {
 		sl_formPanel.putConstraint(SpringLayout.NORTH, instructorUpdatedDob, -3, SpringLayout.NORTH, lblNewLabel_5);
 		sl_formPanel.putConstraint(SpringLayout.WEST, instructorUpdatedDob, 6, SpringLayout.EAST, lblNewLabel_5);
 		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedDob, -53, SpringLayout.EAST, formPanel);
-		instructorUpdatedDob.setText("DD-MM-YYYY");
+		instructorUpdatedDob.setText("DD/MM/YYYY");
 		formPanel.add(instructorUpdatedDob);
 		instructorUpdatedDob.setColumns(10);
 		
@@ -262,55 +262,5 @@ public class updateInstructor extends JDialog {
 		sl_formPanel.putConstraint(SpringLayout.EAST, instructorUpdatedPassword, -53, SpringLayout.EAST, formPanel);
 		formPanel.add(instructorUpdatedPassword);
 		instructorUpdatedPassword.setColumns(10);
-		
-		
-		Statement statement = JDBC.getStatement();
-		String query = "SELECT Module_code FROM module";
-        ResultSet resultSet = null;
-		try {
-			resultSet = statement.executeQuery(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        List<String> moduleCodes = new ArrayList<>();
-        moduleCodes.add("Select Modules");
-        try {
-			while (resultSet.next()) {
-			try {
-				moduleCodes.add(resultSet.getString("Module_code"));
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        String[] moduleCodeArray = moduleCodes.toArray(new String[0]);
-		
-		
-		String query1 = "SELECT Course_ID FROM courses";
-        ResultSet resultSet1 = null;
-        try {
-        resultSet1 = statement.executeQuery(query1);
-        } catch (SQLException e) {
-        e.printStackTrace();
-        }
-        List<String> courseIds = new ArrayList<>();
-        courseIds.add("Select Course");
-        try {
-        while (resultSet1.next()) {
-        try {
-        courseIds.add(resultSet1.getString("Course_ID"));
-        } catch (SQLException e) {
-        e.printStackTrace();
-        }
-        }
-        } catch (SQLException e) {
-        e.printStackTrace();
-        }
-        String[] courseIdArray = courseIds.toArray(new String[0]);
 	}
 }

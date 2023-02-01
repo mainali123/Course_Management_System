@@ -44,6 +44,50 @@ public class CourseAdministrator extends javax.swing.JFrame {
         }
     );
 
+    private static DefaultTableModel studentDefaultTableModel = new DefaultTableModel(
+        new Object[][] {
+        },
+        new String[] {
+            "Student ID", "Name", "Address", "Email", "Citizenship Number", "DOB", "College Email", "Password", "Course ID"
+        }
+    );
+
+    private static DefaultTableModel courseDefaultTableModel = new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Course ID", "Course Name"
+        }
+    );
+
+    private static DefaultTableModel moduleDefaultTableModel = new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Module Code", "Module Name", "Course_ID"
+        }
+    );
+
+    private static DefaultTableModel reportDefaultTableModel = new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Student ID", "Name", "Email", "Course_ID"
+        }
+    );
+
+    private static DefaultTableModel studentDetailsDefaultTableModel = new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Student ID", "Name", "Email", "Address", "Citizenship Number", "DOB", "Course_ID"
+        }
+    );
+
 
     public static void showDataInTableFromDb(){
         Statement statement = JDBC.getStatement();
@@ -78,7 +122,138 @@ public class CourseAdministrator extends javax.swing.JFrame {
         e.printStackTrace();
     }
     }    
-    
+
+    public static void showStudentDataInTableFromDb(){
+        Statement statement = JDBC.getStatement();
+
+        
+        try {
+            String query = "SELECT * FROM student";
+            ResultSet result = statement.executeQuery(query);
+
+            while (result.next()) {
+                String studentIdFromDb = result.getString("Student_ID");
+                String studentNameFromDb = result.getString("Name");
+                String studentAddressFromDb = result.getString("Address");
+                String studentDobFromDb = result.getString("DOB");
+                String studentCitizenshipFromDb = result.getString("Citizenship_Number");
+                String studentEmailFromDb = result.getString("Email_address");
+                String studentCollegeEmailFromDb = result.getString("College_email_address");
+                String studentPasswordFromDb = result.getString("College_email_address_password");
+                String studentCourseIdFromDb = result.getString("Course_ID");
+
+                // System.out.println(studentIdFromDb);
+                // System.out.println(studentNameFromDb);
+                // System.out.println(studentAddressFromDb);
+                // System.out.println(studentDobFromDb);
+                // System.out.println(studentCitizenshipFromDb);
+                // System.out.println(studentEmailFromDb);
+                // System.out.println(studentCollegeEmailFromDb);
+                // System.out.println(studentPasswordFromDb);
+                // System.out.println(studentCourseIdFromDb);
+
+                studentDefaultTableModel.addRow(new Object[]{studentIdFromDb, studentNameFromDb, studentAddressFromDb, studentEmailFromDb, studentCitizenshipFromDb, studentDobFromDb, studentCollegeEmailFromDb, studentPasswordFromDb, studentCourseIdFromDb});
+
+            }
+    } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void showCoursesDataInTableFromDb(){
+        Statement statement = JDBC.getStatement();
+
+        try {
+            String query = "SELECT * FROM courses";
+            ResultSet result = statement.executeQuery(query);
+
+            while (result.next()) {
+                String courseIdFromDb = result.getString("Course_ID");
+                String courseNameFromDb = result.getString("Course_name");
+
+                courseDefaultTableModel.addRow(new Object[]{courseIdFromDb, courseNameFromDb});
+
+                // System.out.println(courseIdFromDb);
+                // System.out.println(courseNameFromDb);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void showModulesDataInTableFromDb(){
+        Statement statement = JDBC.getStatement();
+
+        try {
+            String query = "SELECT * FROM module";
+            ResultSet result = statement.executeQuery(query);
+
+            while (result.next()) {
+                String moduleIdFromDb = result.getString("Module_code");
+                String moduleNameFromDb = result.getString("Module_name");
+                String moduleCourseFromDb = result.getString("Course_ID");
+
+                moduleDefaultTableModel.addRow(new Object[]{moduleIdFromDb, moduleNameFromDb, moduleCourseFromDb});
+
+                // System.out.println(moduleIdFromDb);
+                // System.out.println(moduleNameFromDb);
+                // System.out.println(moduleCourseFromDb);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void showReportDataInTableFromDb(){
+        Statement statement = JDBC.getStatement();
+
+        try {
+            String query = "SELECT Student_ID, Name, Email_address, Course_ID FROM student";
+            ResultSet result = statement.executeQuery(query);
+
+            while (result.next()) {
+                String studentIdFromDb = result.getString("Student_ID");
+                String studentNameFromDb = result.getString("Name");
+                String studentEmailFromDb = result.getString("Email_address");
+                String studentCourseIdFromDb = result.getString("Course_ID");
+
+                reportDefaultTableModel.addRow(new Object[]{studentIdFromDb, studentNameFromDb, studentEmailFromDb, studentCourseIdFromDb});
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void showStudentDetailsDataInTableFromDb(){
+        Statement statement = JDBC.getStatement();
+
+        try {
+            String query = "SELECT * FROM student";
+            ResultSet result = statement.executeQuery(query);
+
+            while (result.next()) {
+            String studentIdFromDb = result.getString("Student_ID");
+            String studentNameFromDb = result.getString("Name");
+            String studentAddressFromDb = result.getString("Address");
+            String studentDobFromDb = result.getString("DOB");
+            String studentCitizenshipFromDb = result.getString("Citizenship_Number");
+            String studentEmailFromDb = result.getString("Email_address");
+            String studentCourseIdFromDb = result.getString("Course_ID");
+
+            studentDetailsDefaultTableModel.addRow(new Object[]{studentIdFromDb, studentNameFromDb, studentEmailFromDb, studentAddressFromDb,  studentCitizenshipFromDb, studentDobFromDb, studentCourseIdFromDb});
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+
     /**
      * Creates new form CourseAdministrator
      */
@@ -350,10 +525,122 @@ public class CourseAdministrator extends javax.swing.JFrame {
         searchStudentButton = new javax.swing.JButton();
         searchStudentButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+                
         	}
         });
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable6 = new javax.swing.JTable();
+
+        jTable6.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+                Object[] options = {"Update", "Delete"};
+                int n = JOptionPane.showOptionDialog(null, "Do you want to update or delete the selected student?", "Update or Delete Instructor", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+        	
+                if (n == 0) {   // Update
+                    var updateStudent = new updateStudent();
+                    updateStudent.setVisible(true);
+                    JButton updateButton = updateStudent.getStudentUpdatedUpdateButton();
+
+                    String previousID1 = "";
+                    
+                    String previousName = "";
+                    String previousAddress = "";
+                    String previousCitizenship = "";
+                    String previousDob = "";
+                    String previousEmail = "";
+                    String previousCollegeEmail = "";
+                    String previousPassword = "";
+                    Statement statement = JDBC.getStatement();
+
+                    for (int columnIndex=0; columnIndex < jTable6.getColumnCount(); columnIndex++) {
+                        if (previousID1.isEmpty()){
+                            previousID1 = jTable6.getValueAt(jTable6.getSelectedRow(), columnIndex).toString();
+                        } else if(previousName.isEmpty()){
+                            previousName = jTable6.getValueAt(jTable6.getSelectedRow(), columnIndex).toString();
+                        } else if(previousAddress.isEmpty()){
+                            previousAddress = jTable6.getValueAt(jTable6.getSelectedRow(), columnIndex).toString();
+                        } else if(previousCitizenship.isEmpty()){
+                            previousCitizenship = jTable6.getValueAt(jTable6.getSelectedRow(), columnIndex).toString();
+                        } else if(previousDob.isEmpty()){
+                            previousDob = jTable6.getValueAt(jTable6.getSelectedRow(), columnIndex).toString();
+                        } else if(previousEmail.isEmpty()){
+                            previousEmail = jTable6.getValueAt(jTable6.getSelectedRow(), columnIndex).toString();
+                        } else if(previousCollegeEmail.isEmpty()){
+                            previousCollegeEmail = jTable6.getValueAt(jTable6.getSelectedRow(), columnIndex).toString();
+                        } else if(previousPassword.isEmpty()){
+                            previousPassword = jTable6.getValueAt(jTable6.getSelectedRow(), columnIndex).toString();
+                        }
+
+                    }
+                    final String previousID = previousID1;
+
+                    updateStudent.getStudentUpdatedName().setText(previousName);
+                    updateStudent.getStudentUpdatedAddress().setText(previousAddress);
+                    updateStudent.getStudentUpdatedCitizenshipNo().setText(previousCitizenship);
+                    updateStudent.getStudentUpdatedDob().setText(previousDob);
+                    updateStudent.getStudentUpdatedEmail().setText(previousEmail);
+                    updateStudent.getStudentUpdatedCollegeEmail().setText(previousCollegeEmail);
+                    updateStudent.getStudentUpdatedPassword().setText(previousPassword);
+                    
+
+
+                    updateButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                            String updatedName = updateStudent.getStudentUpdatedName().getText();
+                            String updatedAddress = updateStudent.getStudentUpdatedAddress().getText();
+                            String updatedCitizenship = updateStudent.getStudentUpdatedCitizenshipNo().getText();
+                            String updatedDob = updateStudent.getStudentUpdatedDob().getText();
+                            String updatedEmail = updateStudent.getStudentUpdatedEmail().getText();
+                            String updatedCollegeEmail = updateStudent.getStudentUpdatedCollegeEmail().getText();
+                            String updatedPassword = updateStudent.getStudentUpdatedPassword().getText();
+
+
+                            try {
+                                String updateQuery = "UPDATE student SET Name = '" + updatedName + "', Address = '" + updatedAddress + "', Citizenship_Number = '" + updatedCitizenship + "', DOB = '" + updatedDob + "', Email_address = '" + updatedEmail + "', College_email_address = '" + updatedCollegeEmail + "', College_email_address_password = '" + updatedPassword + "' WHERE Student_ID = '" + previousID + "'";
+                                statement.executeUpdate(updateQuery);
+                                JOptionPane.showMessageDialog(null, "Data is updated");
+                            } catch (Exception ex) {
+                                System.out.println(ex);
+                            }
+                        }
+                    });
+
+                    
+                } else {    // Delete
+
+                    String Id = "";
+                    for (int columnIndex=0; columnIndex < jTable6.getColumnCount(); columnIndex++) {
+                        if (Id.isEmpty()){
+                            Id = jTable6.getValueAt(jTable6.getSelectedRow(), columnIndex).toString();
+                        }
+                    }
+
+                    Statement statement = JDBC.getStatement();
+                    String deleteQuery1 = "DELETE FROM marks WHERE Student_ID = '" + Id + "'";
+                    String deleteQuery2 = "DELETE FROM report WHERE Student_ID = '" + Id + "'";
+                    String deleteQuery3 = "DELETE FROM student_module WHERE Student_ID = '" + Id + "'";
+                    String deleteQuery4 = "DELETE FROM student_course WHERE Student_ID = '" + Id + "'";
+                    String deleteQuery5 = "DELETE FROM student WHERE Student_ID = '" + Id + "'";
+
+
+                    try {
+                        statement.executeUpdate(deleteQuery1);
+                        statement.executeUpdate(deleteQuery2);
+                        statement.executeUpdate(deleteQuery3);
+                        statement.executeUpdate(deleteQuery4);
+                        statement.executeUpdate(deleteQuery5);
+                        JOptionPane.showMessageDialog(null, "Data is deleted");
+                    } catch (Exception ex) {
+                        System.out.println(ex);
+                    }
+                }
+            }
+        });
+        jTable6.setDefaultEditor(Object.class, null);
+
         jPanel32 = new javax.swing.JPanel();
         logoutStudentButton = new javax.swing.JToggleButton();
         jPanel13 = new javax.swing.JPanel();
@@ -364,15 +651,114 @@ public class CourseAdministrator extends javax.swing.JFrame {
         addCourseButton = new javax.swing.JButton();
         jLabel64 = new javax.swing.JLabel();
         courseCourseNameErrorMessage = new javax.swing.JLabel();
+        courseCourseNameErrorMessage.setVisible(false);
         courseCourseIdErrorMessage = new javax.swing.JLabel();
+        courseCourseIdErrorMessage.setVisible(false);
         jPanel15 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         courseSearchTextField = new javax.swing.JTextField();
         refreshCourseButton = new javax.swing.JButton();
         searchCourseButton = new javax.swing.JButton();
+        searchCourseButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+
+        	}
+        });
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+
+        jTable2.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+                Object[] options = {"Update", "Delete"};
+                int n = JOptionPane.showOptionDialog(null, "Do you want to update or delete the selected student?", "Update or Delete Instructor", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+        	
+                if (n == 0) {   // Update
+                    var updateCourses = new updateCourses();
+                    updateCourses.setVisible(true);
+                    JButton updateButton = updateCourses.getCoursesUpdatedUpdateButton();
+
+                    String courseID1 = "";
+                    String previousName = "";
+                    Statement statement = JDBC.getStatement();
+
+                    
+
+                    for (int columnIndex=0; columnIndex < jTable2.getColumnCount(); columnIndex++) {
+                        if (courseID1.isEmpty()){
+                            courseID1 = jTable2.getValueAt(jTable2.getSelectedRow(), columnIndex).toString();
+                        } else if(previousName.isEmpty()){
+                            previousName = jTable2.getValueAt(jTable2.getSelectedRow(), columnIndex).toString();
+                        }
+
+                    }
+                    final String previousID = courseID1;
+
+                    updateCourses.getCoursesUpdatedCourseName().setText(previousName);
+                    updateCourses.getCoursesUpdatedCourseId().setText(previousID);
+                    
+
+
+                    updateButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                            String updatedName = updateCourses.getCoursesUpdatedCourseName().getText();
+                            String updatedId = updateCourses.getCoursesUpdatedCourseId().getText();
+
+
+                            try {
+                                String updateQuery = "UPDATE courses SET Course_ID = '" + updatedId + "', Course_name = '" + updatedName + "' WHERE Course_ID = '" + previousID + "'";
+                                statement.executeUpdate(updateQuery);
+                                JOptionPane.showMessageDialog(null, "Data is updated");
+                            } catch (Exception ex) {
+                                System.out.println(ex);
+                            }
+                        }
+                    });
+
+                    
+                } else {    // Delete
+
+                    String Id = "";
+                    for (int columnIndex=0; columnIndex < jTable2.getColumnCount(); columnIndex++) {
+                        if (Id.isEmpty()){
+                            Id = jTable2.getValueAt(jTable2.getSelectedRow(), columnIndex).toString();
+                        }
+                    }
+
+                    Statement statement = JDBC.getStatement();
+                    // String deleteQuery1 = "DELETE FROM marks WHERE Student_ID = '" + Id + "'";
+                    // String deleteQuery2 = "DELETE FROM report WHERE Student_ID = '" + Id + "'";
+                    // String deleteQuery3 = "DELETE FROM student_module WHERE Student_ID = '" + Id + "'";
+                    // String deleteQuery4 = "DELETE FROM student_course WHERE Student_ID = '" + Id + "'";
+                    // String deleteQuery5 = "DELETE FROM student WHERE Student_ID = '" + Id + "'";
+                    String deleteQuery1 = "DELETE FROM marks WHERE Student_ID = '" + Id + "'";
+                    String deleteQuery2 = "DELETE FROM report WHERE Student_ID = '" + Id + "'";
+                    String deleteQuery3 = "DELETE FROM student_module WHERE Student_ID = '" + Id + "'";
+                    String deleteQuery4 = "DELETE FROM student_course WHERE Student_ID = '" + Id + "'";
+                    String deleteQuery5 = "DELETE FROM student WHERE Student_ID = '" + Id + "'";
+                    String deleteQuery6 = "DELETE FROM module WHERE Course_ID = '" + Id + "'";
+                    String deleteQuery7 = "DELETE FROM courses WHERE Course_ID = '" + Id + "'";
+
+                    try {
+                        statement.executeUpdate(deleteQuery1);
+                        statement.executeUpdate(deleteQuery2);
+                        statement.executeUpdate(deleteQuery3);
+                        statement.executeUpdate(deleteQuery4);
+                        statement.executeUpdate(deleteQuery5);
+                        statement.executeUpdate(deleteQuery6);
+                        statement.executeUpdate(deleteQuery7);
+                        JOptionPane.showMessageDialog(null, "Data is deleted");
+                    } catch (Exception ex) {
+                        System.out.println(ex);
+                    }
+                }
+            }
+        });
+        jTable2.setDefaultEditor(Object.class, null);
+
         jPanel17 = new javax.swing.JPanel();
         logoutCourseButton = new javax.swing.JToggleButton();
         jPanel18 = new javax.swing.JPanel();
@@ -380,21 +766,116 @@ public class CourseAdministrator extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        jTextField21 = new javax.swing.JTextField();
-        jTextField22 = new javax.swing.JTextField();
+        moduleModuleNameTextField = new javax.swing.JTextField();
+        moduleModuleCodeTextField = new javax.swing.JTextField();
         jButton10 = new javax.swing.JButton();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        moduleCourseComboBox = new javax.swing.JComboBox<>();
         moduleModuleNameErrorMessage = new javax.swing.JLabel();
+        moduleModuleNameErrorMessage.setVisible(false);
         moduleModuleCodeErrorMessage = new javax.swing.JLabel();
+        moduleModuleCodeErrorMessage.setVisible(false);
         moduleCourseErrorMessage = new javax.swing.JLabel();
+        moduleCourseErrorMessage.setVisible(false);
         jPanel20 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         jTextField29 = new javax.swing.JTextField();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
+        jButton12.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+
+        	}
+        });
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
+
+        jTable3.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+                Object[] options = {"Update", "Delete"};
+                int n = JOptionPane.showOptionDialog(null, "Do you want to update or delete the selected student?", "Update or Delete Instructor", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+        	
+                if (n == 0) {   // Update
+                    var updateModules = new updateModules();
+                    updateModules.setVisible(true);
+                    JButton updateButton = updateModules.getModulesUpdatedUpdateButton();
+
+                    String courseID1 = "";
+                    String previousName = "";
+                    Statement statement = JDBC.getStatement();
+
+                    
+
+                    for (int columnIndex=0; columnIndex < jTable3.getColumnCount(); columnIndex++) {
+                        if (courseID1.isEmpty()){
+                            courseID1 = jTable3.getValueAt(jTable3.getSelectedRow(), columnIndex).toString();
+                        } else if(previousName.isEmpty()){
+                            previousName = jTable3.getValueAt(jTable3.getSelectedRow(), columnIndex).toString();
+                        }
+
+                    }
+                    final String previousID = courseID1;
+
+                    updateModules.getModulesUpdatedModuleName().setText(previousName);
+                    
+
+                    
+
+
+                    updateButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                            String updatedName = updateModules.getModulesUpdatedModuleName().getText();
+
+
+                            try {
+                                String updateQuery = "UPDATE module SET Module_name = '" + updatedName + "' WHERE Module_code = '" + previousID + "'";
+                                statement.executeUpdate(updateQuery);
+                                JOptionPane.showMessageDialog(null, "Data is updated");
+                            } catch (Exception ex) {
+                                System.out.println(ex);
+                            }
+                        }
+                    });
+
+                    
+                } else {    // Delete
+
+                    String Id = "";
+                    for (int columnIndex=0; columnIndex < jTable3.getColumnCount(); columnIndex++) {
+                        if (Id.isEmpty()){
+                            Id = jTable3.getValueAt(jTable3.getSelectedRow(), columnIndex).toString();
+                        }
+                    }
+
+                    Statement statement = JDBC.getStatement();
+                    String deleteQuery1 = "DELETE FROM marks WHERE Module_Code = '" + Id + "'";
+                    String deleteQuery2 = "DELETE FROM report WHERE Module_Code = '" + Id + "'";
+                    String deleteQuery3 = "DELETE FROM student_module WHERE Module_Code = '" + Id + "'";
+                    String deleteQuery4 = "DELETE FROM module WHERE Module_Code = '" + Id + "'";
+                    String deleteQuery5 = "DELETE FROM module_course WHERE Module_Code = '" + Id + "'";
+                    String deleteQuery6 = "DELETE FROM course_module WHERE Module_Code = '" + Id + "'";
+                    String deleteQuery7 = "DELETE FROM modules WHERE Module_Code = '" + Id + "'";
+
+                    try {
+                        statement.executeUpdate(deleteQuery1);
+                        statement.executeUpdate(deleteQuery2);
+                        statement.executeUpdate(deleteQuery3);
+                        statement.executeUpdate(deleteQuery4);
+                        statement.executeUpdate(deleteQuery5);
+                        statement.executeUpdate(deleteQuery6);
+                        statement.executeUpdate(deleteQuery7);
+                        JOptionPane.showMessageDialog(null, "Data is deleted");
+                    } catch (Exception ex) {
+                        System.out.println(ex);
+                    }
+                }
+            }
+        });
+        jTable3.setDefaultEditor(Object.class, null);
+
         jPanel22 = new javax.swing.JPanel();
         jToggleButton6 = new javax.swing.JToggleButton();
         jPanel23 = new javax.swing.JPanel();
@@ -404,6 +885,11 @@ public class CourseAdministrator extends javax.swing.JFrame {
         jTextField38 = new javax.swing.JTextField();
         jButton15 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
+        jButton16.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+
+        	}
+        });
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         jPanel27 = new javax.swing.JPanel();
@@ -415,6 +901,11 @@ public class CourseAdministrator extends javax.swing.JFrame {
         jTextField39 = new javax.swing.JTextField();
         jButton18 = new javax.swing.JButton();
         jButton19 = new javax.swing.JButton();
+        jButton19.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+
+        	}
+        });
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
         jPanel30 = new javax.swing.JPanel();
@@ -581,7 +1072,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Password:");
 
-        instructorDobTextField.setText("DD-MM-YYYY");
+        instructorDobTextField.setText("DD/MM/YYYY");
 
         instructorNameErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         instructorNameErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
@@ -987,7 +1478,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
         jLabel50.setForeground(new java.awt.Color(255, 255, 255));
         jLabel50.setText("Password:");
 
-        studentDobTextField.setText("DD-MM-YYYY");
+        studentDobTextField.setText("DD/MM/YYYY");
 
         studentNameErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         studentNameErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
@@ -1210,13 +1701,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
         );
         jPanel31.setLayout(jPanel31Layout);
 
-        jTable6.setModel(new DefaultTableModel(
-        	new Object[][] {
-        	},
-        	new String[] {
-        		"Student ID", "Name", "Address", "Email", "Citizenship Number", "DOB", "College Email", "Password", "Course ID"
-        	}
-        ));
+        jTable6.setModel(studentDefaultTableModel);
         jScrollPane6.setViewportView(jTable6);
 
         jPanel32.setBackground(new java.awt.Color(23, 23, 23));
@@ -1436,29 +1921,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Course ID", "Course Name"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable2.setModel(courseDefaultTableModel);
         jScrollPane2.setViewportView(jTable2);
 
         jPanel17.setBackground(new java.awt.Color(23, 23, 23));
@@ -1555,7 +2018,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setText("Select Course:");
 
-        jTextField21.addActionListener(new java.awt.event.ActionListener() {
+        moduleModuleNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField21ActionPerformed(evt);
             }
@@ -1569,8 +2032,8 @@ public class CourseAdministrator extends javax.swing.JFrame {
             }
         });
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Course" }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+        moduleCourseComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(courseIdArray_));
+        moduleCourseComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox4ActionPerformed(evt);
             }
@@ -1600,9 +2063,9 @@ public class CourseAdministrator extends javax.swing.JFrame {
                     .addComponent(jLabel28))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField21, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
-                    .addComponent(jTextField22)
-                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(moduleModuleNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                    .addComponent(moduleModuleCodeTextField)
+                    .addComponent(moduleCourseComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel19Layout.createSequentialGroup()
                         .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(moduleCourseErrorMessage)
@@ -1621,19 +2084,19 @@ public class CourseAdministrator extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
-                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(moduleModuleNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addComponent(moduleModuleNameErrorMessage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
-                    .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(moduleModuleCodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addComponent(moduleModuleCodeErrorMessage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(moduleCourseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(moduleCourseErrorMessage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1649,7 +2112,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
 
         jLabel39.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel39.setText("Search Instructor:");
+        jLabel39.setText("Search Module:");
 
         jTextField29.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1673,55 +2136,33 @@ public class CourseAdministrator extends javax.swing.JFrame {
         jButton12.setText("Search");
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jButton12)
-                .addGap(43, 43, 43)
-                .addComponent(jButton11)
-                .addContainerGap(107, Short.MAX_VALUE))
+        	jPanel21Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel21Layout.createSequentialGroup()
+        			.addGap(24)
+        			.addComponent(jLabel39, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jTextField29, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE)
+        			.addGap(28)
+        			.addComponent(jButton12)
+        			.addGap(43)
+        			.addComponent(jButton11)
+        			.addContainerGap(107, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel39)
-                    .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton12)
-                    .addComponent(jButton11))
-                .addGap(27, 27, 27))
+        	jPanel21Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel21Layout.createSequentialGroup()
+        			.addContainerGap(25, Short.MAX_VALUE)
+        			.addGroup(jPanel21Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jTextField29, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jButton12)
+        				.addComponent(jButton11)
+        				.addComponent(jLabel39))
+        			.addGap(27))
         );
+        jPanel21.setLayout(jPanel21Layout);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Module Code", "Module Name", "Course"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable3.setModel(moduleDefaultTableModel);
         jScrollPane3.setViewportView(jTable3);
 
         jPanel22.setBackground(new java.awt.Color(23, 23, 23));
@@ -1861,29 +2302,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "S.N", "Student ID", "Name", "Email", "Course"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable4.setModel(reportDefaultTableModel);
         jScrollPane4.setViewportView(jTable4);
 
         jPanel27.setBackground(new java.awt.Color(23, 23, 23));
@@ -2019,29 +2438,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "S.N", "Student ID", "Name", "Email", "Course", "Address", "Citizenship Number", "DOB", "Course"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, true, true, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable5.setModel(studentDetailsDefaultTableModel);
         jScrollPane5.setViewportView(jTable5);
 
         jPanel30.setBackground(new java.awt.Color(23, 23, 23));
@@ -2158,7 +2555,9 @@ public class CourseAdministrator extends javax.swing.JFrame {
     }                                               
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
+    	DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
+        model.setRowCount(0);
+        showStudentDetailsDataInTableFromDb();
     }                                         
 
     private void jTextField39ActionPerformed(java.awt.event.ActionEvent evt) {                                             
@@ -2174,6 +2573,9 @@ public class CourseAdministrator extends javax.swing.JFrame {
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
+    	DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
+        model.setRowCount(0);
+        showReportDataInTableFromDb();
     }                                         
 
     private void jTextField38ActionPerformed(java.awt.event.ActionEvent evt) {                                             
@@ -2188,6 +2590,9 @@ public class CourseAdministrator extends javax.swing.JFrame {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
+    	DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        model.setRowCount(0);
+        showModulesDataInTableFromDb();
     }                                         
 
     private void jTextField29ActionPerformed(java.awt.event.ActionEvent evt) {                                             
@@ -2200,7 +2605,44 @@ public class CourseAdministrator extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-    }                                         
+
+        if(moduleModuleNameTextField.getText().isEmpty() || moduleModuleCodeTextField.getText().isEmpty() || moduleCourseComboBox.getSelectedItem().toString().equals("Select Course")){
+            if (moduleModuleNameTextField.getText().isEmpty()) {
+                moduleModuleNameErrorMessage.setVisible(true);
+            } else {
+                moduleModuleNameErrorMessage.setVisible(false);
+            }
+            if (moduleModuleCodeTextField.getText().isEmpty()) {
+                moduleModuleCodeErrorMessage.setVisible(true);
+            } else {
+                moduleModuleCodeErrorMessage.setVisible(false);
+            }
+            if (moduleCourseComboBox.getSelectedItem().toString().equals("Select Course")) {
+                moduleCourseErrorMessage.setVisible(true);
+            } else {
+                moduleCourseErrorMessage.setVisible(false);
+            }
+        } else {
+            moduleName = moduleModuleNameTextField.getText();
+            moduleCode = moduleModuleCodeTextField.getText();
+            moduleCourseId = moduleCourseComboBox.getSelectedItem().toString();
+
+            Statement statement = JDBC.getStatement();
+            String insertQuery = "INSERT INTO module (Course_ID, Module_name, Module_code) VALUES ('"+moduleCourseId+"', '"+moduleName+"', '"+moduleCode+"')";
+
+            try{
+                int success = statement.executeUpdate(insertQuery);
+                if (success == 1){
+                    JOptionPane.showMessageDialog(null, "Module Added Successfully");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Module not added");
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+
+    }                                 
 
     private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
@@ -2214,6 +2656,9 @@ public class CourseAdministrator extends javax.swing.JFrame {
 
     private void refreshCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         // TODO add your handling code here:
+    	DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+        showCoursesDataInTableFromDb();
     }                                                   
 
     private void courseSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                      
@@ -2222,6 +2667,36 @@ public class CourseAdministrator extends javax.swing.JFrame {
 
     private void addCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
+        if (courseCourseNameTextField.getText().isEmpty() || courseCourseIdTextField.getText().isEmpty()){
+            if(courseCourseNameTextField.getText().isEmpty()){
+                courseCourseNameErrorMessage.setVisible(true);
+            } else {
+                courseCourseNameErrorMessage.setVisible(false);
+            }
+            if(courseCourseIdTextField.getText().isEmpty()){
+                courseCourseIdErrorMessage.setVisible(true);
+            } else {
+                courseCourseIdErrorMessage.setVisible(false);
+            }
+        } else {
+            courseName = courseCourseNameTextField.getText().trim();
+            courseID = courseCourseIdTextField.getText().trim();
+
+            Statement statement = JDBC.getStatement();
+            String insertQuery = "INSERT INTO courses (Course_ID, Course_name) VALUES ('"+courseID+"', '"+courseName+"')";
+
+            try{
+                int success = statement.executeUpdate(insertQuery);
+                if (success == 1){
+                    JOptionPane.showMessageDialog(null, "Course Added Successfully");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Course not added");
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        }
     }                                               
 
     private void courseCourseNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                          
@@ -2249,7 +2724,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
     	
     	// Displaying error message
     	
-        if (instructorNameTextField.getText().isEmpty() || instructorAddressTextField.getText().isEmpty() || instructorExperienceTextField.getText().isEmpty() || instructorCitizenshipTextField.getText().isEmpty() || instructorPanTextField.getText().isEmpty() || instructorDobTextField.getText().contentEquals("DD-MM-YYYY") || instructorPhoneTextField.getText().isEmpty() || instructorEmailTextField.getText().isEmpty() || instructorPasswordTextField.getText().isEmpty() || (String) instructorModule_1ComboBox.getSelectedItem() == "Select Modules" || (String) instructorCourseIdComboBox.getSelectedItem() == "Select Course") {
+        if (instructorNameTextField.getText().isEmpty() || instructorAddressTextField.getText().isEmpty() || instructorExperienceTextField.getText().isEmpty() || instructorCitizenshipTextField.getText().isEmpty() || instructorPanTextField.getText().isEmpty() || instructorDobTextField.getText().contentEquals("DD/MM/YYYY") || instructorPhoneTextField.getText().isEmpty() || instructorEmailTextField.getText().isEmpty() || instructorPasswordTextField.getText().isEmpty() || (String) instructorModule_1ComboBox.getSelectedItem() == "Select Modules" || (String) instructorCourseIdComboBox.getSelectedItem() == "Select Course") {
             if (instructorNameTextField.getText().isEmpty()) {
                 instructorNameErrorMessage.setVisible(true);
             } else {
@@ -2280,7 +2755,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
                 instructorPanErrorMessage.setVisible(false);
             }
             
-            if (instructorDobTextField.getText().contentEquals("DD-MM-YYYY")) {
+            if (instructorDobTextField.getText().contentEquals("DD/MM/YYYY")) {
                 instructorDobErrorMessage.setVisible(true);
             } else {
                 instructorDobErrorMessage.setVisible(false);
@@ -2364,7 +2839,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
     }                                                       
 
     private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        if (studentNameTextField.getText().isEmpty() || studentAddressTextField.getText().isEmpty() || studentDobTextField.getText().contentEquals("DD-MM-YYYY") || studentEmailTextField.getText().isEmpty() || studentPasswordTextField.getText().isEmpty() || (String) studentCourseIdComboBox.getSelectedItem() == "Select Course" || studentCitizenshipTextField.getText().isEmpty() || studentCollegeEmailTextField.getText().isEmpty() || studentStudentIdTextField.getText().isEmpty()) {
+        if (studentNameTextField.getText().isEmpty() || studentAddressTextField.getText().isEmpty() || studentDobTextField.getText().contentEquals("DD/MM/YYYY") || studentEmailTextField.getText().isEmpty() || studentPasswordTextField.getText().isEmpty() || (String) studentCourseIdComboBox.getSelectedItem() == "Select Course" || studentCitizenshipTextField.getText().isEmpty() || studentCollegeEmailTextField.getText().isEmpty() || studentStudentIdTextField.getText().isEmpty()) {
             if(studentNameTextField.getText().isEmpty()) {
                 studentNameErrorMessage.setVisible(true);
             } else {
@@ -2375,7 +2850,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
             } else {
                 studentAddressErrorMessage.setVisible(false);
             }
-            if (studentDobTextField.getText().contentEquals("DD-MM-YYYY")) {
+            if (studentDobTextField.getText().contentEquals("DD/MM/YYYY")) {
                 studentDobErrorMessage.setVisible(true);
             } else {
                 studentDobErrorMessage.setVisible(false);
@@ -2430,14 +2905,60 @@ public class CourseAdministrator extends javax.swing.JFrame {
             Statement statement = JDBC.getStatement();
             String insertQuery1 = "INSERT INTO student (Student_ID, Name, Address, DOB, Citizenship_Number, Email_address, College_email_address, College_email_address_password, Course_ID) VALUES ('" + studentId +"', '" + studentName +"', '" + studentAddress +"', '" + studentDob +"', '" + studentCitizenshipNo +"', '" + studentEmail +"', '" + studentCollegeEmail +"', '" + studentPassword +"', '" + studentCourseId +"')";
             String insertQuery2 = "INSERT INTO student_course (Student_ID, Course_ID) VALUES ('" + studentId +"', '" + studentCourseId +"')";
+
+            // Get all the module_code from module table and module_code column for a particular course_id selected in the combobox. Add all the modules to the report table for the student. Report table contains ("Student_ID, Module_Code, Course_ID, Marks"). Marks is set to NULL by default. You should add all the modules for a student_id with a valid course_id.
+                  
             try {
                 int insertSuccess1 = statement.executeUpdate(insertQuery1);
                 int insertSuccess2 = statement.executeUpdate(insertQuery2);
 
+                String getModuleCodeQuery = "SELECT module_code FROM module WHERE course_id = '" + studentCourseId +"'";
+            ResultSet resultSet = null;
+            try {
+                resultSet = statement.executeQuery(getModuleCodeQuery);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            ArrayList<String> moduleCodeList = new ArrayList<>();
+            try {
+                while (resultSet.next()) {
+                    moduleCodeList.add(resultSet.getString("module_code"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            for (String moduleCode : moduleCodeList) {
+                String insertQuery4 = "INSERT INTO student_module (Student_ID, Module_Code, Course_ID) VALUES ('" + studentId +"', '" + moduleCode +"', '" + studentCourseId +"')";
+                try {
+                    statement.executeUpdate(insertQuery4);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            for (String moduleCode : moduleCodeList){
+                String insertQuery5 = "INSERT INTO marks (Student_ID, Module_Code, Course_ID, Marks) VALUES ('" + studentId +"', '" + moduleCode +"', '" + studentCourseId +"', NULL)";
+                try {
+                    statement.executeUpdate(insertQuery5);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            for (String moduleCode : moduleCodeList) {
+                String insertQuery3 = "INSERT INTO report (Student_ID, Module_Code, Course_ID, Marks) VALUES ('" + studentId +"', '" + moduleCode +"', '" + studentCourseId +"', NULL)";
+                try {
+                    statement.executeUpdate(insertQuery3);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }   
+
+
                 if (insertSuccess1 == 1 && insertSuccess2 == 1) {
-                    JOptionPane.showMessageDialog(jPanel1, "Instructor added successfully");
+                    JOptionPane.showMessageDialog(jPanel1, "Student added successfully");
                 } else {
-                    JOptionPane.showMessageDialog(jPanel1, "Instructor not added");
+                    JOptionPane.showMessageDialog(jPanel1, "Student not added");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -2450,7 +2971,9 @@ public class CourseAdministrator extends javax.swing.JFrame {
     }                                                      
 
     private void refreshStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        // TODO add your handling code here:
+    	DefaultTableModel model = (DefaultTableModel) jTable6.getModel();
+        model.setRowCount(0);
+        showStudentDataInTableFromDb();
     }                                                    
 
     private void logoutStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
@@ -2491,7 +3014,6 @@ public class CourseAdministrator extends javax.swing.JFrame {
                 new CourseAdministrator().setVisible(true);
             }
         });
-        showDataInTableFromDb();
     }
 
     // Variables declaration - do not modify                     
@@ -2533,7 +3055,7 @@ public class CourseAdministrator extends javax.swing.JFrame {
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
-    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> moduleCourseComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2610,8 +3132,8 @@ public class CourseAdministrator extends javax.swing.JFrame {
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
+    private javax.swing.JTextField moduleModuleNameTextField;
+    private javax.swing.JTextField moduleModuleCodeTextField;
     private javax.swing.JTextField jTextField29;
     private javax.swing.JTextField jTextField38;
     private javax.swing.JTextField jTextField39;
@@ -2675,4 +3197,12 @@ public class CourseAdministrator extends javax.swing.JFrame {
     private String studentCourseId = "";
     private String studentId = "";
 
+    // Courses
+    private String courseName = "";
+    private String courseID = "";
+
+    // Modules
+    private String moduleName = "";
+    private String moduleCode = "";
+    private String moduleCourseId = "";
 }

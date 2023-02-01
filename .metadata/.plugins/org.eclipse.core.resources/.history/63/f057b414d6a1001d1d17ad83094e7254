@@ -1,0 +1,127 @@
+package com.frontend;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import com.database.JDBC;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JFormattedTextField;
+import javax.swing.JRadioButton;
+import javax.swing.SpringLayout;
+import javax.swing.JCheckBox;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.*;
+import java.util.Enumeration;
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ItemListener;
+import java.math.BigDecimal;
+import java.awt.event.ItemEvent;
+
+public class updateCourses extends JDialog {
+	private JPanel formPanel;
+	private JLabel lblNewLabel_1;
+	private JTextField coursesUpdatedCourseId;
+	private JTextField coursesUpdatedCourseName;
+	private JLabel lblNewLabel_6;
+	private JButton coursesUpdatedUpdateButton;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+
+
+	
+
+
+
+
+
+
+
+	/**
+	 * Create the dialog.
+	 */
+	public updateCourses() {
+		setTitle("Update Student");
+		setBounds(100, 100, 549, 426);
+		formPanel = new JPanel();
+		setContentPane(formPanel);
+
+		JLabel lblNewLabel = new JLabel("Course Name:");
+
+		coursesUpdatedCourseName = new JTextField();
+		coursesUpdatedCourseName.setColumns(10);
+
+		coursesUpdatedUpdateButton = new JButton("Update");
+		coursesUpdatedUpdateButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		coursesUpdatedUpdateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (coursesUpdatedCourseName.getText().isEmpty() || coursesUpdatedCourseId.getText().isEmpty()
+						||  || studentUpdatedPassword.getText().isEmpty()) {
+					lblNewLabel_6.setVisible(true);
+				} else {
+					lblNewLabel_6.setVisible(false);
+				}
+				
+				
+
+			}
+		});
+
+		lblNewLabel_1 = new JLabel("Course ID:");
+
+		coursesUpdatedCourseId = new JTextField();
+		coursesUpdatedCourseId.setColumns(10);
+		SpringLayout sl_formPanel = new SpringLayout();
+		sl_formPanel.putConstraint(SpringLayout.NORTH, coursesUpdatedUpdateButton, 105, SpringLayout.SOUTH, coursesUpdatedCourseId);
+		sl_formPanel.putConstraint(SpringLayout.EAST, coursesUpdatedUpdateButton, -224, SpringLayout.EAST, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.SOUTH, lblNewLabel, -343, SpringLayout.SOUTH, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 60, SpringLayout.SOUTH, lblNewLabel);
+		sl_formPanel.putConstraint(SpringLayout.NORTH, coursesUpdatedCourseId, 42, SpringLayout.SOUTH, coursesUpdatedCourseName);
+		sl_formPanel.putConstraint(SpringLayout.SOUTH, coursesUpdatedCourseId, 67, SpringLayout.SOUTH, coursesUpdatedCourseName);
+		sl_formPanel.putConstraint(SpringLayout.WEST, coursesUpdatedCourseName, 111, SpringLayout.WEST, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.EAST, lblNewLabel, -6, SpringLayout.WEST, coursesUpdatedCourseName);
+		sl_formPanel.putConstraint(SpringLayout.EAST, lblNewLabel_1, 0, SpringLayout.EAST, lblNewLabel);
+		sl_formPanel.putConstraint(SpringLayout.SOUTH, coursesUpdatedCourseName, -334, SpringLayout.SOUTH, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.EAST, coursesUpdatedCourseName, -53, SpringLayout.EAST, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.WEST, coursesUpdatedCourseId, 0, SpringLayout.WEST, coursesUpdatedCourseName);
+		sl_formPanel.putConstraint(SpringLayout.EAST, coursesUpdatedCourseId, -53, SpringLayout.EAST, formPanel);
+		formPanel.setLayout(sl_formPanel);
+		formPanel.add(lblNewLabel_1);
+		formPanel.add(lblNewLabel);
+		formPanel.add(coursesUpdatedCourseId);
+		formPanel.add(coursesUpdatedUpdateButton);
+		formPanel.add(coursesUpdatedCourseName);
+
+		lblNewLabel_6 = new JLabel("Every Filed should be filled!!!");
+		sl_formPanel.putConstraint(SpringLayout.NORTH, coursesUpdatedCourseName, 4, SpringLayout.SOUTH, lblNewLabel_6);
+		sl_formPanel.putConstraint(SpringLayout.SOUTH, lblNewLabel_6, -363, SpringLayout.SOUTH, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.WEST, lblNewLabel_6, 158, SpringLayout.WEST, formPanel);
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_6.setForeground(new Color(255, 0, 0));
+		lblNewLabel_6.setVisible(false);
+		formPanel.add(lblNewLabel_6);
+	}
+}

@@ -1,0 +1,141 @@
+package com.frontend;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import com.database.JDBC;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JFormattedTextField;
+import javax.swing.JRadioButton;
+import javax.swing.SpringLayout;
+import javax.swing.JCheckBox;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.*;
+import java.util.Enumeration;
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ItemListener;
+import java.math.BigDecimal;
+import java.awt.event.ItemEvent;
+
+public class updateModules extends JDialog {
+	private JPanel formPanel;
+	private JLabel lblNewLabel_1;
+	private JTextField studentUpdatedAddress;
+	private JTextField studentUpdatedName;
+	private JLabel lblNewLabel_6;
+	private JButton studentUpdatedUpdateButton;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JTextField studentUpdatedCitizenshipNo;
+
+
+	
+
+
+
+
+
+
+
+	/**
+	 * Create the dialog.
+	 */
+	public updateModules() {
+		setTitle("Update Student");
+		setBounds(100, 100, 549, 426);
+		formPanel = new JPanel();
+		setContentPane(formPanel);
+
+		JLabel lblNewLabel = new JLabel("Module Name:");
+
+		studentUpdatedName = new JTextField();
+		studentUpdatedName.setColumns(10);
+
+		studentUpdatedUpdateButton = new JButton("Update");
+		studentUpdatedUpdateButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		studentUpdatedUpdateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (studentUpdatedName.getText().isEmpty() || studentUpdatedAddress.getText().isEmpty()
+						|| studentUpdatedCitizenshipNo.getText().isEmpty()
+						|| studentUpdatedDob.getText().isEmpty()
+						|| studentUpdatedEmail.getText().isEmpty() || studentUpdatedPassword.getText().isEmpty()) {
+					lblNewLabel_6.setVisible(true);
+				} else {
+					lblNewLabel_6.setVisible(false);
+				}
+				
+				
+
+			}
+		});
+
+		lblNewLabel_1 = new JLabel("Module Code:");
+
+		studentUpdatedAddress = new JTextField();
+		studentUpdatedAddress.setColumns(10);
+		SpringLayout sl_formPanel = new SpringLayout();
+		sl_formPanel.putConstraint(SpringLayout.WEST, studentUpdatedUpdateButton, 228, SpringLayout.WEST, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.SOUTH, lblNewLabel, -18, SpringLayout.NORTH, lblNewLabel_1);
+		sl_formPanel.putConstraint(SpringLayout.SOUTH, studentUpdatedName, -6, SpringLayout.NORTH, studentUpdatedAddress);
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 64, SpringLayout.NORTH, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.NORTH, studentUpdatedAddress, 61, SpringLayout.NORTH, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.WEST, lblNewLabel_1, 64, SpringLayout.WEST, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.EAST, lblNewLabel, 0, SpringLayout.EAST, lblNewLabel_1);
+		sl_formPanel.putConstraint(SpringLayout.WEST, studentUpdatedName, 0, SpringLayout.WEST, studentUpdatedAddress);
+		sl_formPanel.putConstraint(SpringLayout.EAST, studentUpdatedName, -53, SpringLayout.EAST, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.WEST, studentUpdatedAddress, 6, SpringLayout.EAST, lblNewLabel_1);
+		sl_formPanel.putConstraint(SpringLayout.EAST, studentUpdatedAddress, -53, SpringLayout.EAST, formPanel);
+		formPanel.setLayout(sl_formPanel);
+		formPanel.add(lblNewLabel_1);
+		formPanel.add(lblNewLabel);
+		formPanel.add(studentUpdatedAddress);
+		formPanel.add(studentUpdatedUpdateButton);
+		formPanel.add(studentUpdatedName);
+
+		lblNewLabel_6 = new JLabel("Every Filed should be filled!!!");
+		sl_formPanel.putConstraint(SpringLayout.NORTH, studentUpdatedName, 4, SpringLayout.SOUTH, lblNewLabel_6);
+		sl_formPanel.putConstraint(SpringLayout.SOUTH, lblNewLabel_6, -363, SpringLayout.SOUTH, formPanel);
+		sl_formPanel.putConstraint(SpringLayout.WEST, lblNewLabel_6, 158, SpringLayout.WEST, formPanel);
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_6.setForeground(new Color(255, 0, 0));
+		lblNewLabel_6.setVisible(false);
+		formPanel.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_2 = new JLabel("Course ID:");
+		sl_formPanel.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 17, SpringLayout.SOUTH, lblNewLabel_1);
+		sl_formPanel.putConstraint(SpringLayout.EAST, lblNewLabel_2, 0, SpringLayout.EAST, lblNewLabel_1);
+		formPanel.add(lblNewLabel_2);
+		
+		studentUpdatedCitizenshipNo = new JTextField();
+		sl_formPanel.putConstraint(SpringLayout.NORTH, studentUpdatedUpdateButton, 143, SpringLayout.SOUTH, studentUpdatedCitizenshipNo);
+		sl_formPanel.putConstraint(SpringLayout.NORTH, studentUpdatedCitizenshipNo, -3, SpringLayout.NORTH, lblNewLabel_2);
+		sl_formPanel.putConstraint(SpringLayout.WEST, studentUpdatedCitizenshipNo, 0, SpringLayout.WEST, studentUpdatedAddress);
+		sl_formPanel.putConstraint(SpringLayout.EAST, studentUpdatedCitizenshipNo, -53, SpringLayout.EAST, formPanel);
+		formPanel.add(studentUpdatedCitizenshipNo);
+		studentUpdatedCitizenshipNo.setColumns(10);
+	}
+}
