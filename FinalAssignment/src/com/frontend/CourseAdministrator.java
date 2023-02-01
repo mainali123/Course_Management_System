@@ -328,8 +328,6 @@ public class CourseAdministrator extends javax.swing.JFrame {   // Course Admini
                         String dob = rs.getString("DOB");
                         String email = rs.getString("Email_address");
                         String pass = rs.getString("Password");
-                        // String modId = rs.getString("Module_code");
-                        // String courseId = rs.getString("Course_ID");
     
                         Object[] row = {id, name, address, experience, citNo, panNo, dob, email, pass}; 
                         instructorDefaultTableModel.addRow(row);    // Add the row to the table
@@ -386,7 +384,6 @@ public class CourseAdministrator extends javax.swing.JFrame {   // Course Admini
                             previousPassword = jTable1.getValueAt(jTable1.getSelectedRow(), columnIndex).toString();
                         }
 
-                        // System.out.println(jTable1.getValueAt(jTable1.getSelectedRow(), columnIndex));
                     }
                     final String previousID = previousID1;
 
@@ -704,11 +701,6 @@ public class CourseAdministrator extends javax.swing.JFrame {   // Course Admini
                     }
 
                     Statement statement = JDBC.getStatement();
-                    // String deleteQuery1 = "DELETE FROM marks WHERE Student_ID = '" + Id + "'";
-                    // String deleteQuery2 = "DELETE FROM report WHERE Student_ID = '" + Id + "'";
-                    // String deleteQuery3 = "DELETE FROM student_module WHERE Student_ID = '" + Id + "'";
-                    // String deleteQuery4 = "DELETE FROM student_course WHERE Student_ID = '" + Id + "'";
-                    // String deleteQuery5 = "DELETE FROM student WHERE Student_ID = '" + Id + "'";
                     String deleteQuery1 = "DELETE FROM marks WHERE Student_ID = '" + Id + "'";
                     String deleteQuery2 = "DELETE FROM report WHERE Student_ID = '" + Id + "'";
                     String deleteQuery3 = "DELETE FROM student_module WHERE Student_ID = '" + Id + "'";
@@ -874,7 +866,7 @@ jTable4.addMouseListener(new MouseAdapter() {
                 Object[] options = {"Generate", "Don't generate"};
                 int n = JOptionPane.showOptionDialog(null, "Do you want to Generate report of the selected student?", "Generate Report", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
         	
-                if (n == 0) {   // Generate
+                if (n == 0) {
                     String studentID = "";
                     for (int columnIndex=0; columnIndex < jTable4.getColumnCount(); columnIndex++) {
                         if (studentID.isEmpty()){
@@ -897,7 +889,6 @@ jTable4.addMouseListener(new MouseAdapter() {
                         document.open();
                         document.add(new Paragraph("Report of Student ID: " + studentID));
 
-                        // show marks obtained in all the modules of the student
                         PdfPTable table = new PdfPTable(4);
                         table.addCell("Student ID");
                         table.addCell("Module Code");
@@ -917,7 +908,7 @@ jTable4.addMouseListener(new MouseAdapter() {
                     } catch (Exception ex) {
                         System.out.println(ex);
                     }
-                } else {    // don't generate
+                } else {
                     return;
                 }
 
@@ -1032,7 +1023,6 @@ jTable4.addMouseListener(new MouseAdapter() {
 		try {
 			resultSet = statement.executeQuery(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         List<String> moduleCodes = new ArrayList<>();
@@ -1042,12 +1032,10 @@ jTable4.addMouseListener(new MouseAdapter() {
 			try {
 				moduleCodes.add(resultSet.getString("Module_code"));
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         String[] moduleCodeArray = moduleCodes.toArray(new String[0]);
@@ -2582,10 +2570,9 @@ jTable4.addMouseListener(new MouseAdapter() {
         );
 
         pack();
-    }// </editor-fold>                        
+    }                    
 
     private void jToggleButton10ActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
     	this.dispose();
         new LoginPanel().setVisible(true);
     }                                               
@@ -2597,50 +2584,40 @@ jTable4.addMouseListener(new MouseAdapter() {
     }                                         
 
     private void jTextField39ActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
     }                                            
 
     private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
-        // Logout Button Code Here
         this.dispose();
         new LoginPanel().setVisible(true);
     }                                              
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
     	DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
         model.setRowCount(0);
         showReportDataInTableFromDb();
     }                                         
 
     private void jTextField38ActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
     }                                            
 
     private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
     	this.dispose();
         new LoginPanel().setVisible(true);
     }                                              
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
     	DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         model.setRowCount(0);
         showModulesDataInTableFromDb();
     }                                         
 
     private void jTextField29ActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
     }                                            
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
     }                                          
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
 
         if(moduleModuleNameTextField.getText().isEmpty() || moduleModuleCodeTextField.getText().isEmpty() || moduleCourseComboBox.getSelectedItem().toString().equals("Select Course")){
             if (moduleModuleNameTextField.getText().isEmpty()) {
@@ -2681,28 +2658,23 @@ jTable4.addMouseListener(new MouseAdapter() {
     }                                 
 
     private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
     }                                            
 
     private void logoutCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-        // TODO add your handling code here:
     	this.dispose();
         new LoginPanel().setVisible(true);
     }                                                  
 
     private void refreshCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        // TODO add your handling code here:
     	DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0);
         showCoursesDataInTableFromDb();
     }                                                   
 
     private void courseSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                      
-        // TODO add your handling code here:
     }                                                     
 
     private void addCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
         if (courseCourseNameTextField.getText().isEmpty() || courseCourseIdTextField.getText().isEmpty()){
             if(courseCourseNameTextField.getText().isEmpty()){
                 courseCourseNameErrorMessage.setVisible(true);
@@ -2736,11 +2708,9 @@ jTable4.addMouseListener(new MouseAdapter() {
     }                                               
 
     private void courseCourseNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                          
-        // TODO add your handling code here:
     }                                                         
 
     private void instructorLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        // TODO add your handling code here:
         this.dispose();
         new LoginPanel().setVisible(true);
     }                                                      
@@ -2752,11 +2722,9 @@ jTable4.addMouseListener(new MouseAdapter() {
     }                                                       
 
     private void instructorSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                          
-        // TODO add your handling code here:
     }                                                         
 
     private void addInstructorButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        // TODO add your handling code here:
     	
     	// Displaying error message
     	
@@ -2855,23 +2823,18 @@ jTable4.addMouseListener(new MouseAdapter() {
     }                                                   
 
     private void instructorModule_2ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {                                                           
-        // TODO add your handling code here:
     }                                                          
 
     private void instructorModule_1ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {                                                           
-        // TODO add your handling code here:
     }                                                          
 
     private void instructorNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                        
-        // TODO add your handling code here:
     }                                                       
 
     private void studentNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        // TODO add your handling code here:
     }                                                    
 
     private void studentCourseIdComboBoxActionPerformed(java.awt.event.ActionEvent evt) {                                                        
-        // TODO add your handling code here:
     }                                                       
 
     private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
@@ -2941,8 +2904,6 @@ jTable4.addMouseListener(new MouseAdapter() {
             Statement statement = JDBC.getStatement();
             String insertQuery1 = "INSERT INTO student (Student_ID, Name, Address, DOB, Citizenship_Number, Email_address, College_email_address, College_email_address_password, Course_ID) VALUES ('" + studentId +"', '" + studentName +"', '" + studentAddress +"', '" + studentDob +"', '" + studentCitizenshipNo +"', '" + studentEmail +"', '" + studentCollegeEmail +"', '" + studentPassword +"', '" + studentCourseId +"')";
             String insertQuery2 = "INSERT INTO student_course (Student_ID, Course_ID) VALUES ('" + studentId +"', '" + studentCourseId +"')";
-
-            // Get all the module_code from module table and module_code column for a particular course_id selected in the combobox. Add all the modules to the report table for the student. Report table contains ("Student_ID, Module_Code, Course_ID, Marks"). Marks is set to NULL by default. You should add all the modules for a student_id with a valid course_id.
                   
             try {
                 int insertSuccess1 = statement.executeUpdate(insertQuery1);
@@ -3003,7 +2964,6 @@ jTable4.addMouseListener(new MouseAdapter() {
     }                                                
 
     private void studentSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        // TODO add your handling code here:
     }                                                      
 
     private void refreshStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
@@ -3013,7 +2973,6 @@ jTable4.addMouseListener(new MouseAdapter() {
     }                                                    
 
     private void logoutStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        // TODO add your handling code here:
         this.dispose();
         new LoginPanel().setVisible(true);
     }
@@ -3021,11 +2980,6 @@ jTable4.addMouseListener(new MouseAdapter() {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -3052,7 +3006,7 @@ jTable4.addMouseListener(new MouseAdapter() {
         });
     }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration
     private javax.swing.JButton addCourseButton;
     private javax.swing.JButton addInstructorButton;
     private javax.swing.JButton addStudentButton;

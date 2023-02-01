@@ -12,9 +12,6 @@ import java.sql.*;
 
 public class LoginPanel extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LoginPanel
-     */
     public LoginPanel() {
         initComponents();
     }                     
@@ -269,7 +266,6 @@ public class LoginPanel extends javax.swing.JFrame {
                         java.util.logging.Logger.getLogger(LoginPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                     }
 
-                    /* Create and display the form */
                     java.awt.EventQueue.invokeLater(new Runnable() {
                         public void run() {
                             new LoginPanel().setVisible(true);
@@ -277,7 +273,7 @@ public class LoginPanel extends javax.swing.JFrame {
                     });
                 }
 
-                // Variables declaration - do not modify
+                // Variables declaration
                 private javax.swing.JLabel emailAddressErrorMessage;
                 private javax.swing.JLabel jLabel1;
                 private javax.swing.JLabel jLabel2;
