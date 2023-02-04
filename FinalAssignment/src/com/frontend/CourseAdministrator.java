@@ -3004,6 +3004,15 @@ jTable4.addMouseListener(new MouseAdapter() {
                 new CourseAdministrator().setVisible(true);
             }
         });
+
+        // show data in table from database when the program starts
+        showDataInTableFromDb();
+        showStudentDataInTableFromDb();
+        showCoursesDataInTableFromDb();
+        showModulesDataInTableFromDb();
+        showReportDataInTableFromDb();
+        showStudentDetailsDataInTableFromDb();
+
     }
 
     // Variables declaration

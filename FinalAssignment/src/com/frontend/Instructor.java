@@ -1107,6 +1107,11 @@ public class Instructor extends javax.swing.JFrame {
                 new Instructor().setVisible(true);
             }
         });
+
+        // Show data in table from database when the application starts
+        showAssignmentDataInTableFromDb();
+        showReportDataInTableFromDb();
+        showMarksDataInTableFromDb();
     }
 
     // Variables declaration                   

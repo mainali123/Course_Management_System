@@ -368,6 +368,9 @@ public class Student extends javax.swing.JFrame {
                 new Student().setVisible(true);
             }
         });
+
+        // Show Report Data in Table From Database when the application starts
+        showReportDataInTableFromDb();
     }
 
     // Variables declaration                
