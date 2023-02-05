@@ -451,44 +451,6 @@ public class CourseAdministrator extends javax.swing.JFrame {   // Course Admini
         jPanel12 = new javax.swing.JPanel();
         instructorLogoutButton = new javax.swing.JToggleButton();
         jPanel6 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
-        studentNameTextField = new javax.swing.JTextField();
-        studentAddressTextField = new javax.swing.JTextField();
-        studentEmailTextField = new javax.swing.JTextField();
-        studentCitizenshipTextField = new javax.swing.JTextField();
-        studentCourseIdComboBox = new javax.swing.JComboBox<>();
-        jLabel49 = new javax.swing.JLabel();
-        studentCollegeEmailTextField = new javax.swing.JTextField();
-        addStudentButton = new javax.swing.JButton();
-        jLabel50 = new javax.swing.JLabel();
-        studentPasswordTextField = new javax.swing.JTextField();
-        studentDobTextField = new javax.swing.JTextField();
-        studentNameErrorMessage = new javax.swing.JLabel();
-        studentNameErrorMessage.setVisible(false);
-        studentAddressErrorMessage = new javax.swing.JLabel();
-        studentAddressErrorMessage.setVisible(false);
-        studentEmailErrorMessage = new javax.swing.JLabel();
-        studentEmailErrorMessage.setVisible(false);
-        studentCitizenshipErrorMessage = new javax.swing.JLabel();
-        studentCitizenshipErrorMessage.setVisible(false);
-        studentDobErrorMessage = new javax.swing.JLabel();
-        studentDobErrorMessage.setVisible(false);
-        studentCollegeEmailErrorMessage = new javax.swing.JLabel();
-        studentCollegeEmailErrorMessage.setVisible(false);
-        studentPasswordErrorMessage = new javax.swing.JLabel();
-        studentPasswordErrorMessage.setVisible(false);
-        studentCourseErrorMessage = new javax.swing.JLabel();
-        studentCourseErrorMessage.setVisible(false);
-        jLabel12 = new javax.swing.JLabel();
-        studentStudentIdTextField = new javax.swing.JTextField();
-        studentStudentIdErrorMessage = new javax.swing.JLabel();
-        studentStudentIdErrorMessage.setVisible(false);
         jPanel8 = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
         jLabel63 = new javax.swing.JLabel();
@@ -905,6 +867,9 @@ jTable4.addMouseListener(new MouseAdapter() {
                         document.add(table);
                         document.close();
                         JOptionPane.showMessageDialog(null, "Report is generated");
+
+                        String updateQuery = "UPDATE report SET isGenerated = '1' WHERE Student_ID = '" + studentID + "'";
+                        statement.executeUpdate(updateQuery);
                     } catch (Exception ex) {
                         System.out.println(ex);
                     }
@@ -1425,39 +1390,6 @@ jTable4.addMouseListener(new MouseAdapter() {
 
         jPanel6.setBackground(new java.awt.Color(29, 29, 29));
 
-        jPanel7.setBackground(new java.awt.Color(23, 23, 23));
-        jPanel7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(35, 35, 35), 4, true));
-
-        jLabel40.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel40.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel40.setText("Name:");
-
-        jLabel41.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel41.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel41.setText("Address:");
-
-        jLabel42.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel42.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel42.setText("Email:");
-
-        jLabel43.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel43.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel43.setText("Citizenship Number:");
-
-        jLabel45.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel45.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel45.setText("DOB:");
-
-        jLabel46.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel46.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel46.setText("Course ID:");
-
-        studentNameTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                studentNameTextFieldActionPerformed(evt);
-            }
-        });
-
         String query1_ = "SELECT Course_ID FROM courses";
         ResultSet resultSet1_ = null;
         try {
@@ -1479,193 +1411,6 @@ jTable4.addMouseListener(new MouseAdapter() {
         e.printStackTrace();
         }
         String[] courseIdArray_ = courseIds.toArray(new String[0]);
-        studentCourseIdComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(courseIdArray_));
-        studentCourseIdComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                studentCourseIdComboBoxActionPerformed(evt);
-            }
-        });
-
-        jLabel49.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel49.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel49.setText("College Email:");
-
-        addStudentButton.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        addStudentButton.setText("Add");
-        addStudentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addStudentButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel50.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel50.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel50.setText("Password:");
-
-        studentDobTextField.setText("DD/MM/YYYY");
-
-        studentNameErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        studentNameErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
-        studentNameErrorMessage.setText("Name cannot be empty!!");
-
-        studentAddressErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        studentAddressErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
-        studentAddressErrorMessage.setText("Address cannot be empty!!");
-
-        studentEmailErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        studentEmailErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
-        studentEmailErrorMessage.setText("Email cannot be empty!!");
-
-        studentCitizenshipErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        studentCitizenshipErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
-        studentCitizenshipErrorMessage.setText("Citizenship number cannot be empty!!");
-
-        studentDobErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        studentDobErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
-        studentDobErrorMessage.setText("Date of Birth cannot be empty!!");
-
-        studentCollegeEmailErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        studentCollegeEmailErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
-        studentCollegeEmailErrorMessage.setText("College Email cannot be empty!!");
-
-        studentPasswordErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        studentPasswordErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
-        studentPasswordErrorMessage.setText("Password cannot be empty!!");
-
-        studentCourseErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        studentCourseErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
-        studentCourseErrorMessage.setText("Course ID cannot be empty!!");
-
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Student ID:");
-
-        studentStudentIdErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        studentStudentIdErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
-        studentStudentIdErrorMessage.setText("Student ID cannot be empty!!");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7Layout.setHorizontalGroup(
-        	jPanel7Layout.createParallelGroup(Alignment.TRAILING)
-        		.addGroup(jPanel7Layout.createSequentialGroup()
-        			.addContainerGap(10, Short.MAX_VALUE)
-        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(jPanel7Layout.createSequentialGroup()
-        					.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(jPanel7Layout.createParallelGroup(Alignment.TRAILING)
-        							.addGroup(jPanel7Layout.createSequentialGroup()
-        								.addGroup(jPanel7Layout.createParallelGroup(Alignment.TRAILING)
-        									.addComponent(jLabel43)
-        									.addComponent(jLabel42)
-        									.addComponent(jLabel41)
-        									.addComponent(jLabel40))
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
-        									.addComponent(studentNameTextField, 255, 255, 255)
-        									.addComponent(studentAddressTextField, 255, 255, 255)
-        									.addComponent(studentEmailTextField, 255, 255, 255)
-        									.addComponent(studentCitizenshipTextField, 255, 255, 255)
-        									.addComponent(studentCitizenshipErrorMessage)
-        									.addComponent(studentNameErrorMessage)
-        									.addComponent(studentAddressErrorMessage)
-        									.addComponent(studentEmailErrorMessage)))
-        							.addGroup(jPanel7Layout.createSequentialGroup()
-        								.addComponent(jLabel45)
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
-        									.addComponent(studentDobErrorMessage)
-        									.addComponent(studentDobTextField, 255, 255, 255))))
-        						.addGroup(Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-        							.addComponent(jLabel49)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(studentCollegeEmailTextField, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-        							.addComponent(jLabel50)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
-        								.addComponent(studentCollegeEmailErrorMessage)
-        								.addComponent(studentPasswordTextField, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
-        								.addComponent(studentPasswordErrorMessage)))
-        						.addGroup(Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-        							.addGroup(jPanel7Layout.createParallelGroup(Alignment.TRAILING)
-        								.addComponent(jLabel12)
-        								.addComponent(jLabel46, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE))
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
-        								.addComponent(studentStudentIdErrorMessage)
-        								.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING, false)
-        									.addComponent(studentCourseErrorMessage)
-        									.addComponent(studentCourseIdComboBox, 0, 250, Short.MAX_VALUE)
-        									.addComponent(studentStudentIdTextField)))))
-        					.addContainerGap())
-        				.addGroup(Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-        					.addComponent(addStudentButton)
-        					.addGap(158))))
-        );
-        jPanel7Layout.setVerticalGroup(
-        	jPanel7Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(jPanel7Layout.createSequentialGroup()
-        			.addContainerGap()
-        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jLabel40)
-        				.addComponent(studentNameTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(studentNameErrorMessage)
-        			.addGap(3)
-        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jLabel41)
-        				.addComponent(studentAddressTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-        			.addGap(3)
-        			.addComponent(studentAddressErrorMessage)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jLabel42)
-        				.addComponent(studentEmailTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-        			.addGap(3)
-        			.addComponent(studentEmailErrorMessage)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jLabel43)
-        				.addComponent(studentCitizenshipTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-        			.addGap(3)
-        			.addComponent(studentCitizenshipErrorMessage)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jLabel45)
-        				.addComponent(studentDobTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(studentDobErrorMessage)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(jLabel49)
-        				.addComponent(studentCollegeEmailTextField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-        			.addGap(3)
-        			.addComponent(studentCollegeEmailErrorMessage)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(studentPasswordTextField, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(jLabel50))
-        			.addGap(4)
-        			.addComponent(studentPasswordErrorMessage)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(studentCourseIdComboBox, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(jLabel46))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(studentCourseErrorMessage)
-        			.addGap(12)
-        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.TRAILING)
-        				.addComponent(jLabel12)
-        				.addGroup(jPanel7Layout.createSequentialGroup()
-        					.addComponent(studentStudentIdTextField, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-        					.addGap(1)))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(studentStudentIdErrorMessage)
-        			.addGap(27)
-        			.addComponent(addStudentButton)
-        			.addContainerGap(49, Short.MAX_VALUE))
-        );
-        jPanel7.setLayout(jPanel7Layout);
 
         jPanel8.setBackground(new java.awt.Color(23, 23, 23));
         jPanel8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(35, 35, 35), 4, true));
@@ -1783,24 +1528,20 @@ jTable4.addMouseListener(new MouseAdapter() {
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	jPanel6Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(jPanel8, GroupLayout.DEFAULT_SIZE, 1520, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 659, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	jPanel6Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel6Layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(jPanel8, GroupLayout.PREFERRED_SIZE, 659, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        jPanel6.setLayout(jPanel6Layout);
 
         jTabbedPane1.addTab("Students", jPanel6);
 
@@ -2831,138 +2572,6 @@ jTable4.addMouseListener(new MouseAdapter() {
     private void instructorNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                        
     }                                                       
 
-    private void studentNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-    }                                                    
-
-    private void studentCourseIdComboBoxActionPerformed(java.awt.event.ActionEvent evt) {                                                        
-    }                                                       
-
-    private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        if (studentNameTextField.getText().isEmpty() || studentAddressTextField.getText().isEmpty() || studentDobTextField.getText().contentEquals("DD/MM/YYYY") || studentEmailTextField.getText().isEmpty() || studentPasswordTextField.getText().isEmpty() || (String) studentCourseIdComboBox.getSelectedItem() == "Select Course" || studentCitizenshipTextField.getText().isEmpty() || studentCollegeEmailTextField.getText().isEmpty() || studentStudentIdTextField.getText().isEmpty()) {
-            if(studentNameTextField.getText().isEmpty()) {
-                studentNameErrorMessage.setVisible(true);
-            } else {
-                studentNameErrorMessage.setVisible(false);
-            }
-            if (studentAddressTextField.getText().isEmpty()) {
-                studentAddressErrorMessage.setVisible(true);
-            } else {
-                studentAddressErrorMessage.setVisible(false);
-            }
-            if (studentDobTextField.getText().contentEquals("DD/MM/YYYY")) {
-                studentDobErrorMessage.setVisible(true);
-            } else {
-                studentDobErrorMessage.setVisible(false);
-            }
-            if (studentEmailTextField.getText().isEmpty()) {
-                studentEmailErrorMessage.setVisible(true);
-            } else {
-                studentEmailErrorMessage.setVisible(false);
-            }
-            if (studentPasswordTextField.getText().isEmpty()) {
-                studentPasswordErrorMessage.setVisible(true);
-            } else {
-                studentPasswordErrorMessage.setVisible(false);
-            }
-            if ((String) studentCourseIdComboBox.getSelectedItem() == "Select Course") {
-                studentCourseErrorMessage.setVisible(true);
-            } else {
-                studentCourseErrorMessage.setVisible(false);
-            }
-            if (studentCitizenshipTextField.getText().isEmpty()) {
-                studentCitizenshipErrorMessage.setVisible(true);
-            } else {
-                studentCitizenshipErrorMessage.setVisible(false);
-            }
-            if (studentCollegeEmailTextField.getText().isEmpty()) {
-                studentCollegeEmailErrorMessage.setVisible(true);
-            } else {
-                studentCollegeEmailErrorMessage.setVisible(false);
-            }
-            if (studentStudentIdTextField.getText().isEmpty()) {
-                studentStudentIdErrorMessage.setVisible(true);
-            } else {
-                studentStudentIdErrorMessage.setVisible(false);
-            }
-
-
-
-        } else {
-    	
-            studentName = studentNameTextField.getText().trim();
-            studentAddress = studentAddressTextField.getText().trim();
-            studentDob = studentDobTextField.getText().trim();
-            studentEmail = studentEmailTextField.getText().trim();
-            studentPassword = studentPasswordTextField.getText().trim();
-            studentCourseId = (String) studentCourseIdComboBox.getSelectedItem();
-            studentCitizenshipNo = studentCitizenshipTextField.getText().trim();
-            studentCollegeEmail = studentCollegeEmailTextField.getText().trim();
-            studentId = studentStudentIdTextField.getText().trim();
-            studentCourseId = (String) studentCourseIdComboBox.getSelectedItem();
-
-            
-            Statement statement = JDBC.getStatement();
-            String insertQuery1 = "INSERT INTO student (Student_ID, Name, Address, DOB, Citizenship_Number, Email_address, College_email_address, College_email_address_password, Course_ID) VALUES ('" + studentId +"', '" + studentName +"', '" + studentAddress +"', '" + studentDob +"', '" + studentCitizenshipNo +"', '" + studentEmail +"', '" + studentCollegeEmail +"', '" + studentPassword +"', '" + studentCourseId +"')";
-            String insertQuery2 = "INSERT INTO student_course (Student_ID, Course_ID) VALUES ('" + studentId +"', '" + studentCourseId +"')";
-                  
-            try {
-                int insertSuccess1 = statement.executeUpdate(insertQuery1);
-                int insertSuccess2 = statement.executeUpdate(insertQuery2);
-
-                String getModuleCodeQuery = "SELECT module_code FROM module WHERE course_id = '" + studentCourseId +"'";
-            ResultSet resultSet = null;
-            try {
-                resultSet = statement.executeQuery(getModuleCodeQuery);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            ArrayList<String> moduleCodeList = new ArrayList<>();
-            try {
-                while (resultSet.next()) {
-                    moduleCodeList.add(resultSet.getString("module_code"));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            for (String moduleCode : moduleCodeList) {
-                String insertQuery4 = "INSERT INTO student_module (Student_ID, Module_Code, Course_ID) VALUES ('" + studentId +"', '" + moduleCode +"', '" + studentCourseId +"')";
-                try {
-                    statement.executeUpdate(insertQuery4);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            for (String moduleCode : moduleCodeList){
-                String insertQuery5 = "INSERT INTO marks (Student_ID, Module_Code, Course_ID, Marks) VALUES ('" + studentId +"', '" + moduleCode +"', '" + studentCourseId +"', NULL)";
-                try {
-                    statement.executeUpdate(insertQuery5);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            for (String moduleCode : moduleCodeList) {
-                String insertQuery3 = "INSERT INTO report (Student_ID, Module_Code, Course_ID, Marks) VALUES ('" + studentId +"', '" + moduleCode +"', '" + studentCourseId +"', NULL)";
-                try {
-                    statement.executeUpdate(insertQuery3);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }   
-
-
-                if (insertSuccess1 == 1 && insertSuccess2 == 1) {
-                    JOptionPane.showMessageDialog(jPanel1, "Student added successfully");
-                } else {
-                    JOptionPane.showMessageDialog(jPanel1, "Student not added");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-    }
-    }                                                
-
     private void studentSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                       
     }                                                      
 
@@ -3018,7 +2627,6 @@ jTable4.addMouseListener(new MouseAdapter() {
     // Variables declaration
     private javax.swing.JButton addCourseButton;
     private javax.swing.JButton addInstructorButton;
-    private javax.swing.JButton addStudentButton;
     private javax.swing.JLabel courseCourseIdErrorMessage;
     private javax.swing.JTextField courseCourseIdTextField;
     private javax.swing.JLabel courseCourseNameErrorMessage;
@@ -3058,7 +2666,6 @@ jTable4.addMouseListener(new MouseAdapter() {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -3071,15 +2678,7 @@ jTable4.addMouseListener(new MouseAdapter() {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel6;
@@ -3116,7 +2715,6 @@ jTable4.addMouseListener(new MouseAdapter() {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -3150,25 +2748,7 @@ jTable4.addMouseListener(new MouseAdapter() {
     private javax.swing.JButton searchCourseButton;
     private javax.swing.JButton searchInstructorButton;
     private javax.swing.JButton searchStudentButton;
-    private javax.swing.JLabel studentAddressErrorMessage;
-    private javax.swing.JTextField studentAddressTextField;
-    private javax.swing.JLabel studentCitizenshipErrorMessage;
-    private javax.swing.JTextField studentCitizenshipTextField;
-    private javax.swing.JLabel studentCollegeEmailErrorMessage;
-    private javax.swing.JTextField studentCollegeEmailTextField;
-    private javax.swing.JLabel studentCourseErrorMessage;
-    private javax.swing.JComboBox<String> studentCourseIdComboBox;
-    private javax.swing.JLabel studentDobErrorMessage;
-    private javax.swing.JTextField studentDobTextField;
-    private javax.swing.JLabel studentEmailErrorMessage;
-    private javax.swing.JTextField studentEmailTextField;
-    private javax.swing.JLabel studentNameErrorMessage;
-    private javax.swing.JTextField studentNameTextField;
-    private javax.swing.JLabel studentPasswordErrorMessage;
-    private javax.swing.JTextField studentPasswordTextField;
     private javax.swing.JTextField studentSearchTextField;
-    private javax.swing.JLabel studentStudentIdErrorMessage;
-    private javax.swing.JTextField studentStudentIdTextField;
     private JTextField instructorInstructorIdTextField;
     // End of variables declaration                   
 
@@ -3185,16 +2765,7 @@ jTable4.addMouseListener(new MouseAdapter() {
     private String instructorCourseId = "";
     private String instructorId = "";
 
-    // Students
-    private String studentName = "";
-    private String studentAddress = "";
-    private String studentEmail = "";
-    private String studentCitizenshipNo = "";
-    private String studentDob = "";
-    private String studentCollegeEmail = "";
-    private String studentPassword = "";
-    private String studentCourseId = "";
-    private String studentId = "";
+
 
     // Courses
     private String courseName = "";

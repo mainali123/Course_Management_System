@@ -167,10 +167,8 @@ public class LoginPanel extends javax.swing.JFrame {
                 role = loginRole.getSelectedItem().toString();
                 password = String.valueOf(loginPassword.getPassword());
 
-                // public static String moduleID;
-                // public static String courseID;
-                // public static String id;
-                String query1 = "SELECT Instructor_ID FROM instructor WHERE Email_address = '" + email + "'";
+                if (role.equals("Instructor")) {
+                    String query1 = "SELECT Instructor_ID FROM instructor WHERE Email_address = '" + email + "'";
                
                 
 
@@ -194,6 +192,35 @@ public class LoginPanel extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+
+                } else if (role.equals("Student")) {
+                    String query1 = "SELECT Student_ID FROM student WHERE College_email_address = '" + email + "'";
+                    // Run the above query and set the result to the moduleID, courseID and id variables
+                    Statement statement = JDBC.getStatement();
+                    try {
+                        ResultSet rs = statement.executeQuery(query1);
+                        while (rs.next()) {
+                            id = rs.getString("Student_ID");
+                        }
+                        String query2 = "SELECT Module_code FROM student_module WHERE Student_ID = '" + id + "'";
+                        ResultSet rs1 = statement.executeQuery(query2);
+                        while (rs1.next()) {
+                            moduleID = rs1.getString("Module_code");
+                        }
+                        String query3 = "SELECT Course_ID FROM student_module WHERE Student_ID = '" + id + "'";
+                        ResultSet rs2 = statement.executeQuery(query3);
+                        while (rs2.next()) {
+                            courseID = rs2.getString("Course_ID");
+                        }
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+                // public static String moduleID;
+                // public static String courseID;
+                // public static String id;
+                
 
                 // if(username.isEmpty() || password.isEmpty() || role.isEmpty()){
                 //     JOptionPane.showMessageDialog(this,"Username/Password/Role should not be empty.","Error",JOptionPane.ERROR_MESSAGE);
