@@ -7,10 +7,76 @@ package com.frontend;
 
 
 import java.util.*;
+
+import javax.swing.JOptionPane;
+
+import com.database.JDBC;
+
 import java.sql.*;
 
 
 public class LoginPanel extends javax.swing.JFrame {
+
+    public static String email;
+    public static String role;
+    public static String password;
+
+    public void Redirection(String email, String password, String role){
+        if(role.equals("Course_Administrator")){
+            Statement statement = JDBC.getStatement();
+
+            String query = "SELECT * FROM course_administrator WHERE login_email = '" + email + "' AND login_psw = '" + password + "'";
+            try {
+                ResultSet result = statement.executeQuery(query);
+                if(result.next()){
+                    new CourseAdministrator().setVisible(true);
+                    this.setVisible(false);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Login Failed");
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } else if (role.equals("Instructor")){
+            Statement statement = JDBC.getStatement();
+
+            String query = "SELECT * FROM instructor WHERE Email_address = '" + email + "' AND Password = '" + password + "'";
+            try {
+                ResultSet result = statement.executeQuery(query);
+                if(result.next()){
+                    new Instructor().setVisible(true);
+                    this.setVisible(false);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Login Failed");
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } else if (role.equals("Student")){
+            Statement statement = JDBC.getStatement();
+
+            String query = "SELECT * FROM student WHERE College_email_address = '" + email + "' AND College_email_address_password = '" + password + "'";
+            try {
+                ResultSet result = statement.executeQuery(query);
+                if(result.next()){
+                    new Student().setVisible(true);
+                    this.setVisible(false);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Login Failed");
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        
+
+    }
 
     public LoginPanel() {
         initComponents();
@@ -88,68 +154,35 @@ public class LoginPanel extends javax.swing.JFrame {
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    loginButtonActionPerformed(evt);
+                email = loginEmail.getText();
+                role = loginRole.getSelectedItem().toString();
+                password = String.valueOf(loginPassword.getPassword());
 
-                    // email address validation
-                    if (loginEmail.getText().equals("")) {  // Checking weather user has entered an email address or not
+                // if(username.isEmpty() || password.isEmpty() || role.isEmpty()){
+                //     JOptionPane.showMessageDialog(this,"Username/Password/Role should not be empty.","Error",JOptionPane.ERROR_MESSAGE);
+                //     }
+                //     else{
+                        
+                //       userLogin(username,password,role);
+                //     }
+
+                if (email.isEmpty() || password.isEmpty() || role.isEmpty()) {
+                    if (email.isEmpty()) {
                         emailAddressErrorMessage.setVisible(true);
-                    } else {
-                        emailAddressErrorMessage.setVisible(false);
                     }
-
-                    // password validation
-                    char[] password = loginPassword.getPassword();  // Gets the password as an array of characters. It is impossible to apply .getText() method on JPasswordField because it is a deprecated method.
-                    if (password.length == 0) {   // Checking weather user has entered a password or not
+                    if (password.isEmpty()) {
                         passwordErrorMessage.setVisible(true);
-                    } else {
-                        passwordErrorMessage.setVisible(false);
                     }
-
-                    // role validation
-                    if (loginRole.getSelectedItem().equals("Select Role")) {    // Checking weather user has selected a role or not
+                    if (role.isEmpty()) {
                         roleErrorMessage.setVisible(true);
-                    } else {
-                        roleErrorMessage.setVisible(false);
                     }
-
-                    // if all fields are valid
-                    if (!loginEmail.getText().equals("") && password.length != 0 && !loginRole.getSelectedItem().equals("Select Role")) {
-
-                        if (loginRole.getSelectedItem().equals("Course_Administrator")) {
-                            if (loginEmail.getText().equals("diwash@mainali.com") && Arrays.equals(password, "diwash".toCharArray())) {
-                                CourseAdministrator courseAdministrator = new CourseAdministrator();    // Creating object of Course Administrator class
-                                courseAdministrator.setVisible(true);   // Redirect to Course Administrator page if email and password are correct
-                            } else{
-                                loginErrorMessage.setVisible(true);
-                            }
-                        }
-                            else if (loginRole.getSelectedItem().equals("Student")) {
-                            if (loginEmail.getText().equals("diwash@mainali.com") && Arrays.equals(password, "diwash".toCharArray())) {
-                                    Student student = new Student();    // Creating object of Student class
-                                    student.setVisible(true);   // Redirect to Student page if email and password are correct
-                                }
-
-                             else {
-                                loginErrorMessage.setVisible(true);
-                            }
-                        }
-                            else if (loginRole.getSelectedItem().equals("Instructor")) {
-                                if (loginEmail.getText().equals("diwash@mainali.com") && Arrays.equals(password, "diwash".toCharArray())) {
-                                    Instructor instructor = new Instructor();   // Creating object of Instructor class
-                                    instructor.setVisible(true);    // Redirect to Instructor page if email and password are correct
-                                }
-                             else {
-                                loginErrorMessage.setVisible(true);   // Show error message if email and password are incorrect
-                            }
-                        }
-                    }
+                } else {
+                    System.out.println("I am executing");
+                    Redirection(email, password, role);
                 }
-                 catch(SQLException e){
-                                e.printStackTrace();
-                            }
-                        }
-                    });
+
+            }
+        });
 
                     emailAddressErrorMessage.setFont(new java.awt.Font("Times New Roman", 1, 14));
                     emailAddressErrorMessage.setForeground(new java.awt.Color(255, 0, 0));

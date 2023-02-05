@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileOutputStream;
-import javax.swing.JPanel;
 
 
 /**
@@ -314,9 +313,6 @@ public class Student extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1))
         );
-        
-        panel = new JPanel();
-        jTabbedPane1.addTab("New tab", null, panel, null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -373,7 +369,7 @@ public class Student extends javax.swing.JFrame {
             }
         });
 
-        showReportDataInTableFromDb();
+        
     }
 
     // Variables declaration                
@@ -392,6 +388,5 @@ public class Student extends javax.swing.JFrame {
     private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField38;
     private javax.swing.JToggleButton jToggleButton8;
-    private JPanel panel;
     // End of variables declaration                   
 }
