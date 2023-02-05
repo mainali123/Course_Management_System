@@ -20,6 +20,9 @@ public class LoginPanel extends javax.swing.JFrame {
     public static String email;
     public static String role;
     public static String password;
+    public static String moduleID;
+    public static String courseID;
+    public static String id;
 
     public void Redirection(String email, String password, String role){
         if(role.equals("Course_Administrator")){
@@ -63,7 +66,13 @@ public class LoginPanel extends javax.swing.JFrame {
             try {
                 ResultSet result = statement.executeQuery(query);
                 if(result.next()){
-                    new Student().setVisible(true);
+                    
+                    // new Student().setVisible(true);
+
+                    Student student = new Student();
+                    // student.main(null);
+                    student.setVisible(true);
+
                     this.setVisible(false);
                 }
                 else{
@@ -158,6 +167,34 @@ public class LoginPanel extends javax.swing.JFrame {
                 role = loginRole.getSelectedItem().toString();
                 password = String.valueOf(loginPassword.getPassword());
 
+                // public static String moduleID;
+                // public static String courseID;
+                // public static String id;
+                String query1 = "SELECT Instructor_ID FROM instructor WHERE Email_address = '" + email + "'";
+               
+                
+
+                // Run the above query and set the result to the moduleID, courseID and id variables
+                Statement statement = JDBC.getStatement();
+                try {
+                    ResultSet rs = statement.executeQuery(query1);
+                    while (rs.next()) {
+                        id = rs.getString("Instructor_ID");
+                    }
+                    String query2 = "SELECT Module_code FROM instructor_module WHERE Instructor_ID = '" + id + "'";
+                    ResultSet rs1 = statement.executeQuery(query2);
+                    while (rs1.next()) {
+                        moduleID = rs1.getString("Module_code");
+                    }
+                    String query3 = "SELECT Course_ID FROM instructor_module WHERE Instructor_ID = '" + id + "'";
+                    ResultSet rs2 = statement.executeQuery(query3);
+                    while (rs2.next()) {
+                        courseID = rs2.getString("Course_ID");
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
                 // if(username.isEmpty() || password.isEmpty() || role.isEmpty()){
                 //     JOptionPane.showMessageDialog(this,"Username/Password/Role should not be empty.","Error",JOptionPane.ERROR_MESSAGE);
                 //     }
@@ -177,7 +214,6 @@ public class LoginPanel extends javax.swing.JFrame {
                         roleErrorMessage.setVisible(true);
                     }
                 } else {
-                    System.out.println("I am executing");
                     Redirection(email, password, role);
                 }
 

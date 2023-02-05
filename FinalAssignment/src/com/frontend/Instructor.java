@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,11 +24,50 @@ import java.awt.event.MouseEvent;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 
+// import email from LoginPanel.java file of the same package
+import com.frontend.LoginPanel;
+
 /**
  *
  * @author Diwash
  */
 public class Instructor extends javax.swing.JFrame {
+
+    public static String globalInstructorID;
+    public static String globalCourseID;
+    public static String globalModuleID;
+
+    public static void initializeIDs() {
+        Statement statement = JDBC.getStatement();
+
+        String query1 = "SELECT Instructor_ID FROM instructor WHERE Email_address = '" + LoginPanel.email + "'";
+        
+
+
+        // execute the query, and set the global variables
+        try {
+            ResultSet rs1 = statement.executeQuery(query1);
+            while (rs1.next()) {
+                globalInstructorID = rs1.getString("Instructor_ID");
+            }
+
+            String query2 = "SELECT Course_ID FROM instructor_course WHERE Instructor_ID = '" + globalInstructorID + "'";
+            ResultSet rs2 = statement.executeQuery(query2);
+            while (rs2.next()) {
+                globalCourseID = rs2.getString("Course_ID");
+            }
+
+            String query3 = "SELECT Module_code FROM instructor_module WHERE Instructor_ID = '" + globalInstructorID + "'";
+            ResultSet rs3 = statement.executeQuery(query3);
+            while (rs3.next()) {
+                globalModuleID = rs3.getString("Module_code");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     private static DefaultTableModel assignmentDefaultTableModel = new javax.swing.table.DefaultTableModel(
         new Object [][] {
@@ -43,7 +83,7 @@ public class Instructor extends javax.swing.JFrame {
 
         },
         new String [] {
-            "Student ID", "Module code", "Course ID", "Marks"
+            "Student ID", "Student Name", "Email", "Module Code", "Course ID"
         }
     );
     
@@ -85,17 +125,17 @@ public class Instructor extends javax.swing.JFrame {
         Statement statement = JDBC.getStatement();
 
         try {
-            String query = "SELECT * FROM report";
+            String query = "SELECT student.Student_ID, student.Name, student.College_email_address, student_course.Course_ID, student_module.Module_code FROM student INNER JOIN student_course ON student.Student_ID = student_course.Student_ID INNER JOIN student_module ON student.Student_ID = student_module.Student_ID WHERE student_course.Course_ID = '" + LoginPanel.courseID + "'" + " AND student_module.Module_code = '" + LoginPanel.moduleID + "'";
             ResultSet rs = statement.executeQuery(query);
 
             while (rs.next()) {
                 String studentId = rs.getString("Student_ID");
-                String moduleCode = rs.getString("Module_code");
+                String studentName = rs.getString("Name");
+                String studentEmail = rs.getString("College_email_address");
                 String courseId = rs.getString("Course_ID");
-                String marks = rs.getString("Marks");
+                String moduleCode = rs.getString("Module_code");
 
-                reportDefaultTableModel.addRow(new Object[] {studentId, moduleCode, courseId, marks});
-                
+                reportDefaultTableModel.addRow(new Object[] {studentId, studentName, studentEmail, moduleCode, courseId});
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,7 +147,7 @@ public class Instructor extends javax.swing.JFrame {
         Statement statement = JDBC.getStatement();
 
         try {
-            String query = "SELECT * FROM marks";
+            String query = "SELECT * FROM marks WHERE Course_ID = '" + LoginPanel.courseID + "'" + " AND Module_code = '" + LoginPanel.moduleID + "'";
 
             ResultSet rs = statement.executeQuery(query);
 
@@ -244,7 +284,8 @@ public class Instructor extends javax.swing.JFrame {
 
 
         Statement statement = JDBC.getStatement();
-        String query3 = "SELECT Instructor_ID FROM instructor";
+
+        String query3 = "SELECT Instructor_ID FROM instructor WHERE Email_address = '" + LoginPanel.email + "'";
         ResultSet resultSet = null;
 		try {
 			resultSet = statement.executeQuery(query3);
@@ -278,7 +319,7 @@ public class Instructor extends javax.swing.JFrame {
         jLabel3.setText("Instructor ID:");
 
         
-        String query = "SELECT Course_ID FROM courses";
+        String query = "SELECT Course_ID FROM instructor_course WHERE Instructor_ID = '" + LoginPanel.id + "'";
 		try {
 			resultSet = statement.executeQuery(query);
 		} catch (SQLException e) {
@@ -322,7 +363,7 @@ public class Instructor extends javax.swing.JFrame {
         jLabel7.setText("Module ID:");
 
 
-        String query2 = "SELECT Module_code FROM module";
+        String query2 = "SELECT Module_code FROM instructor_module WHERE Instructor_ID = '" + LoginPanel.id + "'";
         try {
             resultSet = statement.executeQuery(query2);
         } catch (SQLException e) {
@@ -330,19 +371,20 @@ public class Instructor extends javax.swing.JFrame {
 		}
         List<String> moduleIds = new ArrayList<>();
         moduleIds.add("Select Modules");
+
         try {
-            while(resultSet.next()) {
-                try{
+            while (resultSet.next()) {
+                try {
                     moduleIds.add(resultSet.getString("Module_code"));
-                }catch (SQLException e) {
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String[] moduleIdsArray = moduleIds.toArray(new String[0]);
 
+        String[] moduleIdsArray = moduleIds.toArray(new String[0]);
 
         instructorModuleId.setModel(new javax.swing.DefaultComboBoxModel<>(moduleIdsArray));
         instructorModuleId.addActionListener(new java.awt.event.ActionListener() {
@@ -744,7 +786,7 @@ public class Instructor extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Report", jPanel23);
+        jTabbedPane1.addTab("Student", jPanel23);
 
         jPanel24.setBackground(new java.awt.Color(29, 29, 29));
 
@@ -1108,10 +1150,17 @@ public class Instructor extends javax.swing.JFrame {
             }
         });
 
+        System.out.println("Main function is executed!!!");
         // Show data in table from database when the application starts
         showAssignmentDataInTableFromDb();
         showReportDataInTableFromDb();
         showMarksDataInTableFromDb();
+
+        // initializeIDs();
+        System.out.println(globalCourseID);
+        System.out.println(globalModuleID);
+        System.out.println(globalInstructorID);
+
     }
 
     // Variables declaration                   
