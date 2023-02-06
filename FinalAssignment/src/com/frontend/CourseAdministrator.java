@@ -604,7 +604,7 @@ public class CourseAdministrator extends javax.swing.JFrame {   // Course Admini
 
         jTable2.addMouseListener(new MouseAdapter() {
         	@Override
-        	public void mouseClicked(MouseEvent e) {
+        	public void mouseClicked(MouseEvent e) {    // When a row is clicked
                 Object[] options = {"Update", "Delete"};
                 int n = JOptionPane.showOptionDialog(null, "Do you want to update or delete the selected student?", "Update or Delete Instructor", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
         	
@@ -644,7 +644,7 @@ public class CourseAdministrator extends javax.swing.JFrame {   // Course Admini
 
                             try {
                                 String updateQuery = "UPDATE courses SET Course_ID = '" + updatedId + "', Course_name = '" + updatedName + "' WHERE Course_ID = '" + previousID + "'";
-                                statement.executeUpdate(updateQuery);
+                                statement.executeUpdate(updateQuery);   // Update the data in the database
                                 JOptionPane.showMessageDialog(null, "Data is updated");
                             } catch (Exception ex) {
                                 System.out.println(ex);
@@ -672,7 +672,8 @@ public class CourseAdministrator extends javax.swing.JFrame {   // Course Admini
                     String deleteQuery7 = "DELETE FROM courses WHERE Course_ID = '" + Id + "'";
 
                     try {
-                        statement.executeUpdate(deleteQuery1);
+                        // Delete the data from the database
+                        statement.executeUpdate(deleteQuery1);  
                         statement.executeUpdate(deleteQuery2);
                         statement.executeUpdate(deleteQuery3);
                         statement.executeUpdate(deleteQuery4);
@@ -721,7 +722,7 @@ public class CourseAdministrator extends javax.swing.JFrame {   // Course Admini
 
         jTable3.addMouseListener(new MouseAdapter() {
         	@Override
-        	public void mouseClicked(MouseEvent e) {
+        	public void mouseClicked(MouseEvent e) {    // When the user clicks on a row in the table
                 Object[] options = {"Update", "Delete"};
                 int n = JOptionPane.showOptionDialog(null, "Do you want to update or delete the selected student?", "Update or Delete Instructor", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
         	
@@ -789,6 +790,7 @@ public class CourseAdministrator extends javax.swing.JFrame {   // Course Admini
                     String deleteQuery7 = "DELETE FROM modules WHERE Module_Code = '" + Id + "'";
 
                     try {
+                        // delete the data from the database
                         statement.executeUpdate(deleteQuery1);
                         statement.executeUpdate(deleteQuery2);
                         statement.executeUpdate(deleteQuery3);
@@ -822,13 +824,13 @@ public class CourseAdministrator extends javax.swing.JFrame {   // Course Admini
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
 
-jTable4.addMouseListener(new MouseAdapter() {
+jTable4.addMouseListener(new MouseAdapter() {   // Generate report
         	@Override
-        	public void mouseClicked(MouseEvent e) {
+        	public void mouseClicked(MouseEvent e) {    
                 Object[] options = {"Generate", "Don't generate"};
                 int n = JOptionPane.showOptionDialog(null, "Do you want to Generate report of the selected student?", "Generate Report", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
         	
-                if (n == 0) {
+                if (n == 0) {   // if the user wants to generate the report
                     String studentID = "";
                     for (int columnIndex=0; columnIndex < jTable4.getColumnCount(); columnIndex++) {
                         if (studentID.isEmpty()){
@@ -866,9 +868,9 @@ jTable4.addMouseListener(new MouseAdapter() {
 
                         document.add(table);
                         document.close();
-                        JOptionPane.showMessageDialog(null, "Report is generated");
+                        JOptionPane.showMessageDialog(null, "Report is generated");  // if the report is generated successfully
 
-                        String updateQuery = "UPDATE report SET isGenerated = '1' WHERE Student_ID = '" + studentID + "'";
+                        String updateQuery = "UPDATE report SET isGenerated = '1' WHERE Student_ID = '" + studentID + "'";  // update the isGenerated column in the report table so that student can see the report
                         statement.executeUpdate(updateQuery);
                     } catch (Exception ex) {
                         System.out.println(ex);
@@ -983,19 +985,19 @@ jTable4.addMouseListener(new MouseAdapter() {
         });
 
         Statement statement = JDBC.getStatement();
-        String query = "SELECT Module_code FROM module";
+        String query = "SELECT Module_code FROM module";    // Query to get all the module codes
         ResultSet resultSet = null;
 		try {
 			resultSet = statement.executeQuery(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-        List<String> moduleCodes = new ArrayList<>();
-        moduleCodes.add("Select Modules");
+        List<String> moduleCodes = new ArrayList<>();   // List to store all the module codes
+        moduleCodes.add("Select Modules");  // Add a default value to the list
         try {
 			while (resultSet.next()) {
 			try {
-				moduleCodes.add(resultSet.getString("Module_code"));
+				moduleCodes.add(resultSet.getString("Module_code"));    // Add all the module codes to the list
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -1003,8 +1005,8 @@ jTable4.addMouseListener(new MouseAdapter() {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-        String[] moduleCodeArray = moduleCodes.toArray(new String[0]);
-        instructorModule_1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(moduleCodeArray));
+        String[] moduleCodeArray = moduleCodes.toArray(new String[0]);  // Convert the list to an array
+        instructorModule_1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(moduleCodeArray));   // Set the array as the model for the combo box, so that the combo box can display the real time module codes
         
         instructorModule_1ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1390,19 +1392,19 @@ jTable4.addMouseListener(new MouseAdapter() {
 
         jPanel6.setBackground(new java.awt.Color(29, 29, 29));
 
-        String query1_ = "SELECT Course_ID FROM courses";
+        String query1_ = "SELECT Course_ID FROM courses";   // Query to get all the course IDs
         ResultSet resultSet1_ = null;
         try {
         resultSet1_ = statement.executeQuery(query1_);
         } catch (SQLException e) {
         e.printStackTrace();
         }
-        List<String> courseIds_ = new ArrayList<>();
-        courseIds_.add("Select Course");
+        List<String> courseIds_ = new ArrayList<>();    // List to store all the course IDs
+        courseIds_.add("Select Course");    // Add a default value to the list
         try {
         while (resultSet1_.next()) {
         try {
-        courseIds_.add(resultSet1_.getString("Course_ID"));
+        courseIds_.add(resultSet1_.getString("Course_ID"));   // Add the course IDs to the list
         } catch (SQLException e) {
         e.printStackTrace();
         }
@@ -1410,7 +1412,7 @@ jTable4.addMouseListener(new MouseAdapter() {
         } catch (SQLException e) {
         e.printStackTrace();
         }
-        String[] courseIdArray_ = courseIds.toArray(new String[0]);
+        String[] courseIdArray_ = courseIds.toArray(new String[0]);   // Convert the list to an array
 
         jPanel8.setBackground(new java.awt.Color(23, 23, 23));
         jPanel8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(35, 35, 35), 4, true));
@@ -1797,7 +1799,7 @@ jTable4.addMouseListener(new MouseAdapter() {
             }
         });
 
-        moduleCourseComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(courseIdArray_));
+        moduleCourseComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(courseIdArray_));  // Setting the course id array to the course combo box, so that the user can select the resl time course id
         moduleCourseComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox4ActionPerformed(evt);
@@ -2313,12 +2315,14 @@ jTable4.addMouseListener(new MouseAdapter() {
         pack();
     }                    
 
-    private void jToggleButton10ActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void jToggleButton10ActionPerformed(java.awt.event.ActionEvent evt) {  
+        // Logout button                                              
     	this.dispose();
         new LoginPanel().setVisible(true);
     }                                               
 
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {  
+        // Clearing the table and showing the data again                                        
     	DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
         model.setRowCount(0);
         showStudentDetailsDataInTableFromDb();
@@ -2327,12 +2331,14 @@ jTable4.addMouseListener(new MouseAdapter() {
     private void jTextField39ActionPerformed(java.awt.event.ActionEvent evt) {                                             
     }                                            
 
-    private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {   
+        // Logout button                                            
         this.dispose();
         new LoginPanel().setVisible(true);
     }                                              
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {  
+        // Clearing the table and showing the data again                                        
     	DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
         model.setRowCount(0);
         showReportDataInTableFromDb();
@@ -2341,12 +2347,14 @@ jTable4.addMouseListener(new MouseAdapter() {
     private void jTextField38ActionPerformed(java.awt.event.ActionEvent evt) {                                             
     }                                            
 
-    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {  
+        // Logout button                                             
     	this.dispose();
         new LoginPanel().setVisible(true);
     }                                              
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {   
+        // Clearing the table and showing the data again                                       
     	DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         model.setRowCount(0);
         showModulesDataInTableFromDb();
@@ -2358,7 +2366,8 @@ jTable4.addMouseListener(new MouseAdapter() {
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {                                           
     }                                          
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {  
+        // Checking if the fields are empty and showing the error message if they are empty                                        
 
         if(moduleModuleNameTextField.getText().isEmpty() || moduleModuleCodeTextField.getText().isEmpty() || moduleCourseComboBox.getSelectedItem().toString().equals("Select Course")){
             if (moduleModuleNameTextField.getText().isEmpty()) {
@@ -2376,7 +2385,7 @@ jTable4.addMouseListener(new MouseAdapter() {
             } else {
                 moduleCourseErrorMessage.setVisible(false);
             }
-        } else {
+        } else {    // If the fields are not empty, then the data will be inserted into the database
             moduleName = moduleModuleNameTextField.getText();
             moduleCode = moduleModuleCodeTextField.getText();
             moduleCourseId = moduleCourseComboBox.getSelectedItem().toString();
@@ -2387,9 +2396,9 @@ jTable4.addMouseListener(new MouseAdapter() {
             try{
                 int success = statement.executeUpdate(insertQuery);
                 if (success == 1){
-                    JOptionPane.showMessageDialog(null, "Module Added Successfully");
+                    JOptionPane.showMessageDialog(null, "Module Added Successfully");   // Showing the success message
                 } else {
-                    JOptionPane.showMessageDialog(null, "Module not added");
+                    JOptionPane.showMessageDialog(null, "Module not added");    // Showing the error message
                 }
             } catch (SQLException e){
                 e.printStackTrace();
@@ -2401,12 +2410,14 @@ jTable4.addMouseListener(new MouseAdapter() {
     private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {                                             
     }                                            
 
-    private void logoutCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    private void logoutCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {    
+        // Logout button                                               
     	this.dispose();
         new LoginPanel().setVisible(true);
     }                                                  
 
-    private void refreshCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+    private void refreshCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {   
+        // Clearing the table and showing the data again                                                 
     	DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0);
         showCoursesDataInTableFromDb();
@@ -2415,7 +2426,8 @@ jTable4.addMouseListener(new MouseAdapter() {
     private void courseSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                      
     }                                                     
 
-    private void addCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void addCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {               
+        // Checking if the fields are empty and showing the error message if they are empty                                 
         if (courseCourseNameTextField.getText().isEmpty() || courseCourseIdTextField.getText().isEmpty()){
             if(courseCourseNameTextField.getText().isEmpty()){
                 courseCourseNameErrorMessage.setVisible(true);
@@ -2427,7 +2439,7 @@ jTable4.addMouseListener(new MouseAdapter() {
             } else {
                 courseCourseIdErrorMessage.setVisible(false);
             }
-        } else {
+        } else {    // If the fields are not empty, then the data will be inserted into the database
             courseName = courseCourseNameTextField.getText().trim();
             courseID = courseCourseIdTextField.getText().trim();
 
@@ -2437,9 +2449,9 @@ jTable4.addMouseListener(new MouseAdapter() {
             try{
                 int success = statement.executeUpdate(insertQuery);
                 if (success == 1){
-                    JOptionPane.showMessageDialog(null, "Course Added Successfully");
+                    JOptionPane.showMessageDialog(null, "Course Added Successfully");   // Showing the success message
                 } else {
-                    JOptionPane.showMessageDialog(null, "Course not added");
+                    JOptionPane.showMessageDialog(null, "Course not added");    // Showing the error message
                 }
             } catch (SQLException e){
                 e.printStackTrace();
@@ -2451,12 +2463,14 @@ jTable4.addMouseListener(new MouseAdapter() {
     private void courseCourseNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                          
     }                                                         
 
-    private void instructorLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                       
+    private void instructorLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {      
+        // Logout button                                                 
         this.dispose();
         new LoginPanel().setVisible(true);
     }                                                      
 
-    private void refreshInstructorButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                        
+    private void refreshInstructorButtonActionPerformed(java.awt.event.ActionEvent evt) {  
+        // Clearing the table and showing the data again                                                      
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         showDataInTableFromDb();
@@ -2529,7 +2543,7 @@ jTable4.addMouseListener(new MouseAdapter() {
             } else {
                 instructorModuleErrorMessage.setVisible(false);
             }
-        } else {
+        } else {    // If the fields are not empty, then the data will be inserted into the database
     	
             instructorName = instructorNameTextField.getText().trim();
             instructorAddress = instructorAddressTextField.getText().trim();
@@ -2575,7 +2589,8 @@ jTable4.addMouseListener(new MouseAdapter() {
     private void studentSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                       
     }                                                      
 
-    private void refreshStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+    private void refreshStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {  
+        // Clearing the table and showing the data again                                                   
     	DefaultTableModel model = (DefaultTableModel) jTable6.getModel();
         model.setRowCount(0);
         showStudentDataInTableFromDb();
@@ -2605,9 +2620,7 @@ jTable4.addMouseListener(new MouseAdapter() {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(CourseAdministrator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CourseAdministrator().setVisible(true);
