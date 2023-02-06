@@ -18,51 +18,17 @@ import java.awt.event.MouseEvent;
 
 
 
-// import email from LoginPanel.java file of the same package
 
 /**
  *
  * @author Diwash
  */
+
 public class Instructor extends javax.swing.JFrame {
 
-    public static String globalInstructorID;
-    public static String globalCourseID;
-    public static String globalModuleID;
-
-    public static void initializeIDs() {
-        Statement statement = JDBC.getStatement();
-
-        String query1 = "SELECT Instructor_ID FROM instructor WHERE Email_address = '" + LoginPanel.email + "'";
-        
 
 
-        // execute the query, and set the global variables
-        try {
-            ResultSet rs1 = statement.executeQuery(query1);
-            while (rs1.next()) {
-                globalInstructorID = rs1.getString("Instructor_ID");
-            }
-
-            String query2 = "SELECT Course_ID FROM instructor_course WHERE Instructor_ID = '" + globalInstructorID + "'";
-            ResultSet rs2 = statement.executeQuery(query2);
-            while (rs2.next()) {
-                globalCourseID = rs2.getString("Course_ID");
-            }
-
-            String query3 = "SELECT Module_code FROM instructor_module WHERE Instructor_ID = '" + globalInstructorID + "'";
-            ResultSet rs3 = statement.executeQuery(query3);
-            while (rs3.next()) {
-                globalModuleID = rs3.getString("Module_code");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    private static DefaultTableModel assignmentDefaultTableModel = new javax.swing.table.DefaultTableModel(
+    private static DefaultTableModel assignmentDefaultTableModel = new javax.swing.table.DefaultTableModel( // Table model for assignment table
         new Object [][] {
 
         },
@@ -71,7 +37,7 @@ public class Instructor extends javax.swing.JFrame {
         }
     );
 
-    private static DefaultTableModel reportDefaultTableModel = new javax.swing.table.DefaultTableModel(
+    private static DefaultTableModel reportDefaultTableModel = new javax.swing.table.DefaultTableModel( // Table model for report table
         new Object [][] {
 
         },
@@ -81,7 +47,7 @@ public class Instructor extends javax.swing.JFrame {
     );
     
 
-    private static DefaultTableModel marksDefaultTableModel = new javax.swing.table.DefaultTableModel(
+    private static DefaultTableModel marksDefaultTableModel = new javax.swing.table.DefaultTableModel(  // Table model for marks table
         new Object [][] {
 
         },
@@ -91,7 +57,7 @@ public class Instructor extends javax.swing.JFrame {
     );
 
     public static void showAssignmentDataInTableFromDb() {
-        Statement statement = JDBC.getStatement();
+        Statement statement = JDBC.getStatement();  // Object of statement class
 
         try {
             String query = "SELECT * FROM assignment ORDER BY Assignment_Number ASC";
@@ -114,7 +80,7 @@ public class Instructor extends javax.swing.JFrame {
 
     }
 
-    public static void showReportDataInTableFromDb() {
+    public static void showReportDataInTableFromDb() {  // Method to show report data in table from database
         Statement statement = JDBC.getStatement();
 
         try {
@@ -136,7 +102,7 @@ public class Instructor extends javax.swing.JFrame {
     }
 
 
-    public static void showMarksDataInTableFromDb() {
+    public static void showMarksDataInTableFromDb() {   // Method to show marks data in table from database
         Statement statement = JDBC.getStatement();
 
         try {
@@ -278,7 +244,7 @@ public class Instructor extends javax.swing.JFrame {
 
         Statement statement = JDBC.getStatement();
 
-        String query3 = "SELECT Instructor_ID FROM instructor WHERE Email_address = '" + LoginPanel.email + "'";
+        String query3 = "SELECT Instructor_ID FROM instructor WHERE Email_address = '" + LoginPanel.email + "'";    // Query to get the instructor ID of the instructor who is logged in
         ResultSet resultSet = null;
 		try {
 			resultSet = statement.executeQuery(query3);
@@ -286,11 +252,11 @@ public class Instructor extends javax.swing.JFrame {
 			e.printStackTrace();
 		}
         List<String> instructorIds = new ArrayList<>();
-        instructorIds.add("Select Instructor ID");
+        instructorIds.add("Select Instructor ID");  // Add a default value to the list
         try {
             while (resultSet.next()) {
                 try {
-                    instructorIds.add(resultSet.getString("Instructor_ID"));
+                    instructorIds.add(resultSet.getString("Instructor_ID"));    // Add the instructor ID to the list
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -298,9 +264,9 @@ public class Instructor extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String[] instructorIdsArray = instructorIds.toArray(new String[0]);
+        String[] instructorIdsArray = instructorIds.toArray(new String[0]);   // Convert the list to an array
 
-        instructorInstructorId.setModel(new javax.swing.DefaultComboBoxModel<>(instructorIdsArray));
+        instructorInstructorId.setModel(new javax.swing.DefaultComboBoxModel<>(instructorIdsArray));    // Set the array as the model for the combo box, so that the combo box can display the real time instructor IDs
         instructorInstructorId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 instructorInstructorIdActionPerformed(evt);
@@ -312,18 +278,18 @@ public class Instructor extends javax.swing.JFrame {
         jLabel3.setText("Instructor ID:");
 
         
-        String query = "SELECT Course_ID FROM instructor_course WHERE Instructor_ID = '" + LoginPanel.id + "'";
+        String query = "SELECT Course_ID FROM instructor_course WHERE Instructor_ID = '" + LoginPanel.id + "'"; // Query to get all the course IDs for the instructor
 		try {
 			resultSet = statement.executeQuery(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-        List<String> courseIds = new ArrayList<>();
-        courseIds.add("Select Courses");
+        List<String> courseIds = new ArrayList<>(); // List to store all the course IDs
+        courseIds.add("Select Courses");    // Adding a default value to the list
         try {
             while(resultSet.next()) {
                 try{
-                courseIds.add(resultSet.getString("Course_ID"));
+                courseIds.add(resultSet.getString("Course_ID"));    // Adding the course IDs to the list
                 }catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -331,8 +297,8 @@ public class Instructor extends javax.swing.JFrame {
         } catch (SQLException e) {
 			e.printStackTrace();
 		}
-        String[] courseIdsArray = courseIds.toArray(new String[0]);
-        instructorCourseId.setModel(new javax.swing.DefaultComboBoxModel<>(courseIdsArray));
+        String[] courseIdsArray = courseIds.toArray(new String[0]); // Converting the list to an array
+        instructorCourseId.setModel(new javax.swing.DefaultComboBoxModel<>(courseIdsArray));    // Setting the array as the model for the combo box, so that the combo box can display the real time course IDs
         instructorCourseId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 instructorCourseIdActionPerformed(evt);
@@ -356,19 +322,19 @@ public class Instructor extends javax.swing.JFrame {
         jLabel7.setText("Module ID:");
 
 
-        String query2 = "SELECT Module_code FROM instructor_module WHERE Instructor_ID = '" + LoginPanel.id + "'";
+        String query2 = "SELECT Module_code FROM instructor_module WHERE Instructor_ID = '" + LoginPanel.id + "'";  // Query to get the module codes of the instructor
         try {
             resultSet = statement.executeQuery(query2);
         } catch (SQLException e) {
             e.printStackTrace();
 		}
-        List<String> moduleIds = new ArrayList<>();
-        moduleIds.add("Select Modules");
+        List<String> moduleIds = new ArrayList<>(); // List to store the module codes
+        moduleIds.add("Select Modules");    // Adding the first element of the list
 
         try {
             while (resultSet.next()) {
                 try {
-                    moduleIds.add(resultSet.getString("Module_code"));
+                    moduleIds.add(resultSet.getString("Module_code"));  // Adding the module codes to the list
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -377,9 +343,9 @@ public class Instructor extends javax.swing.JFrame {
             e.printStackTrace();
         }
 
-        String[] moduleIdsArray = moduleIds.toArray(new String[0]);
+        String[] moduleIdsArray = moduleIds.toArray(new String[0]); // Converting the list to an array
 
-        instructorModuleId.setModel(new javax.swing.DefaultComboBoxModel<>(moduleIdsArray));
+        instructorModuleId.setModel(new javax.swing.DefaultComboBoxModel<>(moduleIdsArray));    // Setting the array to the combo box, so that the combo box can display real time data
         instructorModuleId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 instructorModuleIdActionPerformed(evt);
@@ -806,7 +772,7 @@ public class Instructor extends javax.swing.JFrame {
                     String moduleID = "";
 
                     String previousMarks = "";
-                    Statement statement = JDBC.getStatement();
+                    Statement statement = JDBC.getStatement();  // Object of Statement. It is used to create a Statement to execute the query
 
                     
 
@@ -835,7 +801,7 @@ public class Instructor extends javax.swing.JFrame {
                             String updatedMarks = updateMarks.getMarksUpdatedMarks().getText();
 
 
-                            try {
+                            try {   // Update marks
                                 String updateQuery = "UPDATE marks SET Marks = '" + updatedMarks + "' WHERE Student_ID = '" + previousSid + "' AND Module_Code = '" + previousModuleID + "' AND Course_ID = '" + previousID + "'";
                                 statement.executeUpdate(updateQuery);
                                 JOptionPane.showMessageDialog(null, "Data is updated");
@@ -846,7 +812,7 @@ public class Instructor extends javax.swing.JFrame {
                     });
 
                     
-                } else {
+                } else {    // No
                     return;
                 }
                 
@@ -990,6 +956,7 @@ public class Instructor extends javax.swing.JFrame {
         String moduleId = instructorModuleId.getSelectedItem().toString();
         String instructorId = instructorInstructorId.getSelectedItem().toString();
 
+        // if any of the fields are empty, showing error message
         if (assignmentId.equals("Enter Assignment Number") || courseId.equals("Select Courses") || moduleId.equals("Select Modules") || instructorId.equals("Select Instructor ID")) {
             if(assignmentId.equals("Enter Assignment Number")){
                 assignmentNumberErrorMessage.setVisible(true);
@@ -1013,27 +980,27 @@ public class Instructor extends javax.swing.JFrame {
             }
         } else {
             try {
-                Statement statement = JDBC.getStatement();
+                Statement statement = JDBC.getStatement();  // Object of Statement. It is used to create a Statement to execute the query
 
                 String query = "SELECT Student_ID FROM student";
                 ResultSet rs = statement.executeQuery(query);
                 ArrayList<String> studentIdList = new ArrayList<String>();
                 while (rs.next()) {
-                    String studentId = rs.getString("Student_ID");
+                    String studentId = rs.getString("Student_ID");  // get student id
 
                     studentIdList.add(studentId);
             }
 
-            for (String studentId : studentIdList) {
+            for (String studentId : studentIdList) {    // for each student, adding an assignment
                 String query_ = "INSERT INTO assignment (Course_ID, Module_code, Assignment_Number, Student_ID, Instructor_ID, Submitted) VALUES ('" + courseId + "', '" + moduleId + "', '" + assignmentId + "', '" + studentId + "', '" + instructorId + "', NULL)";
                 statement.executeUpdate(query_);
             }
             
-            JOptionPane.showMessageDialog(null, "Assignment added successfully");
+            JOptionPane.showMessageDialog(null, "Assignment added successfully");   // showing success message
 
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error in adding assignment");
+            JOptionPane.showMessageDialog(null, "Error in adding assignment");  // showing error message
 
         }
     }
@@ -1093,11 +1060,6 @@ public class Instructor extends javax.swing.JFrame {
         showAssignmentDataInTableFromDb();
         showReportDataInTableFromDb();
         showMarksDataInTableFromDb();
-
-        // initializeIDs();
-        System.out.println(globalCourseID);
-        System.out.println(globalModuleID);
-        System.out.println(globalInstructorID);
 
     }
 
