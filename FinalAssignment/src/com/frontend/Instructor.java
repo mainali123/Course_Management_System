@@ -5,15 +5,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.sampled.SourceDataLine;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
 import com.database.JDBC;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -21,11 +18,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Paragraph;
 
 // import email from LoginPanel.java file of the same package
-import com.frontend.LoginPanel;
 
 /**
  *
@@ -661,60 +655,6 @@ public class Instructor extends javax.swing.JFrame {
         jTable4.setModel(reportDefaultTableModel);
         jScrollPane4.setViewportView(jTable4);
 
-        jTable4.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-                Object[] options = {"Generate", "Don't generate"};
-                int n = JOptionPane.showOptionDialog(null, "Do you want to Generate report of the selected student?", "Generate Report", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-        	
-                if (n == 0) {   // Generate
-                    String studentID = "";
-                    for (int columnIndex=0; columnIndex < jTable4.getColumnCount(); columnIndex++) {
-                        if (studentID.isEmpty()){
-                            studentID = jTable4.getValueAt(jTable4.getSelectedRow(), columnIndex).toString();
-                        }
-                    }
-
-                    Statement statement = JDBC.getStatement();
-                    String query = "SELECT * FROM report WHERE Student_ID = '" + studentID + "'";
-                    ResultSet rs = null;
-                    try {
-                        rs = statement.executeQuery(query);
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
-
-                    try {
-                        Document document = new Document();
-                        PdfWriter.getInstance(document, new FileOutputStream("D:\\Report.pdf"));
-                        document.open();
-                        document.add(new Paragraph("Report of Student ID: " + studentID));
-
-                        PdfPTable table = new PdfPTable(4);
-                        table.addCell("Student ID");
-                        table.addCell("Module Code");
-                        table.addCell("Course ID");
-                        table.addCell("Marks");
-
-                        while (rs.next()) {
-                            table.addCell(rs.getString("Student_ID"));
-                            table.addCell(rs.getString("Module_Code"));
-                            table.addCell(rs.getString("Course_ID"));
-                            table.addCell(rs.getString("Marks"));
-                        }
-
-                        document.add(table);
-                        document.close();
-                        JOptionPane.showMessageDialog(null, "Report is generated");
-                    } catch (Exception ex) {
-                        System.out.println(ex);
-                    }
-                } else {    // don't generate
-                    return;
-                }
-            }
-        });
-
         jPanel27.setBackground(new java.awt.Color(23, 23, 23));
         jPanel27.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(35, 35, 35), 4, true));
 
@@ -1150,8 +1090,7 @@ public class Instructor extends javax.swing.JFrame {
             }
         });
 
-        System.out.println("Main function is executed!!!");
-        // Show data in table from database when the application starts
+        // Showing data in table from database when the application starts
         showAssignmentDataInTableFromDb();
         showReportDataInTableFromDb();
         showMarksDataInTableFromDb();
