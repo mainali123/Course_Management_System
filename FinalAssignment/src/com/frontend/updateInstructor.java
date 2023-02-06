@@ -1,45 +1,20 @@
 package com.frontend;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-
-import com.database.JDBC;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JFormattedTextField;
-import javax.swing.JRadioButton;
 import javax.swing.SpringLayout;
-import javax.swing.JCheckBox;
+import javax.swing.ButtonGroup;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.*;
-import java.util.Enumeration;
 import java.awt.event.ActionEvent;
 
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JList;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ItemListener;
-import java.math.BigDecimal;
-import java.awt.event.ItemEvent;
+
 
 public class updateInstructor extends JDialog {
 	private JPanel formPanel;
@@ -59,73 +34,44 @@ public class updateInstructor extends JDialog {
 
 
 	
-
+	// Getter
 	public JTextField getInstructorUpdatedExperience() {
 		return instructorUpdatedExperience;
 	}
-
-
-
 
 	public JTextField getInstructorUpdatedAddress() {
 		return instructorUpdatedAddress;
 	}
 
-
-
-
 	public JTextField getInstructorUpdatedName() {
 		return instructorUpdatedName;
 	}
-
-
-
 
 	public JButton getInstructorUpdatedUpdateButton() {
 		return instructorUpdatedUpdateButton;
 	}
 
-
-
-
 	public JTextField getInstructorUpdatedCitizenshipNo() {
 		return instructorUpdatedCitizenshipNo;
 	}
-
-
-
 
 	public JTextField getInstructorUpdatedPanNo() {
 		return instructorUpdatedPanNo;
 	}
 
-
-
-
 	public JTextField getInstructorUpdatedDob() {
 		return instructorUpdatedDob;
 	}
 
-
-
-
 	public JTextField getInstructorUpdatedEmail() {
 		return instructorUpdatedEmail;
 	}
-
-
-
 
 	public JTextField getInstructorUpdatedPassword() {
 		return instructorUpdatedPassword;
 	}
 
 
-
-
-	/**
-	 * Create the dialog.
-	 */
 	public updateInstructor() {
 		setTitle("Update Instructor");
 		setBounds(100, 100, 549, 426);
@@ -142,6 +88,7 @@ public class updateInstructor extends JDialog {
 		instructorUpdatedUpdateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				// Checking if any field is empty
 				if (instructorUpdatedName.getText().isEmpty() || instructorUpdatedAddress.getText().isEmpty()
 						|| instructorUpdatedExperience.getText().isEmpty()
 						|| instructorUpdatedCitizenshipNo.getText().isEmpty()
