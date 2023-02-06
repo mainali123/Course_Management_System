@@ -2558,23 +2558,36 @@ jTable4.addMouseListener(new MouseAdapter() {   // Generate report
             instructorId = instructorInstructorIdTextField.getText().trim();
 
             Statement statement = JDBC.getStatement();
-            String insertQuery1 = "INSERT INTO Instructor (Instructor_ID, Name, Address, Year_of_experience, Citizenship_Number, Pan_number, DOB, Email_address, Password) VALUES ('" + instructorId +"' ,'"+ instructorName +"', '"+ instructorAddress +"', '"+ instructorYearsOfExperience +"', '"+ instructorCitizenshipNo +"', '"+ instructorPanNo +"', '"+ instructorDob +"', '"+ instructorEmail +"', '" + instructorPassword + "')";
-            String insertQuery2 = "INSERT INTO Instructor_Module (Instructor_ID, Module_code, Course_ID) VALUES ('" + instructorId +"', '" + instructorModule1 +"', '" + instructorCourseId +"')";
-            String insertQuery3 = "INSERT INTO Instructor_Course (Instructor_ID, Course_ID) VALUES ('" + instructorId +"', '" + instructorCourseId +"')";
-            try {
-                int insertSuccess1 = statement.executeUpdate(insertQuery1);
-                int insertSuccess2 = statement.executeUpdate(insertQuery2);
-                int insertSuccess3 = statement.executeUpdate(insertQuery3);
 
-                if (insertSuccess1 == 1 && insertSuccess2 == 1 && insertSuccess3 == 1) {
-                    JOptionPane.showMessageDialog(jPanel1, "Instructor added successfully");
+            // check if the instructor is already present in the database
+            String checkQuery = "SELECT * FROM Instructor WHERE Instructor_ID = '" + instructorId + "'";
+            try {
+                ResultSet rs = statement.executeQuery(checkQuery);
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(null, "Instructor ID already exists");
                 } else {
-                    JOptionPane.showMessageDialog(jPanel1, "Instructor not added");
+                    // Inserting the data into the database
+                    String insertQuery1 = "INSERT INTO Instructor (Instructor_ID, Name, Address, Year_of_experience, Citizenship_Number, Pan_number, DOB, Email_address, Password) VALUES ('" + instructorId +"' ,'"+ instructorName +"', '"+ instructorAddress +"', '"+ instructorYearsOfExperience +"', '"+ instructorCitizenshipNo +"', '"+ instructorPanNo +"', '"+ instructorDob +"', '"+ instructorEmail +"', '" + instructorPassword + "')";
+                    String insertQuery2 = "INSERT INTO Instructor_Module (Instructor_ID, Module_code, Course_ID) VALUES ('" + instructorId +"', '" + instructorModule1 +"', '" + instructorCourseId +"')";
+                    String insertQuery3 = "INSERT INTO Instructor_Course (Instructor_ID, Course_ID) VALUES ('" + instructorId +"', '" + instructorCourseId +"')";
+                    try {
+                        int insertSuccess1 = statement.executeUpdate(insertQuery1);
+                        int insertSuccess2 = statement.executeUpdate(insertQuery2);
+                        int insertSuccess3 = statement.executeUpdate(insertQuery3);
+
+                        if (insertSuccess1 == 1 && insertSuccess2 == 1 && insertSuccess3 == 1) {
+                            JOptionPane.showMessageDialog(jPanel1, "Instructor added successfully");
+                        } else {
+                            JOptionPane.showMessageDialog(jPanel1, "Instructor not added");
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-    }
+        }
     }                                                   
 
     private void instructorModule_2ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {                                                           
