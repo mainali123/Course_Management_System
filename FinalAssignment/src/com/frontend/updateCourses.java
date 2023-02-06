@@ -60,7 +60,7 @@ public class updateCourses extends JDialog {
 		coursesUpdatedUpdateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				// Check if the fields are empty
+				// Checking if the fields are empty
 				if (coursesUpdatedCourseName.getText().isEmpty() || coursesUpdatedCourseId.getText().isEmpty()
 						) {
 					lblNewLabel_6.setVisible(true);
