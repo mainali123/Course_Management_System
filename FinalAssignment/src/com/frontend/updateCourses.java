@@ -1,45 +1,20 @@
 package com.frontend;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-
-import com.database.JDBC;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JFormattedTextField;
-import javax.swing.JRadioButton;
 import javax.swing.SpringLayout;
-import javax.swing.JCheckBox;
+import javax.swing.ButtonGroup;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.*;
-import java.util.Enumeration;
 import java.awt.event.ActionEvent;
 
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JList;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ItemListener;
-import java.math.BigDecimal;
-import java.awt.event.ItemEvent;
+
 
 public class updateCourses extends JDialog {
 	private JPanel formPanel;
@@ -51,72 +26,26 @@ public class updateCourses extends JDialog {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JLabel courseIdAlreadyExistErrorMessage;
 
-
-	
-
-
-
-
-
-
-
+	// Getter
 	public JTextField getCoursesUpdatedCourseId() {
 		return coursesUpdatedCourseId;
 	}
-
-
-
-
-
-
-
-
-
 
 	public JTextField getCoursesUpdatedCourseName() {
 		return coursesUpdatedCourseName;
 	}
 
-
-
-
-
-
-
-
-
-
 	public JButton getCoursesUpdatedUpdateButton() {
 		return coursesUpdatedUpdateButton;
 	}
-
-
-
-
-
-
-
-
-
 
 	public JLabel getCourseIdAlreadyExistErrorMessage() {
 		return courseIdAlreadyExistErrorMessage;
 	}
 
 
-
-
-
-
-
-
-
-
-	/**
-	 * Create the dialog.
-	 */
 	public updateCourses() {
-		setTitle("Update Course");
+		setTitle("Update Course");	
 		setBounds(100, 100, 549, 426);
 		formPanel = new JPanel();
 		setContentPane(formPanel);
@@ -131,15 +60,13 @@ public class updateCourses extends JDialog {
 		coursesUpdatedUpdateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				// Check if the fields are empty
 				if (coursesUpdatedCourseName.getText().isEmpty() || coursesUpdatedCourseId.getText().isEmpty()
 						) {
 					lblNewLabel_6.setVisible(true);
 				} else {
 					lblNewLabel_6.setVisible(false);
 				}
-				
-				
-
 			}
 		});
 
