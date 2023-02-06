@@ -1,45 +1,22 @@
 package com.frontend;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-
-import com.database.JDBC;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JFormattedTextField;
-import javax.swing.JRadioButton;
 import javax.swing.SpringLayout;
-import javax.swing.JCheckBox;
+import javax.swing.ButtonGroup;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.*;
-import java.util.Enumeration;
 import java.awt.event.ActionEvent;
 
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JList;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ItemListener;
-import java.math.BigDecimal;
-import java.awt.event.ItemEvent;
+
+
 
 public class updateStudent extends JDialog {
 	private JPanel formPanel;
@@ -55,122 +32,40 @@ public class updateStudent extends JDialog {
 	private JTextField studentUpdatedPassword;
 	private JTextField studentUpdatedCollegeEmail;
 
-
-	
-
-
-
-
-
-
-
+	// Getter
 	public JTextField getStudentUpdatedAddress() {
 		return studentUpdatedAddress;
 	}
-
-
-
-
-
-
-
-
-
 
 	public JTextField getStudentUpdatedName() {
 		return studentUpdatedName;
 	}
 
-
-
-
-
-
-
-
-
-
 	public JButton getStudentUpdatedUpdateButton() {
 		return studentUpdatedUpdateButton;
 	}
-
-
-
-
-
-
-
-
-
 
 	public JTextField getStudentUpdatedCitizenshipNo() {
 		return studentUpdatedCitizenshipNo;
 	}
 
-
-
-
-
-
-
-
-
-
 	public JTextField getStudentUpdatedDob() {
 		return studentUpdatedDob;
 	}
-
-
-
-
-
-
-
-
-
 
 	public JTextField getStudentUpdatedEmail() {
 		return studentUpdatedEmail;
 	}
 
-
-
-
-
-
-
-
-
-
 	public JTextField getStudentUpdatedPassword() {
 		return studentUpdatedPassword;
 	}
-
-
-
-
-
-
-
-
-
 
 	public JTextField getStudentUpdatedCollegeEmail() {
 		return studentUpdatedCollegeEmail;
 	}
 
 
-
-
-
-
-
-
-
-
-	/**
-	 * Create the dialog.
-	 */
 	public updateStudent() {
 		setTitle("Update Student");
 		setBounds(100, 100, 549, 426);
@@ -187,6 +82,7 @@ public class updateStudent extends JDialog {
 		studentUpdatedUpdateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				// Check if every field is filled
 				if (studentUpdatedName.getText().isEmpty() || studentUpdatedAddress.getText().isEmpty()
 						|| studentUpdatedCitizenshipNo.getText().isEmpty()
 						|| studentUpdatedDob.getText().isEmpty()
