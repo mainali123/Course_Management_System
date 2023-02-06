@@ -1490,13 +1490,13 @@ jTable4.addMouseListener(new MouseAdapter() {
         jPanel32Layout.setHorizontalGroup(
         	jPanel32Layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(jPanel32Layout.createSequentialGroup()
-        			.addGap(367)
+        			.addGap(628)
         			.addComponent(logoutStudentButton, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(512, Short.MAX_VALUE))
+        			.addContainerGap(745, Short.MAX_VALUE))
         );
         jPanel32Layout.setVerticalGroup(
-        	jPanel32Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(Alignment.TRAILING, jPanel32Layout.createSequentialGroup()
+        	jPanel32Layout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(jPanel32Layout.createSequentialGroup()
         			.addContainerGap(23, Short.MAX_VALUE)
         			.addComponent(logoutStudentButton)
         			.addContainerGap())
